@@ -57,7 +57,8 @@
                 document.getElementById('loginPassword').value = '';
 
                 // Redirect to role selection page
-                window.location.href = `role-selection.html?username=${username}&email=${data.email}`;
+                window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}&email=${data.email}`;
+
             } else {
                 document.getElementById('loginMessage').textContent = data.message;
             }
