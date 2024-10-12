@@ -24,8 +24,7 @@
             <div id="signupMessage" style="color:red;"></div> <!-- For displaying signup message -->
         
     </div>
-
-    <script>
+<script>
 // Sign Up
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -62,11 +61,11 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
         document.getElementById('signupPassword').value = '';
         document.getElementById('confirmPassword').value = '';
 
-        // Redirect to login page after successful signup
-        window.location.href = 'https://shreynik00.github.io/Askit/login.html';
+        // Redirect to index.html with username and email as URL parameters
+        window.location.href = `https://shreynik00.github.io/Askit/index.html?username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}`;
     }
 });
+</script>
 
-    </script>
 </body>
 </html>
