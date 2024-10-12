@@ -44,7 +44,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     }
 
     // Send the sign-up request
-    const response = await fetch('/register', {
+    const response = await fetch('https://apiserveraskit-4.onrender.com/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
