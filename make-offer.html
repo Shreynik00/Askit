@@ -50,12 +50,6 @@
                 credentials: 'include' // Include credentials for session management
             });
 
-            if (response.status === 401) {
-                // Redirect to login page if not logged in
-                window.location.href = '/login.html';
-                return;
-            }
-
             if (!response.ok) {
                 throw new Error('Failed to fetch username.');
             }
