@@ -52,7 +52,8 @@
         // Fetch tasks for the logged-in user (tasks that the current user posted)
         async function fetchUserTasks() {
             try {
-               const response = await fetch('https://apiserveraskit-4.onrender.com/task'); // Fetch tasks based on logged-in user ID from session
+             const response = await fetch(`https://apiserveraskit-4.onrender.com/tasks/${encodeURIComponent(username)}`); // Fetch tasks based on the specified username
+
 
                 if (!response.ok) {
                     throw new Error('Failed to fetch tasks');
