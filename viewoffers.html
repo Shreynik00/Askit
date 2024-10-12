@@ -16,7 +16,7 @@
 
         async function fetchOffers() { 
             try {
-                const response = await fetch(`http://localhost:3000/offers/${taskId}`);
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/offers/${taskId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch offers');
                 }
@@ -40,7 +40,7 @@
                         button.addEventListener('click', (event) => {
                             const userId = event.target.getAttribute('data-userid');
                             // Redirect to SeeProfile.html with userId as a query parameter
-                            window.location.href = `SeeProfile.html?userId=${userId}`;
+                            window.location.href = `https://shreynik00.github.io/Askit/SeeProfile.html?userId=${userId}`;
                         });
                     });
                 }
