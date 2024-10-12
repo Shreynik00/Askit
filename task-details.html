@@ -82,7 +82,7 @@
         // Fetch task details by ID
         async function fetchTaskDetails(taskId) {
             try {
-                const response = await fetch(`http://localhost:3000/task/${taskId}`); // Fetch task details from server
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/task/${taskId}`); // Fetch task details from server
                 const task = await response.json(); // Parse JSON response
                 displayTaskDetails(task); // Display the task details
             } catch (error) {
