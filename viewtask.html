@@ -23,7 +23,7 @@
 
         // Fetch and display tasks
         async function fetchTasks() {
-            const response = await fetch('/tasks');
+            const response = await fetch('https://apiserveraskit-4.onrender.com/tasks');
             const tasks = await response.json();
             const taskList = document.getElementById('taskList');
             taskList.innerHTML = tasks.map(task => `
@@ -47,15 +47,15 @@
 
         // Function to redirect to the task details page
         function viewTaskDetails(taskId) {
-            window.location.href = `task-details.html?id=${taskId}`; // Redirect to Task Details page
+            window.location.href = `https://shreynik00.github.io/Askit/task-details.html?id=${taskId}`; // Redirect to Task Details page
         }
 
         // Function to redirect to the submitted offers page
         function viewSubmittedOffers(taskId) {
-            window.location.href = `view-offers.html?taskId=${taskId}`; // Redirect to View Offers page
+            window.location.href = `https://shreynik00.github.io/Askit/view-offers.html?taskId=${taskId}`; // Redirect to View Offers page
         }
         function leaveMessage(taskOwnerId, taskOwnerUsername) {
-            window.location.href = `leave-message.html?userId=${taskOwnerId}&username=${taskOwnerUsername}`; // Redirect with task owner details
+            window.location.href = `https://shreynik00.github.io/Askit/leave-message.html?userId=${taskOwnerId}&username=${taskOwnerUsername}`; // Redirect with task owner details
         }
 
         fetchTasks();
