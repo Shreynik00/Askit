@@ -39,18 +39,18 @@
 
         // Redirect to post task page with username and userId
         document.getElementById('addTaskButton').onclick = () => {
-            window.location.href = 'posttask.html?username=' + username + '&userId=' + userId;
+            window.location.href = 'https://shreynik00.github.io/Askit/posttask.html?username=' + username + '&userId=' + userId;
         };
 
         // Redirect to view messages page with userId and username
         document.getElementById('viewMessagesButton').onclick = () => {
-            window.location.href = `see-message.html?userId=${userId}&username=${username}`; // Ensure username and userId are passed
+            window.location.href = `https://shreynik00.github.io/Askit/see-message.html?userId=${userId}&username=${username}`; // Ensure username and userId are passed
         };
 
         // Fetch tasks for the logged-in user (tasks that the current user posted)
         async function fetchUserTasks() {
             try {
-                const response = await fetch('http://localhost:3000/reciverIndex/tasks'); // Fetch tasks based on logged-in user ID from session
+                const response = await fetch('https://apiserveraskit-4.onrender.com/reciverIndex/tasks'); // Fetch tasks based on logged-in user ID from session
                 if (!response.ok) {
                     throw new Error('Failed to fetch tasks');
                 }
