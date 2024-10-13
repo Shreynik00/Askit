@@ -74,10 +74,7 @@
                 body: JSON.stringify(offer)
             });
 
-            // Handle response and redirect
-            if (!response.ok) {
-                throw new Error('Failed to submit the offer.');
-            }
+        
 
             // Redirect to view task page after successful submission
             window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}`;
