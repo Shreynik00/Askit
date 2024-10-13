@@ -86,7 +86,7 @@
             };
 
             try {
-                const response = await fetch('submit-offer', {
+                const response = await fetch('https://apiserveraskit-4.onrender.com/submit-offer', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -99,7 +99,8 @@
                 }
 
                 // Redirect to view task page after successful submission
-                window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}`;
+               window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${encodeURIComponent(username)}`;
+
             } catch (error) {
                 console.error('Error submitting offer:', error);
             }
