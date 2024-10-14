@@ -25,23 +25,13 @@
         throw new Error('Username is missing in the URL.');
     }
 
-    // Function to safely add event listeners
-    function addClickListener(selector, callback) {
-        const element = document.querySelector(selector);
-        if (element) {
-            element.addEventListener('click', callback);
-        } else {
-            console.warn(`Element with selector ${selector} not found.`);
-        }
-    }
-
     // Redirect to post task page with username and userId
-    addClickListener('#addTaskButton', () => {
+    document.getElementById('addTaskButton')?.addEventListener('click', () => {
         window.location.href = `https://shreynik00.github.io/Askit/posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
     });
 
     // Redirect to view messages page with userId and username
-    addClickListener('#viewMessagesButton', () => {
+    document.getElementById('viewMessagesButton')?.addEventListener('click', () => {
         window.location.href = `https://shreynik00.github.io/Askit/see-message.html?userId=${encodeURIComponent(userId)}&username=${encodeURIComponent(username)}`;
     });
 
@@ -51,11 +41,8 @@
             const response = await fetch(`https://apiserveraskit-4.onrender.com/tasks/${encodeURIComponent(username)}`); // Fetch tasks based on the specified username
 
             if (!response.ok) {
-                const errorMessage = await response.text(); // Get the error response
-                console.error('Error fetching tasks:', errorMessage);
-                throw new Error(`Failed to fetch tasks: ${errorMessage}`);
+                throw new Error('Failed to fetch tasks');
             }
-
             const tasks = await response.json();
             const tasksContainer = document.getElementById('tasksContainer');
 
@@ -91,6 +78,7 @@
 
     fetchUserTasks(); // Fetch the tasks when the page loads
 </script>
+
 
 </body>
 </html>
