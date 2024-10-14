@@ -14,46 +14,56 @@
     <section id="taskList">
         <!-- Task list will be injected here -->
     </section>
-
-    <script>
-          // Get username from URL parameters
+<script>
+    // Get username from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
 
     // Fetch and display tasks
     async function fetchTasks() {
-        const response = await fetch('https://apiserveraskit-4.onrender.com/tasks');
-        const tasks = await response.json();
-        const taskList = document.getElementById('taskList');
-        taskList.innerHTML = tasks.map(task => `
-            <div class="task-item">
-                <h3>${task.title}</h3>
-                <p>Budget: ${task.budget}</p>
-                <p>Deadline: ${task.deadline}</p>
+        try {
+            const response = await fetch('https://apiserveraskit-4.onrender.com/tasks');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const tasks = await response.json();
+            const taskList = document.getElementById('taskList');
 
-                <div class="button-group">
-                    <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${task._id}&username=${username}" class="offer-btn">Make an Offer</a>
-                    <button onclick="viewTaskDetails('${task.username}')">View More</button>
-                    <button class="leave-message-btn" onclick="leaveMessage('${task.userId}', '${task.username}')">Leave a Message</button>
-                    <p class="usernam">Posted by: <a href="https://shreynik00.github.io/Askit/user-details.html?username=${task.username}">${task.username}</a></p>
+            taskList.innerHTML = tasks.map(task => `
+                <div class="task-item">
+                    <h3>${task.title}</h3>
+                    <p>Budget: ${task.budget}</p>
+                    <p>Deadline: ${task.deadline}</p>
+
+                    <div class="button-group">
+                        <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${task._id}&username=${username}" class="offer-btn">Make an Offer</a>
+                        <button onclick="viewTaskDetails('${task._id}')">View More</button>
+                        <button class="leave-message-btn" onclick="leaveMessage('${task.userId}', '${task.username}')">Leave a Message</button>
+                        <p class="usernam">Posted by: <a href="https://shreynik00.github.io/Askit/user-details.html?username=${task.username}">${task.username}</a></p>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+        } catch (error) {
+            console.error('Error fetching tasks:', error);
+        }
     }
 
     // Function to redirect to the task details page with the correct username
-    function viewTaskDetails(username) {
-        window.location.href = `https://shreynik00.github.io/Askit/task-details.html?username=${username}`; // Redirect to Task Details page
+    function viewTaskDetails(taskId) {
+        window.location.href = `https://shreynik00.github.io/Askit/task-details.html?id=${taskId}`; // Redirect to Task Details page
     }
-        // Function to redirect to the submitted offers page
-        function viewSubmittedOffers(taskId) {
-            window.location.href = `https://shreynik00.github.io/Askit/view-offers.html?username=${username}`; // Redirect to View Offers page
-        }
-        function leaveMessage(taskOwnerId, taskOwnerUsername) {
-            window.location.href = `https://shreynik00.github.io/Askit/leave-message.html?userId=${taskOwnerId}&username=${taskOwnerUsername}`; // Redirect with task owner details
-        }
 
-        fetchTasks();
-    </script>
+    // Function to redirect to the submitted offers page
+    function viewSubmittedOffers() {
+        window.location.href = `https://shreynik00.github.io/Askit/view-offers.html?username=${username}`; // Redirect to View Offers page
+    }
+
+    function leaveMessage(taskOwnerId, taskOwnerUsername) {
+        window.location.href = `https://shreynik00.github.io/Askit/leave-message.html?userId=${taskOwnerId}&username=${taskOwnerUsername}`; // Redirect with task owner details
+    }
+
+    fetchTasks();
+</script>
+
 </body>
 </html>
