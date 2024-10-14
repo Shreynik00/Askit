@@ -21,7 +21,7 @@
        let userId;
         document.addEventListener('DOMContentLoaded', function() {
     // Fetch userId from the /receiverIndex/tasks API
-    fetch('/receiverIndex/tasks')
+    fetch('https://apiserveraskit-4.onrender.com/receiverIndex/tasks')
         .then(response => response.json())
         .then(data => {
             if (data.userId) {
