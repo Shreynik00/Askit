@@ -16,63 +16,64 @@
     </div>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username'); // Keep the username from URL if needed for navigation
-    let userId = ''; // Assuming userId might be set elsewhere, use '' for now
+const username = urlParams.get('username'); // Keep the username from URL
+let userId = ''; // Assuming userId might be set elsewhere
 
-    // Redirect to post task page with username and userId
-    document.getElementById('addTaskButton').onclick = () => {
-        window.location.href = 'https://shreynik00.github.io/Askit/posttask.html?username=' + encodeURIComponent(username) + '&userId=' + encodeURIComponent(userId);
-    };
+// Redirect to post task page with username and userId
+document.getElementById('addTaskButton').onclick = () => {
+    window.location.href = 'https://shreynik00.github.io/Askit/posttask.html?username=' + encodeURIComponent(username) + '&userId=' + encodeURIComponent(userId);
+};
 
-    // Redirect to view messages page with userId and username
-    document.getElementById('viewMessagesButton').onclick = () => {
-        window.location.href = `https://shreynik00.github.io/Askit/see-message.html?userId=${encodeURIComponent(userId)}&username=${encodeURIComponent(username)}`;
-    };
+// Redirect to view messages page with userId and username
+document.getElementById('viewMessagesButton').onclick = () => {
+    window.location.href = `https://shreynik00.github.io/Askit/see-message.html?userId=${encodeURIComponent(userId)}&username=${encodeURIComponent(username)}`;
+};
 
-    // Fetch tasks for the logged-in user (tasks that the current user posted)
-    async function fetchUserTasks() {
-        try {
-            // Fetch tasks from the server without passing the username
-            const response = await fetch('https://apiserveraskit-4.onrender.com/reciverIndex/tasks');
+// Fetch tasks for the logged-in user (tasks that the current user posted)
+async function fetchUserTasks() {
+    try {
+        // Pass the username as a query parameter to the API
+        const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch tasks');
-            }
-
-            const tasks = await response.json();
-            const tasksContainer = document.getElementById('tasksContainer');
-
-            if (tasks.length === 0) {
-                tasksContainer.innerHTML = '<p>No tasks posted.</p>';
-            } else {
-                tasksContainer.innerHTML = tasks.map(task => `
-                    <div class="task">
-                        <h3>${task.title}</h3>
-                        <p><strong>Detail:</strong> ${task.detail}</p>
-                        <p><strong>Deadline:</strong> ${task.deadline}</p>
-                        <p><strong>Type:</strong> ${task.type}</p>
-                        <p><strong>Mode:</strong> ${task.mode}</p>
-                        <p><strong>Budget:</strong> ${task.budget}</p>
-                        <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
-                    </div>
-                `).join('');
-
-                // Add event listeners to "View Offers" buttons
-                document.querySelectorAll('.viewOffersButton').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const taskId = event.target.getAttribute('data-taskid');
-                        window.location.href = `https://shreynik00.github.io/Askit/viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
-                    });
-                });
-            }
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-            const tasksContainer = document.getElementById('tasksContainer');
-            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
+        if (!response.ok) {
+            throw new Error('Failed to fetch tasks');
         }
-    }
 
-    fetchUserTasks(); // Fetch the tasks when the page loads
+        const tasks = await response.json();
+        const tasksContainer = document.getElementById('tasksContainer');
+
+        if (tasks.length === 0) {
+            tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+        } else {
+            tasksContainer.innerHTML = tasks.map(task => `
+                <div class="task">
+                    <h3>${task.title}</h3>
+                    <p><strong>Detail:</strong> ${task.detail}</p>
+                    <p><strong>Deadline:</strong> ${task.deadline}</p>
+                    <p><strong>Type:</strong> ${task.type}</p>
+                    <p><strong>Mode:</strong> ${task.mode}</p>
+                    <p><strong>Budget:</strong> ${task.budget}</p>
+                    <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
+                </div>
+            `).join('');
+
+            // Add event listeners to "View Offers" buttons
+            document.querySelectorAll('.viewOffersButton').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const taskId = event.target.getAttribute('data-taskid');
+                    window.location.href = `https://shreynik00.github.io/Askit/viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+                });
+            });
+        }
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+        const tasksContainer = document.getElementById('tasksContainer');
+        tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
+    }
+}
+
+fetchUserTasks(); // Fetch the tasks when the page loads
+
 </script>
 
 
