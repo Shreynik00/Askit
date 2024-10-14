@@ -30,11 +30,6 @@
         window.location.href = `https://shreynik00.github.io/Askit/posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
     });
 
-    // Redirect to view messages page with userId and username
-    document.getElementById('viewMessagesButton')?.addEventListener('click', () => {
-        window.location.href = `https://shreynik00.github.io/Askit/see-message.html?userId=${encodeURIComponent(userId)}&username=${encodeURIComponent(username)}`;
-    });
-
     // Fetch tasks for the logged-in user (tasks that the current user posted)
     async function fetchUserTasks() {
         try {
@@ -43,10 +38,10 @@
             if (!response.ok) {
                 throw new Error('Failed to fetch tasks');
             }
-            const tasks = await response.json();
+            const task = await response.json();
             const tasksContainer = document.getElementById('tasksContainer');
 
-            if (tasks.length === 0) {
+            if (task.length === 0) {
                 tasksContainer.innerHTML = '<p>No tasks posted.</p>';
             } else {
                 tasksContainer.innerHTML = tasks.map(task => `
