@@ -14,12 +14,7 @@
         <form id="offerForm">
             <input type="hidden" id="taskId" value="" />
             <input type="hidden" id="username" value="" /> <!-- Store username -->
-
-            <div class="form-group">
-                <label for="Name">Name</label>
-                <input type="text" id="Name" name="Name" placeholder="Enter your Name" required>
-            </div>
-
+            
             <div class="form-group">
                 <label for="deadline">Maximum Deadline (in days)</label>
                 <input type="number" id="deadline" name="deadline" placeholder="Enter maximum deadline" required>
@@ -28,6 +23,10 @@
             <div class="form-group">
                 <label for="pitch">Pitch (Why should you get the task?)</label>
                 <textarea id="pitch" name="pitch" rows="4" placeholder="Explain what you can do better for this task" required></textarea>
+            </div>
+             <div class="form-group">
+                <label for="message">Leave a message</label>
+                <input type="text" id="message" name="message" placeholder="leave a message for Task Owner" >
             </div>
 
             <div class="button-container">
@@ -73,7 +72,7 @@
     // Handle form submission
     document.getElementById('offerForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const Name = document.getElementById('Name').value;
+        const message = document.getElementById('message').value;
         const deadline = document.getElementById('deadline').value;
         const pitch = document.getElementById('pitch').value;
         const username = document.getElementById('username').value;
@@ -82,7 +81,7 @@
         const offer = {
             taskId, // Keep taskId
             username, // Include username
-            Name,
+            message,
             deadline,
             pitch
         };
