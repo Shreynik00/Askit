@@ -19,23 +19,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username'); // Keep the username from URL
        let userId;
-        document.addEventListener('DOMContentLoaded', function() {
-    // Fetch userId from the /receiverIndex/tasks API
-    fetch('/receiverIndex/tasks')
-        .then(response => response.json())
-        .then(data => {
-            if (data.userId) {
-                userId = data.userId;
-                console.log('Fetched userId:', userId);
-                // Further operations with userId can be done here
-            } else {
-                console.error('Failed to fetch userId.');
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching userId:', error);
-        });
-});
+   
 
         // Redirect to post task page with username and userId
         document.getElementById('addTaskButton').onclick = () => {
