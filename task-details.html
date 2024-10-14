@@ -98,9 +98,12 @@
         const taskDetailsContainer = document.getElementById('taskDetails');
         taskDetailsContainer.innerHTML = `
             <h2 class="task-title">${task.title}</h2>
-            <p class="task-description">Description: ${task.description}</p>
+            <p class="task-description">Description: ${task.detail}</p>
             <p class="task-budget">Budget: ${task.budget}</p>
             <p class="task-deadline">Deadline: ${task.deadline}</p>
+                <p class="task-deadline">Mode: ${task.mode}</p>
+                    <p class="task-deadline"> type: ${task.type}</p>
+            
             <button class="back-button" onclick="window.history.back()">Back</button>
         `; // Inject HTML to show task details
     }
