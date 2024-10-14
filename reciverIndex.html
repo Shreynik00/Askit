@@ -42,11 +42,11 @@
             }
 
             // Parse the response to get the task data
-            const tasks = await response.json();
+            const task = await response.json();
             const tasksContainer = document.getElementById('tasksContainer');
 
             // Handle case where no tasks are found for the user
-            if (tasks.length === 0) {
+            if (task.length === 0) {
                 tasksContainer.innerHTML = '<p>No tasks posted.</p>';
             } else {
                 // Display the list of tasks in HTML format
