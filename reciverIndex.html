@@ -14,7 +14,8 @@
         <h4 align="center">Your Posted Tasks</h4>
         <div id="tasksContainer"></div>
     </div>
-<script>
+
+    <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username'); // Keep the username from URL
        let userId;
@@ -91,6 +92,5 @@
 
         fetchUserTasks(); // Fetch the tasks when the page loads
     </script>
-
 </body>
 </html>
