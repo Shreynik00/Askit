@@ -14,28 +14,11 @@
         <h4 align="center">Your Posted Tasks</h4>
         <div id="tasksContainer"></div>
     </div>
-
- <script>
+<script>
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username'); // Keep the username from URL
-    let userId;
-        document.addEventListener('DOMContentLoaded', function() {
-    // Fetch userId from the /receiverIndex/tasks API
-    fetch('/receiverIndex/tasks')
-        .then(response => response.json())
-        .then(data => {
-            if (data.userId) {
-                userId = data.userId;
-                console.log('Fetched userId:', userId);
-                // Further operations with userId can be done here
-            } else {
-                console.error('Failed to fetch userId.');
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching userId:', error);
-        });
-});
+    let userId; // Assuming userId will be set elsewhere in your code
+
     // Check if username is present
     if (!username) {
         document.getElementById('tasksContainer').innerHTML = '<p>Username is missing!</p>';
@@ -89,12 +72,13 @@
         } catch (error) {
             console.error('Error fetching tasks:', error);
             const tasksContainer = document.getElementById('tasksContainer');
-            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
+            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>'; // Display error message
         }
     }
 
     fetchUserTasks(); // Fetch the tasks when the page loads
 </script>
+
 
 </body>
 </html>
