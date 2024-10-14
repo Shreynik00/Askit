@@ -74,15 +74,15 @@
 
     <script>
         // Function to get URL parameters
-        function getUrlParameter(name) {
+        function getUrlParameter(id) {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(username); // Get value for the specified parameter
+            return urlParams.get(id); // Get value for the specified parameter
         }
 
         // Fetch task details by ID
         async function fetchTaskDetails(username) {
             try {
-                const response = await fetch(`https://apiserveraskit-4.onrender.com/task/${username}`); // Fetch task details from server
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/task/${id}`); // Fetch task details from server
                 const task = await response.json(); // Parse JSON response
                 displayTaskDetails(task); // Display the task details
             } catch (error) {
@@ -103,9 +103,9 @@
         }
 
         // On page load, fetch the task ID from the URL and load the task details
-        const username = getUrlParameter('username');
-        if (username) {
-            fetchTaskDetails(username); // Fetch details if task ID is present
+        const id = getUrlParameter('id');
+        if (id) {
+            fetchTaskDetails(id); // Fetch details if task ID is present
         } else {
             document.getElementById('taskDetails').innerHTML = '<p>not looged in  is missing!</p>'; // Handle missing ID
         }
