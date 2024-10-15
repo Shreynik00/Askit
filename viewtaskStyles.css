@@ -121,7 +121,7 @@ header h1 {
 
     .button-group button,
     .button-group a {
-        font-size: 15px; /* Even smaller buttons on mobile */
+        font-size: 12px; /* Even smaller buttons on mobile */
         padding: 6px 8px;
     }
 
