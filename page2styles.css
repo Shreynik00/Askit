@@ -65,7 +65,7 @@ h1 {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .center-image {
-        width: 80%;
+        width: 100%;
     }
 
     h1 {
@@ -86,7 +86,7 @@ h1 {
 
 @media (max-width: 480px) {
     .center-image {
-        width: 80%;
+        width: 100%;
     }
 
     h1 {
