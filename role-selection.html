@@ -51,44 +51,48 @@
                 <h7>Service Receiver</h7>
             </label>
             <p>Getting things done, post tasks</p>
-          
         </div>
 
         <!-- Continue button -->
-        <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled >Continue</button>
+        <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled>Continue</button>
     </div>
-<script>
-    // Get username from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username');
 
-    // Function to handle checkbox change to ensure only one is selected at a time
-    function handleCheckboxChange(event) {
-        const serviceProviderCheckbox = document.getElementById('serviceProvider');
-        const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
+    <script>
+        // Get username from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
 
-        // Ensure only one checkbox is selected at a time
-        if (event.target.id === 'serviceProvider' && serviceProviderCheckbox.checked) {
-            serviceReceiverCheckbox.checked = false;
-        } else if (event.target.id === 'serviceReceiver' && serviceReceiverCheckbox.checked) {
-            serviceProviderCheckbox.checked = false;
+        // Function to handle checkbox change and enable the "Continue" button
+        function handleCheckboxChange(event) {
+            const serviceProviderCheckbox = document.getElementById('serviceProvider');
+            const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
+            const continueButton = document.getElementById('continueButton');
+
+            // Ensure only one checkbox is selected at a time
+            if (event.id === 'serviceProvider' && serviceProviderCheckbox.checked) {
+                serviceReceiverCheckbox.checked = false;
+            } else if (event.id === 'serviceReceiver' && serviceReceiverCheckbox.checked) {
+                serviceProviderCheckbox.checked = false;
+            }
+
+            // Enable "Continue" button if one of the checkboxes is selected
+            if (serviceProviderCheckbox.checked || serviceReceiverCheckbox.checked) {
+                continueButton.disabled = false;
+                continueButton.classList.remove('disabled'); // Assuming there is a disabled class in CSS
+            } else {
+                continueButton.disabled = true;
+                continueButton.classList.add('disabled');
+            }
         }
-    }
 
-    // Function to redirect to the next page based on selected role
-    function continueToNextPage() {
-        if (document.getElementById('serviceProvider').checked) {
-            window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
-        } else if (document.getElementById('serviceReceiver').checked) {
-            window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
+        // Function to redirect to the next page based on selected role
+        function continueToNextPage() {
+            if (document.getElementById('serviceProvider').checked) {
+                window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
+            } else if (document.getElementById('serviceReceiver').checked) {
+                window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
+            }
         }
-    }
-
-    // Add event listeners to each checkbox for exclusive selection
-    document.getElementById('serviceProvider').addEventListener('change', handleCheckboxChange);
-    document.getElementById('serviceReceiver').addEventListener('change', handleCheckboxChange);
-</script>
-
-
+    </script>
 </body>
 </html>
