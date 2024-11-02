@@ -24,12 +24,6 @@
         #continueButton:hover {
             background-color: #e0e0e0; /* Lighter on hover */
         }
-
-        /* Disabled state for the button */
-        #continueButton.disabled {
-            background-color: #ccc; /* Grey out the button */
-            cursor: not-allowed; /* Change cursor to indicate disabled state */
-        }
     </style>
 </head>
 <body>
@@ -54,7 +48,7 @@
         </div>
 
         <!-- Continue button -->
-        <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled>Continue</button>
+        <button id="continueButton" onclick="continueToNextPage()">Continue</button>
     </div>
 
     <script>
@@ -62,26 +56,16 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
 
-        // Function to handle checkbox change and enable the "Continue" button
-        function handleCheckboxChange(event) {
+        // Function to handle checkbox change and allow only one to be selected
+        function handleCheckboxChange(checkbox) {
             const serviceProviderCheckbox = document.getElementById('serviceProvider');
             const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
-            const continueButton = document.getElementById('continueButton');
 
             // Ensure only one checkbox is selected at a time
-            if (event.id === 'serviceProvider' && serviceProviderCheckbox.checked) {
+            if (checkbox.id === 'serviceProvider' && checkbox.checked) {
                 serviceReceiverCheckbox.checked = false;
-            } else if (event.id === 'serviceReceiver' && serviceReceiverCheckbox.checked) {
+            } else if (checkbox.id === 'serviceReceiver' && checkbox.checked) {
                 serviceProviderCheckbox.checked = false;
-            }
-
-            // Enable "Continue" button if one of the checkboxes is selected
-            if (serviceProviderCheckbox.checked || serviceReceiverCheckbox.checked) {
-                continueButton.disabled = false;
-                continueButton.classList.remove('disabled'); // Assuming there is a disabled class in CSS
-            } else {
-                continueButton.disabled = true;
-                continueButton.classList.add('disabled');
             }
         }
 
