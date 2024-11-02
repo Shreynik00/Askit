@@ -53,7 +53,6 @@
         <!-- Continue button -->
         <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled >Continue</button>
     </div>
-
 <script>
     // Get username from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
@@ -65,12 +64,10 @@
         const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
 
         // Ensure only one checkbox is selected at a time
-        if (checkbox.checked) {
-            if (checkbox.id === 'serviceProvider') {
-                serviceReceiverCheckbox.checked = false;
-            } else if (checkbox.id === 'serviceReceiver') {
-                serviceProviderCheckbox.checked = false;
-            }
+        if (checkbox.id === 'serviceProvider' && checkbox.checked) {
+            serviceReceiverCheckbox.checked = false;
+        } else if (checkbox.id === 'serviceReceiver' && checkbox.checked) {
+            serviceProviderCheckbox.checked = false;
         }
     }
 
@@ -83,6 +80,7 @@
         }
     }
 </script>
+
 
 
 
