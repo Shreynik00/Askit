@@ -4,110 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post a Task</title>
-    <link rel="stylesheet" href="posttaskStyles.css"> <!-- Include your custom CSS file -->
+    <link rel="stylesheet" href="posttaskStyles.css">
 </head>
 <body>
     <header>
         <h1>Post a Task</h1>
-        <!-- Removed username display -->
     </header>
 
     <section>
         <form id="taskForm">
-            <label for="taskTitle">Title of Task</label>
-            <br>
+            <label for="taskTitle">Title of Task</label><br>
             <input type="text" id="taskTitle" placeholder="Write a title for your task" required><br>
             
             <label for="taskDetail">Task Detail</label>
-            <textarea id="taskDetail" required></textarea>
+            <textarea id="taskDetail" required></textarea><br>
             
             <label for="taskType">Type of Task:</label>
             <select id="taskType" required>
                 <option value="">Select the type of task</option>
-                <option value="Cleaning">PhotoGraphy</option>
+                <option value="Photography">Photography</option>
                 <option value="Tutoring">Tutoring</option>
-                
                 <option value="Event">Events</option>
-                
-                <option value="homework ">homework and Assigment</option>
-                
+                <option value="Homework">Homework and Assignment</option>
                 <option value="Petcare">Petcare</option>
-                <option value="Officer">Office Work</option>
+                <option value="Office">Office Work</option>
                 <option value="Design">Design</option>
-                <option value="lift-move-pack">lift-move-pack </option>
-                
-                <option value="custom">Custom</option>
-                
-               
-            </select>
-            <br>
-            <br>
+                <option value="Lift-Move-Pack">Lift-Move-Pack</option>
+                <option value="Custom">Custom</option>
+            </select><br><br>
+
             <label for="taskDeadline">Deadline of Task</label>
-            <input type="date" id="taskDeadline" required> <!-- Input field for deadline --> <br><br>
+            <input type="date" id="taskDeadline" required><br><br>
 
             <!-- Toggle button for mode of task -->
-            <label>Mode of Task:</label>
-            <div>
-                <label><input type="radio" name="taskMode" value="In Person" required> In Person</label>
-                <label><input type="radio" name="taskMode" value="Remote" required> Remote</label>
-            </div>
-<br>
+            <label>Mode of Task:</label><br>
+            <label><input type="radio" name="taskMode" value="In Person" required> In Person</label>
+            <label><input type="radio" name="taskMode" value="Remote" required> Remote</label><br><br>
+
             <!-- New input field for Budget -->
             <label for="taskBudget">Your Budget to Pay in Rs:</label> 
-            
-            <input type="number" id="taskBudget" placeholder="Enter your budget" required> <!-- Input for budget -->
+            <input type="number" id="taskBudget" placeholder="Enter your budget" required><br><br>
 
-            <br><br>
+            <!-- Urgency checkboxes -->
+            <label><input type="checkbox" id="urgencyASAP" onclick="updateUrgencyType(this)"> ASAP</label><br>
+            <label><input type="checkbox" id="urgencyLater" onclick="updateUrgencyType(this)"> After Some Time</label><br><br>
+
             <button type="submit">Post Task</button>
         </form>
     </section>
-<script>
-    // Get username from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username');
-    
-    // Handle form submission
-    document.getElementById('taskForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
 
-        const title = document.getElementById('taskTitle').value;
-        const detail = document.getElementById('taskDetail').value;
-        const deadline = document.getElementById('taskDeadline').value; // Get deadline value
-        const mode = document.querySelector('input[name="taskMode"]:checked').value;
-        const type = document.getElementById('taskType').value;
-        const budget = document.getElementById('taskBudget').value; // Get budget value
+    <script>
+        // Get username from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        let urgencyType = ""; // Variable to store selected urgency type
 
-        try {
-            const response = await fetch('https://apiserveraskit-4.onrender.com/add-task', { 
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title,
-                    detail,
-                    deadline,  // Include deadline in the request body
-                    mode,
-                    type,
-                    budget,    // Include budget in the request body
-                    username   // Include username from the URL in the request body
-                })
-            });
+        // Function to handle checkbox selection and enforce only one selection
+        function updateUrgencyType(selectedCheckbox) {
+            const asapCheckbox = document.getElementById('urgencyASAP');
+            const laterCheckbox = document.getElementById('urgencyLater');
 
-            const data = await response.json();
-
-            if (data.success) {
-                // Redirect to reciverIndex.html after successful task posting
-                window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${encodeURIComponent(username)}`;
-            } else {
-                alert(data.message); // Display error message if task was not added successfully
+            // Uncheck the other checkbox when one is selected
+            if (selectedCheckbox.id === 'urgencyASAP') {
+                laterCheckbox.checked = false;
+                urgencyType = "ASAP";
+            } else if (selectedCheckbox.id === 'urgencyLater') {
+                asapCheckbox.checked = false;
+                urgencyType = "After Some Time";
             }
-
-        } catch (error) {
-            console.error('Error posting task:', error);
-            alert('Error posting task. Please try again.'); // Display error message
         }
-    });
-</script>
 
+        // Handle form submission
+        document.getElementById('taskForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
 
+            const title = document.getElementById('taskTitle').value;
+            const detail = document.getElementById('taskDetail').value;
+            const deadline = document.getElementById('taskDeadline').value;
+            const mode = document.querySelector('input[name="taskMode"]:checked').value;
+            const type = document.getElementById('taskType').value;
+            const budget = document.getElementById('taskBudget').value;
+
+            try {
+                const response = await fetch('https://apiserveraskit-4.onrender.com/add-task', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title,
+                        detail,
+                        deadline,
+                        mode,
+                        type,
+                        urgencyType,
+                        budget,
+                        username
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Redirect to reciverIndex.html after successful task posting
+                    window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${encodeURIComponent(username)}`;
+                } else {
+                    alert(data.message); // Display error message if task was not added successfully
+                }
+
+            } catch (error) {
+                console.error('Error posting task:', error);
+                alert('Error posting task. Please try again.');
+            }
+        });
+    </script>
 </body>
 </html>
+
