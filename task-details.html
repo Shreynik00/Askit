@@ -75,9 +75,11 @@
     // Function to get URL parameters
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
+         
+
         return urlParams.get(param); // Get value for the specified parameter
     }
-
+const username = getUrlParameter('username');
     // Fetch task details by ID
     async function fetchTaskDetails(id) {
         try {
