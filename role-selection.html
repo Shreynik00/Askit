@@ -58,7 +58,7 @@
         <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled >Continue</button>
     </div>
 
-    <script>
+<script>
     // Get username from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
@@ -67,8 +67,6 @@
     function handleCheckboxChange(checkbox) {
         const serviceProviderCheckbox = document.getElementById('serviceProvider');
         const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
-        const continueButton = document.getElementById('continueButton');
-        const message = document.getElementById('checkboxMessage');
 
         // Ensure only one checkbox is selected at a time
         if (checkbox.checked) {
@@ -76,25 +74,6 @@
                 serviceReceiverCheckbox.checked = false;
             } else if (checkbox.id === 'serviceReceiver') {
                 serviceProviderCheckbox.checked = false;
-            }
-        }
-
-        // Check if both checkboxes are selected (shouldn't happen with the above logic)
-        const serviceProviderChecked = serviceProviderCheckbox.checked;
-        const serviceReceiverChecked = serviceReceiverCheckbox.checked;
-
-        if (serviceProviderChecked && serviceReceiverChecked) {
-            message.textContent = "Select only one checkbox";
-            continueButton.classList.add('disabled');
-            continueButton.disabled = true; // Disable button
-        } else {
-            message.textContent = ""; // Clear the message
-            if (serviceProviderChecked || serviceReceiverChecked) {
-                continueButton.classList.remove('disabled');
-                continueButton.disabled = false; // Enable button
-            } else {
-                continueButton.classList.add('disabled');
-                continueButton.disabled = true; // Disable button
             }
         }
     }
@@ -108,6 +87,7 @@
         }
     }
 </script>
+
 
 
 
