@@ -62,20 +62,20 @@
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
 
-    // Function to handle checkbox change
-    function handleCheckboxChange(checkbox) {
+    // Function to handle checkbox change to ensure only one is selected at a time
+    function handleCheckboxChange(event) {
         const serviceProviderCheckbox = document.getElementById('serviceProvider');
         const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
 
         // Ensure only one checkbox is selected at a time
-        if (checkbox.id === 'serviceProvider' && checkbox.checked) {
+        if (event.target.id === 'serviceProvider' && serviceProviderCheckbox.checked) {
             serviceReceiverCheckbox.checked = false;
-        } else if (checkbox.id === 'serviceReceiver' && checkbox.checked) {
+        } else if (event.target.id === 'serviceReceiver' && serviceReceiverCheckbox.checked) {
             serviceProviderCheckbox.checked = false;
         }
     }
 
-    // Function to redirect to the next page
+    // Function to redirect to the next page based on selected role
     function continueToNextPage() {
         if (document.getElementById('serviceProvider').checked) {
             window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
@@ -83,7 +83,12 @@
             window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
         }
     }
+
+    // Add event listeners to each checkbox for exclusive selection
+    document.getElementById('serviceProvider').addEventListener('change', handleCheckboxChange);
+    document.getElementById('serviceReceiver').addEventListener('change', handleCheckboxChange);
 </script>
+
 
 
 </body>
