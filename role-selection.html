@@ -57,7 +57,8 @@
         <!-- Continue button -->
         <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled >Continue</button>
     </div>
- <script>
+
+    <script>
         // Get username from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
@@ -81,9 +82,9 @@
         // Function to redirect to the next page
         function continueToNextPage() {
             if (document.getElementById('serviceProvider').checked) {
-                window.location.href = https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider;
+                window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
             } else if (document.getElementById('serviceReceiver').checked) {
-                window.location.href = https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver;
+                window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
             }
         }
     </script>
