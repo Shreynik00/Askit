@@ -58,35 +58,33 @@
         <button id="continueButton" class="disabled" onclick="continueToNextPage()" disabled >Continue</button>
     </div>
 
-    <script>
-        // Get username from URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
+  <script>
+    // Get username from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
 
-        // Function to handle checkbox change
-        function handleCheckboxChange(checkbox) {
-            const serviceProviderChecked = document.getElementById('serviceProvider').checked;
-            const serviceReceiverChecked = document.getElementById('serviceReceiver').checked;
-            const continueButton = document.getElementById('continueButton');
+    // Function to handle checkbox change
+    function handleCheckboxChange(checkbox) {
+        const serviceProviderCheckbox = document.getElementById('serviceProvider');
+        const serviceReceiverCheckbox = document.getElementById('serviceReceiver');
 
-            // Enable the continue button only if at least one checkbox is selected
-            if (serviceProviderChecked || serviceReceiverChecked) {
-                continueButton.classList.remove('disabled');
-                continueButton.disabled = false; // Enable button
-            } else {
-                continueButton.classList.add('disabled');
-                continueButton.disabled = true; // Disable button
-            }
+        // Ensure only one checkbox is selected at a time
+        if (checkbox.id === 'serviceProvider' && checkbox.checked) {
+            serviceReceiverCheckbox.checked = false;
+        } else if (checkbox.id === 'serviceReceiver' && checkbox.checked) {
+            serviceProviderCheckbox.checked = false;
         }
+    }
 
-        // Function to redirect to the next page
-        function continueToNextPage() {
-            if (document.getElementById('serviceProvider').checked) {
-                window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
-            } else if (document.getElementById('serviceReceiver').checked) {
-                window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
-            }
+    // Function to redirect to the next page
+    function continueToNextPage() {
+        if (document.getElementById('serviceProvider').checked) {
+            window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
+        } else if (document.getElementById('serviceReceiver').checked) {
+            window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
