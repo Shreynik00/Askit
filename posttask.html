@@ -33,7 +33,7 @@
                 <option value="Custom">Custom</option>
             </select><br><br>
 
-            <label for="taskDeadline">Deadline of Task</label>
+            <label for="taskDeadline">When you want it to be Done</label>
             <input type="date" id="taskDeadline" required><br><br>
 
             <!-- Toggle button for mode of task -->
@@ -42,12 +42,12 @@
             <label><input type="radio" name="taskMode" value="Remote" required> Remote</label><br><br>
 
             <!-- New input field for Budget -->
-            <label for="taskBudget">Your Budget to Pay in Rs:</label> 
+            <label for="taskBudget">Your Budget in Rs:</label> 
             <input type="number" id="taskBudget" placeholder="Enter your budget" required><br><br>
 
             <!-- Urgency checkboxes -->
             <label><input type="checkbox" id="urgencyASAP" onclick="updateUrgencyType(this)"> ASAP</label><br>
-            <label><input type="checkbox" id="urgencyLater" onclick="updateUrgencyType(this)"> After Some Time</label><br><br>
+            <label><input type="checkbox" id="urgencyLater" onclick="updateUrgencyType(this)"> After Some Time</label><br>
 
             <label>Select your payment method:</label><br>
 <label><input type="checkbox" id="paymentInCash" onclick="updatePaymentMethod(this)"> In Cash</label>
