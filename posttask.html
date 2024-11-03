@@ -46,7 +46,7 @@
             <input type="number" id="taskBudget" placeholder="Enter your budget" required><br><br>
 
 
-            <label for="skills">Specific Skills OR Equipment requied/label><br>
+            <label for="skills">Specific Skills OR Equipment requied</label><br>
             <input type="text" id="skills" placeholder="Enter  the skills required" required><br>
             <!-- Urgency checkboxes -->
             <label><input type="checkbox" id="urgencyASAP" onclick="updateUrgencyType(this)"> ASAP</label><br>
@@ -107,7 +107,7 @@
             const mode = document.querySelector('input[name="taskMode"]:checked').value;
             const type = document.getElementById('taskType').value;
             const budget = document.getElementById('taskBudget').value;
-            const requirements = doucment.getElementById('skills').value;
+            const requirements = document.getElementById('skills').value;
 
             try {
                 const response = await fetch('https://apiserveraskit-4.onrender.com/add-task', { 
