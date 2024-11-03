@@ -31,7 +31,7 @@
                 <option value="Design">Design</option>
                 <option value="Lift-Move-Pack">Lift-Move-Pack</option>
                 <option value="Custom">Custom</option>
-            </select><br><br>
+            </select><br>
 
             <label for="taskDeadline">When you want it to be Done</label>
             <input type="date" id="taskDeadline" required><br><br>
@@ -39,11 +39,11 @@
             <!-- Toggle button for mode of task -->
             <label>Mode of Task:</label><br>
             <label><input type="radio" name="taskMode" value="In Person" required> In Person</label>
-            <label><input type="radio" name="taskMode" value="Remote" required> Remote</label><br><br>
+            <label><input type="radio" name="taskMode" value="Remote" required> Remote</label><br>
 
             <!-- New input field for Budget -->
             <label for="taskBudget">Your Budget in Rs:</label> 
-            <input type="number" id="taskBudget" placeholder="Enter your budget" required><br><br>
+            <input type="number" id="taskBudget" placeholder="Enter your budget" required><br>
 
 
             <label for="skills">Specific Skills OR Equipment requied</label><br>
@@ -54,7 +54,7 @@
 
             <label>Select your payment method:</label><br>
 <label><input type="checkbox" id="paymentInCash" onclick="updatePaymentMethod(this)"> In Cash</label>
-<label><input type="checkbox" id="paymentUPI" onclick="updatePaymentMethod(this)"> UPI Only</label><br><br>
+<label><input type="checkbox" id="paymentUPI" onclick="updatePaymentMethod(this)"> UPI Only</label><br>
             <button type="submit">Post Task</button>
         </form>
     </section>
