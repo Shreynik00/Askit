@@ -15,10 +15,7 @@
             <input type="hidden" id="taskId" value="" />
             <input type="hidden" id="username" value="" /> <!-- Store username -->
             
-            <div class="form-group">
-                <label for="deadline">Maximum Deadline (in days)</label>
-                <input type="number" id="deadline" name="deadline" placeholder="Enter maximum deadline" required>
-            </div>
+           
 
             <div class="form-group">
                 <label for="pitch">Pitch (Why should you get the task?)</label>
@@ -73,7 +70,7 @@
     document.getElementById('offerForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         const message = document.getElementById('message').value;
-        const deadline = document.getElementById('deadline').value;
+      
         const pitch = document.getElementById('pitch').value;
         const username = document.getElementById('username').value;
         const taskId = document.getElementById('taskId').value;
@@ -82,7 +79,7 @@
             taskId, // Keep taskId
             username, // Include username
             message,
-            deadline,
+          
             pitch
         };
 
