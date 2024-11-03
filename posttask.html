@@ -49,6 +49,9 @@
             <label><input type="checkbox" id="urgencyASAP" onclick="updateUrgencyType(this)"> ASAP</label><br>
             <label><input type="checkbox" id="urgencyLater" onclick="updateUrgencyType(this)"> After Some Time</label><br><br>
 
+            <label>Select your payment method:</label><br>
+<label><input type="checkbox" id="paymentInCash" onclick="updatePaymentMethod(this)"> In Cash</label>
+<label><input type="checkbox" id="paymentUPI" onclick="updatePaymentMethod(this)"> UPI Only</label><br><br>
             <button type="submit">Post Task</button>
         </form>
     </section>
@@ -58,6 +61,23 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
         let urgencyType = ""; // Variable to store selected urgency type
+
+          let paymentMethod = ""; // Variable to store selected payment method
+
+    // Function to handle checkbox selection and enforce only one selection
+    function updatePaymentMethod(selectedCheckbox) {
+        const inCashCheckbox = document.getElementById('paymentInCash');
+        const upiCheckbox = document.getElementById('paymentUPI');
+
+        // Uncheck the other checkbox when one is selected
+        if (selectedCheckbox.id === 'paymentInCash') {
+            upiCheckbox.checked = false;
+            paymentMethod = "In Cash";
+        } else if (selectedCheckbox.id === 'paymentUPI') {
+            inCashCheckbox.checked = false;
+            paymentMethod = "UPI Only";
+        }
+    }
 
         // Function to handle checkbox selection and enforce only one selection
         function updateUrgencyType(selectedCheckbox) {
@@ -96,6 +116,7 @@
                         mode,
                         type,
                         urgencyType,
+                        paymentMethod,
                         budget,
                         username
                     })
