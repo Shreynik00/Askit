@@ -62,6 +62,10 @@ h1 {
     transition: background-color 0.3s ease; /* Smooth background change */
 }
 /* Button hover effect */
+.vewProfileButton:hover {
+    background-color: #e67e22; /* Darker orange on hover */
+}
+/* Button hover effect */
 .viewProfileButton:hover {
     background-color: #e67e22; /* Darker orange on hover */
 }
