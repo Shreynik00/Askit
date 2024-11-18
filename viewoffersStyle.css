@@ -36,11 +36,7 @@ h1 {
     padding: 0.8em; /* Padding inside buttons */
     cursor: pointer; /* Pointer cursor */
     transition: background-color 0.3s ease; /* Smooth background change */
-    position: absolute; /* Position the button absolutely */
-    top: 10px; /* 10px from the top */
-    right: 10px; /* 10px from the right */
 }
-
 /* Offer card styles */
 .offer {
     background-color: #1e1e1e; /* Darker background for each offer */
