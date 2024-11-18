@@ -108,6 +108,7 @@
             const type = document.getElementById('taskType').value;
             const budget = document.getElementById('taskBudget').value;
             const requirements = document.getElementById('skills').value;
+            const status = unaccpeted ;
 
             try {
                 const response = await fetch('https://apiserveraskit-4.onrender.com/add-task', { 
@@ -123,6 +124,7 @@
                         urgencyType,
                         paymentMethod,
                         budget,
+                        status,
                         username
                     })
                 });
