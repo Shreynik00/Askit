@@ -41,39 +41,36 @@
                         button.addEventListener('click', (event) => {
                             const userId = event.target.getAttribute('data-userid');
                             // Redirect to SeeProfile.html with userId as a query parameter
-                           // window.location.href = `https://shreynik00.github.io/Askit/SeeProfile.html?userId=${userId}`;
+                            window.location.href = `https://shreynik00.github.io/Askit/SeeProfile.html?userId=${userId}`;
                         });
                     });
 
                     // Add event listeners to "Accept Offer" buttons
-                  // Add event listeners to "Accept Offer" buttons
-document.querySelectorAll('.acceptOfferButton').forEach(button => {
-    button.addEventListener('click', async (event) => {
-        event.preventDefault(); // Prevent default button behavior
-
-        const taskId = event.target.getAttribute('data-taskid');
-        const offerId = event.target.getAttribute('data-offerid');
-        const username = 'exampleUsername'; // Replace with the actual username logic if needed
-        
-        try {
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/acceptOffer`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ taskId, offerId })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to accept offer');
+                    document.querySelectorAll('.acceptOfferButton').forEach(button => {
+                        button.addEventListener('click', async (event) => {
+                            const taskId = event.target.getAttribute('data-taskid');
+                            const offerId = event.target.getAttribute('data-offerid');
+                            try {
+                                const response = await fetch(`https://apiserveraskit-4.onrender.com/acceptOffer`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ taskId, offerId })
+                                });
+                                if (!response.ok) {
+                                    throw new Error('Failed to accept offer');
+                                }
+                               window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
+                            } catch (error) {
+                                console.error('Error accepting offer:', error);
+                                alert('Failed to accept offer.');
+                            }
+                        });
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching offers:', error);
             }
-
-            // Redirect upon successful offer acceptance
-            window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
-        } catch (error) {
-            console.error('Error accepting offer:', error);
         }
-    });
-});
-
-        
 
         fetchOffers();
     </script>
