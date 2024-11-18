@@ -28,15 +28,7 @@ h1 {
     gap: 1.5em; /* Space between offers */
 }
 
-.acceptOfferButton {
- background-color: #f39c12; /* Orange background for buttons */
-    color: #ffffff; /* White text for buttons */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 0.8em; /* Padding inside buttons */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease; /* Smooth background change */
-}
+
 /* Offer card styles */
 .offer {
     background-color: #1e1e1e; /* Darker background for each offer */
