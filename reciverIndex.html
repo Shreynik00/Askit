@@ -47,7 +47,7 @@ async function fetchUserTasks() {
         } else {
             tasksContainer.innerHTML = tasks.map(task => `
                 <div class="task">
-                 <h2> <p><strong>Detail:</strong> ${task.status}</p></h2>
+                 <h2> <p><strong>Status:</strong> ${task.status}</p></h2>
                     <h3>${task.title}</h3>
                    
                     <p><strong>Detail:</strong> ${task.detail}</p>
