@@ -52,7 +52,15 @@ h1 {
     cursor: pointer; /* Pointer cursor */
     transition: background-color 0.3s ease; /* Smooth background change */
 }
-
+.vewProfileButton {
+    background-color: #f39c12; /* Orange background for buttons */
+    color: #ffffff; /* White text for buttons */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 0.8em; /* Padding inside buttons */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth background change */
+}
 /* Button hover effect */
 .viewProfileButton:hover {
     background-color: #e67e22; /* Darker orange on hover */
