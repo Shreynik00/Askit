@@ -29,7 +29,7 @@ h1 {
 }
 
 .acceptOfferButton {
-    background-color: #f39c12; /* Orange background for buttons */
+ background-color: #f39c12; /* Orange background for buttons */
     color: #ffffff; /* White text for buttons */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
