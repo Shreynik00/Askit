@@ -34,7 +34,10 @@ const currentDate = new Date().toISOString().split('T')[0];
 
 // Filter and display tasks where the deadline is not crossed
 taskList.innerHTML = tasks
-    .filter(task => new Date(task.deadline) >= new Date(currentDate)) // Filter tasks by deadline
+    .filter(task => 
+        new Date(task.deadline) >= new Date(currentDate) && // Deadline not crossed
+        (task.status !== "accepted" || !task.status) // Status is not "accepted" or not present
+    )
     .map(task => `
         <div class="task-item">
             <h3>${task.title}</h3>
@@ -48,6 +51,7 @@ taskList.innerHTML = tasks
             </div>
         </div>
     `).join('');
+
 
         } catch (error) {
             console.error('Error fetching tasks:', error);
