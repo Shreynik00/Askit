@@ -6,7 +6,7 @@
 
 body {
     background-color: #121212;
-    color: #f0f0f0;
+    color: #e0f7fa; /* Light cyan */
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -32,59 +32,65 @@ body {
     margin-bottom: 60px;
     object-fit: cover;
     border-radius: 10px;
-    border: 3px solid #1e88e5; /* Blue border */
-    box-shadow: 0 0 10px #1e88e5, 0 0 20px rgba(30, 136, 229, 0.4);
+    border: 3px solid #00bcd4; /* Cyan border */
+    box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .center-image:hover {
-    box-shadow: 0 0 15px #2196f3, 0 0 25px rgba(33, 150, 243, 0.6);
-    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.7);
+    transform: scale(1.03);
 }
 
-h1 {
+h1,h2 {
     font-size: 42px;
     margin-bottom: 20px;
-    color: #ffcc00; /* Bright yellow */
-    text-shadow: 0 0 5px #ffcc00, 0 0 10px rgba(255, 204, 0, 0.6);
+    color: #00e5ff; /* Bright cyan */
+    text-shadow: 0 0 3px rgba(0, 229, 255, 0.5);
     transition: text-shadow 0.2s ease;
 }
 
 h1:hover {
-    text-shadow: 0 0 8px #ffdd33, 0 0 12px rgba(255, 221, 51, 0.8);
+    text-shadow: 0 0 5px rgba(128, 222, 234, 0.6);
 }
 
 .description {
     font-size: 20px;
     margin-bottom: 30px;
-    color: #cddc39; /* Soft green */
-    transition: color 0.3s ease;
+    color: #4dd0e1; /* Soft cyan */
 }
 
 .description:hover {
-    color: #d4e157;
+    color: #81d4fa; /* Slightly brighter cyan */
 }
-
 .next-button {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #ffffff; /* White button */
+    color: #000000; /* Black text */
     font-size: 22px;
     padding: 14px 28px;
-    border: none;
-    border-radius: 5px;
+    border: 2px solid #00bcd4; /* Cyan border */
+    border-radius: 8px; /* Slightly rounded corners */
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
     max-width: 350px;
     margin-top: 30px;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 188, 212, 0.5);
 }
 
 .next-button:hover {
-    background-color: #e0e0e0;
-    box-shadow: 0 0 10px #ffffff, 0 0 15px rgba(255, 255, 255, 0.4);
-    transform: scale(1.05);
+    background-color: #f0f0f0; /* Light gray hover effect */
+    color: #00bcd4; /* Cyan text on hover */
+    transform: scale(1.05); /* Slight zoom */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 0 5px rgba(0, 188, 212, 0.7);
 }
+
+.next-button:active {
+    background-color: #e0e0e0; /* Slightly darker on click */
+    transform: scale(0.98); /* Slight press effect */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 188, 212, 0.5);
+}
+
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
@@ -92,7 +98,7 @@ h1:hover {
         width: 100%;
     }
 
-    h1 {
+    h1 ,h2{
         font-size: 36px;
     }
 
@@ -103,7 +109,6 @@ h1:hover {
 
     .next-button {
         font-size: 20px;
-        margin-bottom: -9px;
     }
 }
 
@@ -123,6 +128,5 @@ h1:hover {
 
     .next-button {
         font-size: 22px;
-        margin-bottom: -9px;
     }
 }
