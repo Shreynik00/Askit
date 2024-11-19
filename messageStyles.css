@@ -19,7 +19,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     height: 63%;
-    box-shadow: 0 8px 20px rgba(0, 172, 193, 0.4); /* Cyan shadow */
+    box-shadow: 0 8px 10px rgba(0, 172, 193, 0.4); /* Cyan shadow */
 }
 
 /* Title for the receiver */
@@ -38,7 +38,7 @@ h2 {
     padding: 10px;
     background-color: #2a2a2a; /* Slightly lighter input box background */
     border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 172, 193, 0.2); /* Subtle shadow for input box */
+    box-shadow: 0 4px 5px rgba(0, 172, 193, 0.2); /* Subtle shadow for input box */
 }
 
 /* Input fields */
