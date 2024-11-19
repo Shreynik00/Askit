@@ -1,4 +1,5 @@
 /* Global settings */
+/* Global settings */
 body {
     background-color: #1a1a1a;
     color: #e0e0e0;
@@ -12,37 +13,45 @@ body {
 }
 
 h1, h2 {
-    color: #ffffff;
+    color: #00bcd4; /* Cyan-accented text */
     text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 188, 212, 0.5); /* Reduced glow effect */
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 3rem; /* Increased font size */
+    margin-bottom: 25px;
 }
 
 h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-}
-p{
-    font-size: 12px;
+    font-size: 2rem; /* Increased font size */
+    margin-bottom: 20px;
 }
 
+p {
+    font-size: 14px; /* Slightly larger paragraph text */
+    color: #e0e0e0;
+}
+
+/* Button styling */
 #continueButton {
-    display: block; /* Make the button a block element */
-    margin: 20px auto; /* Center the button horizontally with auto margins */
-    padding: 10px 20px; /* Adjust padding as needed */
-    font-size: 16px; /* Font size for the button text */
-    background-color: #f0f0f0; /* Light background for the button */
-    color: #121212; /* Dark text for contrast */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor for clickable button */
+    display: block; 
+    margin: 20px auto; 
+    padding: 12px 24px; /* Slightly larger padding */
+    font-size: 18px; /* Larger font size */
+    background-color: #00bcd4; /* Cyan background */
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 188, 212, 0.4); /* Subtle glow effect */
 }
 
 #continueButton:hover {
-    background-color: #e0e0e0; /* Lighter on hover */
+    background-color: #00a8c1; /* Darker cyan on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.6); /* Slightly brighter glow */
 }
 
 /* Container settings */
@@ -54,15 +63,17 @@ div {
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
     margin: 27px auto;
+    border: 2px solid #00bcd4; /* Cyan border */
 }
-#mainbox{
+
+#mainbox {
     max-width: 530px;
     width: 83%;
     background-color: #252525;
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
-   
     height: 80%;
+    border: 2px solid #00bcd4; /* Cyan border */
 }
 
 /* Form styles */
@@ -74,11 +85,12 @@ form {
 
 input {
     padding: 12px;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Slightly larger font size */
     border: 1px solid #444;
     border-radius: 8px;
     background-color: #2a2a2a;
     color: #e0e0e0;
+    transition: all 0.3s ease;
 }
 
 input::placeholder {
@@ -87,22 +99,26 @@ input::placeholder {
 
 input:focus {
     outline: none;
-    border-color: #4caf50; /* Green outline when focused */
+    border-color: #00bcd4; /* Cyan outline on focus */
+    box-shadow: 0 0 4px rgba(0, 188, 212, 0.5); /* Reduced glow effect */
 }
 
 button {
-    background-color: #4caf50;
+    background-color: #00bcd4;
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 12px;
-    font-size: 1rem;
+    padding: 14px;
+    font-size: 1.1rem; /* Slightly larger font size */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 188, 212, 0.4); /* Subtle glow */
 }
 
 button:hover {
-    background-color: #d7e3d8;
+    background-color: #00a8c1;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.5); /* Reduced glow effect */
 }
 
 /* Profile section */
@@ -111,9 +127,10 @@ button:hover {
 }
 
 #userProfile p {
-    font-size: 1.2rem;
-    color: #ffffff;
+    font-size: 1.3rem; /* Slightly larger profile text */
+    color: #00bcd4; /* Cyan-accented profile text */
     text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 188, 212, 0.5); /* Reduced glow effect */
 }
 
 /* Responsive design for tablets and smaller screens */
@@ -121,6 +138,32 @@ button:hover {
     div {
         padding: 15px;
         max-width: 90%;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    input {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+
+/* Responsive design for mobile phones */
+@media (max-width: 480px) {
+    div {
+        padding: 12px;
+        max-width: 95%;
     }
 
     h1 {
@@ -133,37 +176,11 @@ button:hover {
 
     input {
         font-size: 0.9rem;
-        padding: 10px;
-    }
-
-    button {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-}
-
-/* Responsive design for mobile phones */
-@media (max-width: 480px) {
-    div {
-        padding: 12px;
-        max-width: 95%;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.3rem;
-    }
-
-    input {
-        font-size: 0.85rem;
         padding: 8px;
     }
 
     button {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         padding: 10px;
     }
 }
