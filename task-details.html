@@ -5,51 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Details</title>
     <style>
-        body {
-            margin: 0;
-            font-family: 'SF Pro Display', sans-serif;
-            background-color: #121212; /* Dark background */
-            color: #fff; /* White text color */
-        }
+      /* Body styles */
+body {
+    margin: 0;
+    font-family: 'SF Pro Display', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #fff; /* White text color */
+}
 
-        .header {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #080808, #222225); /* Dark gradient */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-        }
+/* Header styles */
+.header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #080808, #222225); /* Dark gradient */
+    box-shadow: 0 2px 10px rgba(0, 255, 255, 0.5); /* Sharp cyan shadow for depth */
+}
 
-        .header h1 {
-            margin: 0;
-            font-size: 28px; /* Header font size */
-            font-weight: 700; /* Bold font */
-        }
+/* Header title styles */
+.header h1 {
+    margin: 0;
+    font-size: 28px; /* Header font size */
+    font-weight: 700; /* Bold font */
+    color: #00ffff; /* Cyan color for the title */
+}
 
-        .task-details-container {
-            max-width: 800px; /* Max width of details container */
-            margin: 20px auto; /* Center the container */
-            padding: 20px; /* Padding inside container */
-            border-radius: 10px; /* Rounded corners */
-            background-color: #1c1c1c; /* Dark background for container */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-        }
+/* Task details container styles */
+.task-details-container {
+    max-width: 800px; /* Max width of details container */
+    margin: 20px auto; /* Center the container */
+    padding: 20px; /* Padding inside container */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #1c1c1c; /* Dark background for container */
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3); /* Sharp cyan shadow for depth */
+}
 
-        .task-title {
-            font-size: 24px; /* Font size for task title */
-            font-weight: 700; /* Bold font */
-            margin-bottom: 10px; /* Space below title */
-        }
+/* Task details text styles */
+.task-title {
+    font-size: 24px; /* Font size for task title */
+    font-weight: 700; /* Bold font */
+    margin-bottom: 10px; /* Space below title */
+    color: #00ffff; /* Cyan color for title text */
+}
 
-        .task-description, .task-budget, .task-deadline {
-            font-size: 16px; /* Font size for details */
-            margin-bottom: 10px; /* Space below each detail */
-        }
+.task-description, .task-budget, .task-deadline {
+    font-size: 16px; /* Font size for details */
+    margin-bottom: 10px; /* Space below each detail */
+    color: #fff; /* White color for details */
+}
 
-       .back-button {
+/* Back button styles */
+.back-button {
     margin-top: 20px; /* Space above button */
     padding: 10px 20px; /* Padding for button */
-    background-color: #fff; /* Button background */
-    color: #000; /* Button text color */
+    background-color: #00ffff; /* Cyan background for the button */
+    color: #000; /* Black text color for the button */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
@@ -58,11 +67,12 @@
     transition: background-color 0.3s, transform 0.2s; /* Transition for effects */
 }
 
+/* Back button hover effect */
+.back-button:hover {
+    background-color: #1abc9c; /* Darker cyan background on hover */
+    transform: scale(1.05); /* Scale up on hover */
+}
 
-        .back-button:hover {
-            background-color: #f0f0f0; /* Lighten button on hover */
-            transform: scale(1.05); /* Scale up on hover */
-        }
     </style>
 </head>
 <body>
