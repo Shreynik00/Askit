@@ -1,22 +1,22 @@
 body {
     margin: 0;
     font-family: 'SF Pro Display', sans-serif;
-    background-color: #0f0f0f; /* Slightly darker cyan-compatible background */
-    color: #e0ffff; /* Light cyan text color */
+    background-color: #121212;
+    color: #fff;
 }
+
 
 .header {
     text-align: center;
     padding: 30px;
-    background: linear-gradient(135deg, #003333, #006666); /* Cyan gradient */
-    box-shadow: 0 2px 10px rgba(0, 128, 128, 0.5); /* Cyan-tinted shadow */
+    background: linear-gradient(135deg, #080808, #222225);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .header h1 {
     margin: 5;
     font-size: 36px; /* Increased font size */
     font-weight: 700;
-    color: #00ced1; /* Bright cyan for the heading */
 }
 
 .offer-form-container {
@@ -24,15 +24,15 @@ body {
     margin: 40px auto; /* Increased margin for spacing */
     padding: 30px; /* Increased padding */
     border-radius: 12px; /* Slightly increased border-radius */
-    background-color: #1a2f2f; /* Dark cyan-tinted background */
-    box-shadow: 0 6px 30px rgba(0, 128, 128, 0.5); /* Enhanced cyan shadow */
+    background-color: #1c1c1c;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.7); /* Enhanced shadow for depth */
 }
 
 .offer-form-container h2 {
     font-size: 28px; /* Increased heading font size */
     font-weight: 700;
-    color: #20b2aa; /* Softer cyan shade for headings */
-    text-shadow: 1px 1px 2px rgba(0, 128, 128, 0.5); /* Cyan-tinted shadow */
+    color: #f0f0f0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     margin-bottom: 20px; /* Increased bottom margin */
 }
 
@@ -43,7 +43,7 @@ body {
 .form-group label {
     font-size: 16px; /* Increased label font size */
     font-weight: 500;
-    color: #66cdaa; /* Medium cyan for labels */
+    color: #ccc;
     display: block;
     margin-bottom: 10px; /* Increased bottom margin */
 }
@@ -53,16 +53,16 @@ body {
     width: 90%;
     padding: 13px; /* Increased padding */
     border-radius: 10px;
-    background-color: #2b4d4d; /* Cyan-tinted dark background */
-    border: 1px solid #20b2aa; /* Soft cyan border */
-    color: #e0ffff; /* Light cyan text */
+    background-color: #222225;
+    border: 1px solid #333;
+    color: #fff;
     font: 400 16px 'SF Pro Display', sans-serif; /* Increased font size */
     transition: border-color 0.3s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #00ffff; /* Bright cyan on focus */
+    border-color: #f0f0f0;
     outline: none;
 }
 
@@ -72,12 +72,16 @@ textarea {
 }
 
 .button-container {
+    text-align: right;
+}
+
+.button-container {
     text-align: left; /* Align button to the left */
 }
 
 .submit-button {
-    background-color: #20b2aa; /* Cyan background color */
-    color: #ffffff; /* White text color */
+    background-color: #fafbfc; /* Blue background color */
+    color: #080000; /* White text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Slightly rounded corners */
     padding: 10px 20px; /* Padding for clickable area */
@@ -88,36 +92,5 @@ textarea {
 }
 
 .submit-button:hover {
-    background-color: #00ced1; /* Bright cyan on hover */
-}
-
-/* Additional Responsiveness */
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: 30px;
-    }
-
-    .offer-form-container {
-        padding: 20px;
-    }
-
-    .submit-button {
-        font-size: 14px;
-        padding: 8px 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header h1 {
-        font-size: 24px;
-    }
-
-    .offer-form-container {
-        padding: 15px;
-    }
-
-    .submit-button {
-        font-size: 12px;
-        padding: 6px 12px;
-    }
+    background-color: #ffffff; /* Darker blue on hover */
 }
