@@ -28,13 +28,13 @@ h1 {
     gap: 1.5em; /* Space between offers */
 }
 
-
 /* Offer card styles */
 .offer {
     background-color: #1e1e1e; /* Darker background for each offer */
     border-radius: 5px; /* Rounded corners */
     padding: 2%; /* Padding inside offer card */
     border: 1px solid #444444; /* Subtle border */
+    box-shadow: 0 2px 10px rgba(0, 255, 255, 0.5); /* Cyan shadow added */
 }
 
 /* Text styles for offer details */
@@ -52,20 +52,7 @@ h1 {
     cursor: pointer; /* Pointer cursor */
     transition: background-color 0.3s ease; /* Smooth background change */
 }
-.vewProfileButton {
-    background-color: #f39c12; /* Orange background for buttons */
-    color: #ffffff; /* White text for buttons */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 0.8em; /* Padding inside buttons */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease; /* Smooth background change */
-}
-/* Button hover effect */
-.vewProfileButton:hover {
-    background-color: #e67e22; /* Darker orange on hover */
-}
-/* Button hover effect */
+
 .viewProfileButton:hover {
     background-color: #e67e22; /* Darker orange on hover */
 }
@@ -78,6 +65,10 @@ h1 {
 
     .offer {
         padding: 1.5%; /* Adjust padding for smaller screens */
+    }
+
+    .viewProfileButton {
+        padding: 0.6em; /* Smaller padding for buttons */
     }
 }
 
@@ -94,3 +85,4 @@ h1 {
         padding: 0.6em; /* Smaller padding for buttons */
     }
 }
+
