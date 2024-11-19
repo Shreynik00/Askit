@@ -15,8 +15,19 @@ body {
 
 /* Heading styles */
 h1, h2 {
-    color: #ffffff; /* Yellow color for headings */
+    color: #f1c40f; /* Yellow color for headings */
     text-align: center; /* Center align headings */
+    text-shadow: 0px 1px 3px rgba(241, 196, 15, 0.5); /* Reduced glow effect */
+}
+
+h1 {
+    font-size: 2.8rem; /* Increased font size */
+    margin-bottom: 20px; /* Space below h1 */
+}
+
+h2 {
+    font-size: 2.2rem; /* Increased font size */
+    margin-bottom: 15px; /* Space below h2 */
 }
 
 /* Centering Add Task button */
@@ -24,8 +35,21 @@ h1, h2 {
     display: block; /* Make button a block element */
     margin: 20px auto; /* Center the button */
     padding: 1em 2em; /* Responsive padding */
-    font-size: 1.5em; /* Responsive font size */
-    max-width: 300px; /* Max width for larger screens */
+    font-size: 1.6em; /* Larger font size */
+    max-width: 350px; /* Increased max width for larger screens */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f1c40f; /* Yellow background */
+    color: #121212; /* Dark text */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.3s ease; /* Smooth hover effect */
+    box-shadow: 0px 4px 8px rgba(241, 196, 15, 0.5); /* Subtle glow effect */
+}
+
+#addTaskButton:hover {
+    background-color: #e1b10d; /* Darker yellow on hover */
+    box-shadow: 0px 6px 12px rgba(241, 196, 15, 0.7); /* Slightly brighter glow */
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 /* Task container styles */
@@ -37,28 +61,30 @@ h1, h2 {
 .task {
     background-color: #1e1e1e; /* Darker background for tasks */
     border: 1px solid #444444; /* Subtle border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 15px; /* Padding inside the task */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Increased padding inside the task */
     margin-bottom: 15px; /* Space between tasks */
     position: relative; /* For positioning the button */
 }
 
 /* Button styles */
 button {
-    background-color: #ffffff; /* Orange background for buttons */
-    color: #000000; /* White text for buttons */
+    background-color: #f1c40f; /* Yellow background for buttons */
+    color: #121212; /* Dark text for buttons */
     border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 8px; /* Rounded corners */
     padding: 0.8em 1.5em; /* Responsive padding */
-    font-size: 1em; /* Responsive font size */
+    font-size: 1.2em; /* Larger font size */
     cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease; /* Smooth background change */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and hover */
     display: inline-block; /* Align buttons inline */
+    box-shadow: 0px 3px 6px rgba(241, 196, 15, 0.4); /* Subtle glow */
 }
 
-/* Button hover effect */
 button:hover {
-    background-color: #e08d19; /* Darker orange on hover */
+    background-color: #e1b10d; /* Darker yellow on hover */
+    transform: scale(1.03); /* Slight hover zoom */
+    box-shadow: 0px 5px 10px rgba(241, 196, 15, 0.6); /* Brighter glow */
 }
 
 /* Aligning View Offers button to the right */
@@ -70,8 +96,10 @@ button:hover {
 
 /* Display username styles */
 #usernameDisplay {
-    font-size: 1.2em; /* Slightly larger font for username */
+    font-size: 1.4em; /* Larger font for username */
     margin-bottom: 20px; /* Space below username */
+    color: #f1c40f; /* Yellow-accented username text */
+    text-shadow: 0px 1px 3px rgba(241, 196, 15, 0.5); /* Reduced glow effect */
 }
 
 /* Responsive styles */
@@ -79,14 +107,29 @@ button:hover {
     #addTaskButton {
         width: 100%; /* Make the button full-width on smaller screens */
         padding: 1em; /* Adjust padding */
-        font-size: 1.2em; /* Responsive font size */
+        font-size: 1.4em; /* Responsive font size */
     }
     .task {
-        padding: 10px; /* Adjust padding inside task on smaller screens */
+        padding: 15px; /* Adjust padding inside task on smaller screens */
     }
     button {
         width: auto; /* Default width for buttons on mobile */
-        padding: 0.5em 1em; /* Adjust padding */
-        font-size: 0.9em; /* Responsive font size */
+        padding: 0.7em 1.2em; /* Adjust padding */
+        font-size: 1em; /* Responsive font size */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2rem; /* Smaller heading for mobile */
+    }
+
+    h2 {
+        font-size: 1.8rem; /* Adjust subheading size */
+    }
+
+    #addTaskButton {
+        font-size: 1.2em; /* Adjust button size */
+        padding: 0.9em 1.2em; /* Reduced padding */
     }
 }
