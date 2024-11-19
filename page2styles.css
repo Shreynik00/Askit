@@ -31,17 +31,38 @@ body {
     height: auto;
     margin-bottom: 60px;
     object-fit: cover;
-    border-radius: 3px; /* Ensure it's a square image */
+    border-radius: 10px;
+    border: 3px solid #1e88e5; /* Blue border */
+    box-shadow: 0 0 10px #1e88e5, 0 0 20px rgba(30, 136, 229, 0.4);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.center-image:hover {
+    box-shadow: 0 0 15px #2196f3, 0 0 25px rgba(33, 150, 243, 0.6);
+    transform: scale(1.05);
 }
 
 h1 {
     font-size: 42px;
     margin-bottom: 20px;
+    color: #ffcc00; /* Bright yellow */
+    text-shadow: 0 0 5px #ffcc00, 0 0 10px rgba(255, 204, 0, 0.6);
+    transition: text-shadow 0.2s ease;
+}
+
+h1:hover {
+    text-shadow: 0 0 8px #ffdd33, 0 0 12px rgba(255, 221, 51, 0.8);
 }
 
 .description {
     font-size: 20px;
     margin-bottom: 30px;
+    color: #cddc39; /* Soft green */
+    transition: color 0.3s ease;
+}
+
+.description:hover {
+    color: #d4e157;
 }
 
 .next-button {
@@ -52,14 +73,17 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     width: 100%;
     max-width: 350px;
     margin-top: 30px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 .next-button:hover {
     background-color: #e0e0e0;
+    box-shadow: 0 0 10px #ffffff, 0 0 15px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
 
 /* Mobile responsiveness */
@@ -80,7 +104,6 @@ h1 {
     .next-button {
         font-size: 20px;
         margin-bottom: -9px;
-    
     }
 }
 
