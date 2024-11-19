@@ -1,7 +1,8 @@
 /* Global styles */
+/* Global styles */
 body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    background-color: #121212; /* Dark background */
+    color: #e0f7fa; /* Light cyan text */
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -14,11 +15,11 @@ body {
 .container {
     width: 80%;
     max-width: 500px;
-    background-color: #2a2a2a;
+    background-color: #1e1e1e; /* Slightly darker container background */
     border-radius: 10px;
     padding: 20px;
     height: 63%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 172, 193, 0.4); /* Cyan shadow */
 }
 
 /* Title for the receiver */
@@ -26,16 +27,18 @@ h2 {
     text-align: left;
     font-size: 1.4rem;
     margin-bottom: 15px;
-    color: #d1d1d1;
+    color: #00acc1; /* Cyan title */
     padding-left: 5px;
+    text-shadow: 0 2px 5px rgba(0, 172, 193, 0.6); /* Cyan text glow */
 }
 
 /* Box for input fields */
 .input-box {
     margin-bottom: 15px;
     padding: 10px;
-    background-color: #333;
+    background-color: #2a2a2a; /* Slightly lighter input box background */
     border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 172, 193, 0.2); /* Subtle shadow for input box */
 }
 
 /* Input fields */
@@ -43,42 +46,45 @@ input[type="text"],
 textarea {
     width: 100%;
     padding: 10px;
-    margin: 0; /* Removed margin to keep consistent spacing */
+    margin: 0;
     background-color: transparent;
-    color: #e0e0e0;
-    border: none; /* Removed border for cleaner look */
-    outline: none; /* Remove outline */
+    color: #e0f7fa; /* Cyan text */
+    border: none;
+    outline: none;
+    font-size: 1rem;
 }
 
 /* Change textarea font family */
 textarea {
     resize: none; /* Prevent resizing of textarea */
-    font-family: 'Courier New', monospace; /* Updated font family for textarea */
+    font-family: 'Courier New', monospace;
 }
 
 /* Placeholder styles */
 input[type="text"]::placeholder,
 textarea::placeholder {
-    color: #b3b3b3;
+    color: #b3e5fc; /* Lighter cyan for placeholders */
 }
 
 /* Submit button */
 button {
     width: 100%;
-    padding: 12px; /* Increased padding for a better touch target */
-    background-color: #3a3a3a;
-    color: #fff;
+    padding: 12px;
+    background-color: #00acc1; /* Cyan background */
+    color: #000; /* Black text for buttons */
     border: none;
     border-radius: 5px;
-    font-size: 1.1rem; /* Increased font size for better readability */
-    font-weight: bold; /* Make the button text bold */
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for subtle effect */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4); /* Cyan button shadow */
 }
 
 button:hover {
-    background-color: #5a5a5a;
+    background-color: #00838f; /* Darker cyan on hover */
     transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 5px 10px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
 }
 
 /* Responsive layout */
