@@ -58,15 +58,14 @@ header h1 {
 .button-group {
     display: flex;
     align-items: center; /* Align items vertically in the center */
-    justify-content: space-between; /* Space buttons evenly */
+    justify-content: space-between; /* Space buttons and 'Posted by' appropriately */
     margin-top: 15px; /* Spacing from task details */
-    flex-wrap: nowrap; /* Prevent wrapping of buttons */
 }
 
 .button-group button,
 .button-group a {
-    flex: 1; /* Make each button take equal width */
-    padding: 10px 15px; /* Adjusted padding for uniform button size */
+    flex: 1; /* Make buttons equal width */
+    padding: 8px 10px;
     margin-right: 10px;
     background-color: #00acc1; /* Cyan background */
     color: #ffffff; /* White text */
@@ -123,29 +122,17 @@ header h1 {
     }
 
     .button-group {
-        flex-wrap: nowrap; /* Prevent wrapping, keep buttons in one line */
+        flex-wrap: wrap; /* Stack buttons and 'Posted by' vertically on smaller screens */
     }
 
     .button-group button,
     .button-group a {
         font-size: 14px;
-        padding: 10px 15px; /* Consistent padding for buttons */
-        margin-right: 10px;
-        flex: 1; /* Ensure buttons take equal width */
+        padding: 6px 8px;
     }
 
     .usernam {
         margin-top: 20px;
         text-align: left; /* Align 'Posted by' to the left on mobile */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    /* For very small screens like phones */
-    .button-group button,
-    .button-group a {
-        flex: 1; /* Ensure buttons take equal width */
-        margin-right: 0;
-        padding: 10px; /* Increased padding on mobile */
     }
 }
