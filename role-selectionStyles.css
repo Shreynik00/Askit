@@ -13,7 +13,7 @@ body {
 }
 
 h1, h2, h3 {
-    color: #00bcd4; /* Cyan-accented text */
+   color: #ffffff; /* White text */
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 188, 212, 0.5); /* Reduced glow effect */
 }
