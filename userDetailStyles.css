@@ -1,7 +1,7 @@
 /* General styles */
 body {
     background-color: #121212; /* Dark background */
-    color: #E0E0E0; /* Light text color */
+    color: #e0f7fa; /* Light cyan text */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -9,35 +9,39 @@ body {
 }
 
 header {
-    background-color: #1F1F1F; /* Header background */
+    background-color: #1f1f1f; /* Header background */
     padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 172, 193, 0.5); /* Cyan shadow */
 }
 
 h1 {
-    color: #BB86FC; /* Accent color for headings */
-    font-size: 3em; /* Increased heading size */
+    color: #00acc1; /* Cyan for headings */
+    font-size: 3em;
     margin: 0;
+    text-shadow: 0 2px 5px rgba(0, 172, 193, 0.6); /* Cyan glow effect */
 }
 
 /* User info box styles */
 #userInfoBox {
-    background: transparent; /* Remove background color */
-    padding: 30px; /* Padding inside the box */
-    max-width: 400px; /* Max width for the box */
-    margin: 20px auto; /* Center the box */
-    text-align: center; /* Center text inside the box */
+    background: transparent;
+    padding: 30px;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 172, 193, 0.3); /* Subtle cyan shadow */
 }
 
 #usernameDisplay {
-    font-size: 2.5em; /* Increased font size for username display */
-    color: #BB86FC; /* Color for username */
-    margin-bottom: 10px; /* Space below username */
+    font-size: 2.5em;
+    color: #00acc1; /* Cyan username color */
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 172, 193, 0.6); /* Text shadow */
 }
 
 #emailDisplay {
-    font-size: 1.5em; /* Increased font size for email display */
-    color: #FFFFFF; /* Light text color for email */
+    font-size: 1.5em;
+    color: #e0f7fa; /* Cyan text for email */
 }
 
 /* Task list styles */
@@ -46,53 +50,59 @@ h1 {
 }
 
 .task-item {
-    background-color: #1E1E1E; /* Task item background */
+    background-color: #1e1e1e; /* Task item background */
     border-radius: 10px;
     margin-bottom: 20px;
-    padding: 25px; /* Increased padding for better spacing */
-    transition: background-color 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    padding: 25px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 20px rgba(0, 172, 193, 0.4); /* Cyan box shadow */
 }
 
 .task-item:hover {
     background-color: #272727; /* Darker shade on hover */
+    box-shadow: 0 10px 25px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
 }
 
 h3 {
-    color: #03DAC6; /* Color for task titles */
-    font-size: 2em; /* Increased size for task titles */
-    margin-bottom: 10px; /* Spacing below title */
+    color: #00acc1; /* Cyan for task titles */
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 172, 193, 0.6); /* Text shadow for task titles */
 }
 
 p {
     margin: 5px 0;
-    font-size: 1.2em; /* Slightly increased paragraph font size */
+    font-size: 1.2em;
+    color: #e0f7fa; /* Cyan text */
 }
 
 /* Button styles */
 button {
-    background-color: #BB86FC; /* Button background */
-    color: #121212; /* Button text color */
+    background-color: #00acc1; /* Cyan button background */
+    color: #000; /* Black button text */
     border: none;
     border-radius: 5px;
-    padding: 15px 25px; /* Increased padding for buttons */
+    padding: 15px 25px;
     cursor: pointer;
-    margin-right: 10px; /* Space between buttons */
-    transition: background-color 0.3s, transform 0.3s; /* Add transform for button effect */
-    font-size: 1.1em; /* Button font size */
+    margin-right: 10px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 172, 193, 0.4); /* Cyan button shadow */
 }
 
 button:hover {
-    background-color: #9B59B6; /* Darker shade on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
+    background-color: #00838f; /* Darker cyan on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
 }
 
 /* Link styles */
 a {
-    color: #BB86FC; /* Link color */
+    color: #00acc1; /* Cyan link color */
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.5em; /* Increased font size for links */
+    font-size: 1.5em;
 }
 
 a:hover {
@@ -101,44 +111,51 @@ a:hover {
 
 /* Additional styling for the task display */
 .task-details {
-    font-size: 1.2em; /* Increased font size for task details */
-    margin-top: 15px; /* Increased margin for spacing */
+    font-size: 1.2em;
+    margin-top: 15px;
+    color: #e0f7fa; /* Cyan text */
 }
 
 .task-details p {
-    margin: 5px 0; /* Reduced margin for task detail paragraphs */
+    margin: 5px 0;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.5em; /* Adjust heading size for smaller screens */
+        font-size: 2.5em;
     }
-    
+
     #userInfoBox {
-        padding: 20px; /* Adjust padding for user info box */
+        padding: 20px;
     }
 
     #usernameDisplay {
-        font-size: 2em; /* Adjust username size for smaller screens */
+        font-size: 2em;
     }
-    
+
     #emailDisplay {
-        font-size: 1.2em; /* Adjust email size for smaller screens */
+        font-size: 1.2em;
     }
-    
+
     .task-item {
-        padding: 20px; /* Adjust padding for task items */
+        padding: 20px;
     }
-    
+
     h3 {
-        font-size: 1.8em; /* Adjust size for task titles */
+        font-size: 1.8em;
     }
-    
+
     button {
-        padding: 10px 15px; /* Adjust button padding */
-        font-size: 1em; /* Adjust button font size */
+        padding: 10px 15px;
+        font-size: 1em;
     }
+
+    p {
+        font-size: 1em;
+    }
+}
+
     
     p {
         font-size: 1em; /* Adjust paragraph font size */
