@@ -1,6 +1,6 @@
 body {
-    background-color: #121212; /* Very dark background */
-    color: #e0e0e0; /* Light text color */
+    background-color: #0f0f0f; /* Dark cyan-compatible background */
+    color: #e0ffff; /* Light cyan text color */
     font-family: Arial, sans-serif; /* Font family */
     margin: 0;
     padding: 20px;
@@ -12,24 +12,25 @@ header {
 }
 
 h1 {
-    color: #ffffff; /* White color for headings */
+    color: #00ced1; /* Bright cyan for headings */
     font-size: 2.5em; /* Size of the heading */
 }
 
 #usernameDisplay {
     margin: 10px 0;
     font-size: 1.2em; /* Font size for username display */
-    color: #ffffff; /* White color for username */
+    color: #20b2aa; /* Softer cyan for username text */
 }
 
 #userDetails {
-    background-color: #1e1e1e; /* Darker background for user details */
+    background-color: #1a2f2f; /* Cyan-tinted darker background */
     padding: 20px;
     border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 128, 128, 0.4); /* Cyan-tinted shadow */
 }
 
 #userDetails p {
     margin: 10px 0; /* Spacing for paragraphs */
     font-size: 1.2em; /* Font size for details */
+    color: #66cdaa; /* Medium cyan for details text */
 }
