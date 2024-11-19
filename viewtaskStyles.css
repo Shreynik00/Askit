@@ -1,4 +1,5 @@
 /* Global Styles */
+/* Global Styles */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -122,15 +123,15 @@ header h1 {
     }
 
     .button-group {
-        flex-wrap: nowrap; /* Prevent wrapping even on smaller screens */
+        flex-wrap: nowrap; /* Prevent wrapping, keep buttons in one line */
     }
 
     .button-group button,
     .button-group a {
         font-size: 14px;
-        padding: 10px 15px; /* Ensure the buttons have consistent padding */
+        padding: 10px 15px; /* Consistent padding for buttons */
         margin-right: 10px;
-        flex: 1; /* Ensure buttons are equal size */
+        flex: 1; /* Ensure buttons take equal width */
     }
 
     .usernam {
@@ -148,4 +149,3 @@ header h1 {
         padding: 10px; /* Increased padding on mobile */
     }
 }
-
