@@ -1,27 +1,27 @@
 /* Global settings */
 body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    background-color: #0f0f0f; /* Dark cyan-compatible background */
+    color: #e0ffff; /* Light cyan text color */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
+    background-color: #1a2f2f; /* Cyan-tinted darker header background */
     padding: 20px;
     text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 6px rgba(0, 128, 128, 0.4); /* Cyan-tinted shadow */
 }
 
 h1 {
-    color: #f0f0f0;
+    color: #00ced1; /* Bright cyan for header text */
     font-size: 2rem;
     margin: 0;
 }
 
 #usernameDisplay {
-    color: #b0b0b0;
+    color: #20b2aa; /* Softer cyan for username text */
     font-size: 1rem;
     margin-top: 10px;
     text-align: center;
@@ -36,27 +36,27 @@ h1 {
 
 /* Individual offer item box */
 .offer-item {
-    background-color: #252525;
-    border: 1px solid #444;
+    background-color: #1a2f2f; /* Cyan-tinted background for offers */
+    border: 1px solid #008b8b; /* Border in deep cyan */
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 4px 6px rgba(0, 128, 128, 0.4); /* Cyan-tinted shadow */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .offer-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 8px 12px rgba(0, 255, 255, 0.6); /* Enhanced hover effect */
 }
 
 .offer-item p {
     margin: 10px 0;
-    color: #d0d0d0;
+    color: #afeeee; /* Softer cyan for paragraph text */
 }
 
 .offer-item p strong {
-    color: #ffffff;
+    color: #e0ffff; /* Bright cyan for emphasized text */
     font-weight: bold;
 }
 
