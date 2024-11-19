@@ -6,6 +6,7 @@
     <title>Task Details</title>
     <style>
       /* Body styles */
+/* Body styles */
 body {
     margin: 0;
     font-family: 'SF Pro Display', sans-serif;
@@ -72,6 +73,64 @@ body {
     background-color: #1abc9c; /* Darker cyan background on hover */
     transform: scale(1.05); /* Scale up on hover */
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    /* Adjust header font size for tablets and smaller screens */
+    .header h1 {
+        font-size: 24px; /* Smaller header for tablets */
+    }
+
+    /* Adjust task details container */
+    .task-details-container {
+        padding: 15px; /* Less padding on smaller screens */
+        margin: 10px; /* Reduce margin for mobile */
+    }
+
+    /* Adjust task title font size for smaller screens */
+    .task-title {
+        font-size: 20px; /* Smaller font for task title */
+    }
+
+    /* Adjust task description and details font size */
+    .task-description, .task-budget, .task-deadline {
+        font-size: 14px; /* Smaller font for task details */
+    }
+
+    /* Adjust back button */
+    .back-button {
+        padding: 8px 16px; /* Smaller padding for the button */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjust header font size for mobile screens */
+    .header h1 {
+        font-size: 20px; /* Even smaller header for mobile */
+    }
+
+    /* Adjust task details container */
+    .task-details-container {
+        padding: 10px; /* Less padding on mobile */
+        margin: 5px; /* Less margin for mobile */
+    }
+
+    /* Adjust task title font size */
+    .task-title {
+        font-size: 18px; /* Even smaller task title font */
+    }
+
+    /* Adjust task description and details font size */
+    .task-description, .task-budget, .task-deadline {
+        font-size: 12px; /* Smaller font for task details */
+    }
+
+    /* Adjust back button */
+    .back-button {
+        padding: 6px 12px; /* Smaller padding for the button */
+    }
+}
+
 
     </style>
 </head>
