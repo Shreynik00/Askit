@@ -25,7 +25,9 @@ body {
     align-items: center;
     height: 100vh;
 }
-
+p
+{
+     color: #ffffff; /* White text */
 .center-image {
     width: 50%;
     height: auto;
