@@ -28,7 +28,7 @@ h1, h2 {
     text-align: center;
     transition: text-shadow 0.2s ease;
 }
-h3 {
+h3 ,h5{
    color: #ffffff; /* White text */
     text-shadow: 0px 0px 5px #00434c;
     text-align: center;
