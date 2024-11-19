@@ -24,7 +24,7 @@ body {
     padding: 30px;
     border-radius: 12px;
     background-color: #1c1c1c;
-    box-shadow: 0 6px 30px rgba(0, 255, 255, 0.4); /* Cyan shadow added */
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4); /* Cyan shadow added */
 }
 
 .offer-form-container h2 {
