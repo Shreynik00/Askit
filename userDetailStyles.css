@@ -49,19 +49,7 @@ h1 {
     padding: 20px;
 }
 
-.task-item {
-    background-color: #1e1e1e; /* Task item background */
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 25px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 8px 20px rgba(0, 172, 193, 0.4); /* Cyan box shadow */
-}
 
-.task-item:hover {
-    background-color: #272727; /* Darker shade on hover */
-    box-shadow: 0 10px 25px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
-}
 
 h3 {
     color: #00acc1; /* Cyan for task titles */
@@ -109,17 +97,6 @@ a:hover {
     text-decoration: underline; /* Underline links on hover */
 }
 
-/* Additional styling for the task display */
-.task-details {
-    font-size: 1.2em;
-    margin-top: 15px;
-    color: #e0f7fa; /* Cyan text */
-}
-
-.task-details p {
-    margin: 5px 0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     h1 {
@@ -138,9 +115,7 @@ a:hover {
         font-size: 1.2em;
     }
 
-    .task-item {
-        padding: 20px;
-    }
+
 
     h3 {
         font-size: 1.8em;
