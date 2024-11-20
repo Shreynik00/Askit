@@ -39,18 +39,19 @@ h2 {
     max-width: 450px; /* Increased max width for larger screens */
     width: 100%; /* Ensure it spans the max width on smaller screens */
     border-radius: 8px; /* Rounded corners */
-    background-color: #40e0d0; /* Brighter cyan background */
+    background-color: #40e0d0; /* Bright cyan background (hover color moved here) */
     color: #121212; /* Dark text */
     border: none; /* Remove border */
     cursor: pointer; /* Pointer cursor */
     transition: all 0.3s ease; /* Smooth hover effect */
-    box-shadow: 0px 4px 12px rgba(64, 224, 208, 0.6); /* Enhanced glow effect */
+    box-shadow: 0px 4px 12px rgba(64, 224, 208, 0.6); /* Brighter glow effect */
 }
 
-/* Optional hover effect for better interactivity */
+/* Darker normal state */
 #addTaskButton:hover {
-    background-color: #5fffd2; /* Even brighter cyan on hover */
-    box-shadow: 0px 6px 16px rgba(64, 224, 208, 0.8); /* Stronger glow effect */
+    background-color: #00acc1; /* Darker cyan on hover */
+    color: #ffffff; /* White text for better contrast */
+    box-shadow: 0px 4px 8px rgba(0, 172, 193, 0.5); /* Subtle glow effect */
 }
 
 #addTaskButton:hover {
