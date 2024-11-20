@@ -34,16 +34,23 @@ h2 {
 #addTaskButton {
     display: block; /* Make button a block element */
     margin: 20px auto; /* Center the button */
-    padding: 1em 2em; /* Responsive padding */
+    padding: 1em 3em; /* Responsive padding (wider button) */
     font-size: 1.6em; /* Larger font size */
-    max-width: 350px; /* Increased max width for larger screens */
+    max-width: 450px; /* Increased max width for larger screens */
+    width: 100%; /* Ensure it spans the max width on smaller screens */
     border-radius: 8px; /* Rounded corners */
-    background-color: #00acc1; /* Cyan background */
+    background-color: #40e0d0; /* Brighter cyan background */
     color: #121212; /* Dark text */
     border: none; /* Remove border */
     cursor: pointer; /* Pointer cursor */
     transition: all 0.3s ease; /* Smooth hover effect */
-    box-shadow: 0px 4px 8px rgba(0, 172, 193, 0.5); /* Subtle glow effect */
+    box-shadow: 0px 4px 12px rgba(64, 224, 208, 0.6); /* Enhanced glow effect */
+}
+
+/* Optional hover effect for better interactivity */
+#addTaskButton:hover {
+    background-color: #5fffd2; /* Even brighter cyan on hover */
+    box-shadow: 0px 6px 16px rgba(64, 224, 208, 0.8); /* Stronger glow effect */
 }
 
 #addTaskButton:hover {
