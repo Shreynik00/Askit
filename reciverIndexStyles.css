@@ -8,7 +8,7 @@ body, h1, h2, p, button {
 /* Body styles */
 body {
     background-color: #121212; /* Dark background */
-    color: #e0f7fa; /* Light cyan text color */
+    color: #00ffff; /* Light cyan text color */
     font-family: Arial, sans-serif; /* Font family */
     padding: 20px; /* Padding around the body */
 }
