@@ -16,7 +16,7 @@ header {
 
 header h1 {
     margin: 0;
-    color: #00acc1; /* Cyan heading */
+    color: #00ffff; /* Cyan heading */
     font-size: 28px;
     text-shadow: 0 1px 4px rgba(0, 172, 193, 0.6); /* Subtle glow */
 }
@@ -45,7 +45,7 @@ header h1 {
 }
 
 .task-item h3 {
-    color: #00acc1; /* Cyan for task title */
+    color: #00ffff; /* Cyan for task title */
     margin-bottom: 10px;
 }
 
