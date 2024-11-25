@@ -79,8 +79,8 @@
     <script>
         const form = document.getElementById('profileForm');
         const urlParams = new URLSearchParams(window.location.search);
-       // const username = urlParams.get('username'); // Extract username from the URL
-        const username = "pp";
+        const username = urlParams.get('username'); // Extract username from the URL
+        
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
