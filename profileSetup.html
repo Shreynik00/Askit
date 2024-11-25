@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Profile Setup</h1>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="about">Tell us about yourself</label>
+                <textarea id="about" name="about" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="qualification">Certified Qualification</label>
+                <input type="text" id="qualification" name="qualification" required />
+            </div>
+            <div class="form-group">
+                <label for="skills">Specific Skills</label>
+                <input type="text" id="skills" name="skills" required />
+            </div>
+            <div class="form-group">
+                <label for="languages">Languages</label>
+                <input type="text" id="languages" name="languages" required />
+            </div>
+            <div class="form-group">
+                <label for="transport">Your Transport</label>
+                <input type="text" id="transport" name="transport" required />
+            </div>
+            <button type="submit">Save Profile</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('profileForm');
+        const urlParams = new URLSearchParams(window.location.search);
+       // const username = urlParams.get('username'); // Extract username from the URL
+        const username = "pp";
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = {
+                username: username, // Include username from the URL
+                about: form.about.value,
+                qualification: form.qualification.value,
+                skills: form.skills.value,
+                languages: form.languages.value,
+                transport: form.transport.value,
+            };
+
+            try {
+                const response = await fetch('/api/user/profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Profile updated successfully!');
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to update profile.');
+            }
+        });
+    </script>
+</body>
+</html>
