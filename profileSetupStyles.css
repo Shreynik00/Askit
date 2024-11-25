@@ -1,0 +1,113 @@
+      /* Resetting some default styles */
+      body, h1, p, label, input, textarea, select, button {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Body styles */
+    body {
+        background-color: #121212;
+        color: #e0f7fa;
+        font-family: Arial, sans-serif;
+        padding: 2%;
+    }
+
+    /* Header styles */
+    h1 {
+        color: #00acc1;
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 2%;
+    }
+
+    /* Form container */
+    .form-container {
+        background-color: #1e1e1e;
+        border-radius: 5px;
+        padding: 5%;
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid #00acc1;
+        box-shadow: 0 0 10px rgba(0, 172, 193, 0.5);
+    }
+
+    /* Labels */
+    label {
+        display: block;
+        color: #00acc1;
+        margin-bottom: 8px;
+    }
+
+    /* Inputs, textarea, and select */
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 1.2em;
+        margin-bottom: 1em;
+        border: 1px solid #444;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        font-size: 1em;
+    }
+
+    textarea {
+        height: 8em;
+        resize: vertical;
+    }
+
+    /* Buttons */
+    button {
+        width: 100%;
+        padding: 1em;
+        font-size: 1.2em;
+        color: #fff;
+        background-color: #00acc1;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0px 2px 5px rgba(0, 172, 193, 0.3);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #00838f;
+        box-shadow: 0px 3px 6px rgba(0, 172, 193, 0.5);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+        }
+
+        .form-container {
+            padding: 4%;
+        }
+
+        input, textarea, select {
+            font-size: 0.9em;
+        }
+
+        button {
+            font-size: 1em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.8em;
+        }
+
+        .form-container {
+            padding: 3%;
+        }
+
+        input, textarea, select {
+            padding: 0.8em;
+        }
+
+        button {
+            padding: 0.8em;
+        }
+    }
