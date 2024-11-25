@@ -15,22 +15,12 @@
                 <label for="about">Tell us about yourself</label>
                 <textarea id="about" name="about" rows="4" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="qualification">Certified Qualification</label>
-                <input type="text" id="qualification" name="qualification" required />
-            </div>
+          
             <div class="form-group">
                 <label for="skills">Specific Skills</label>
                 <input type="text" id="skills" name="skills" required />
             </div>
-            <div class="form-group">
-                <label for="languages">Languages</label>
-                <input type="text" id="languages" name="languages" required />
-            </div>
-            <div class="form-group">
-                <label for="transport">Your Transport</label>
-                <input type="text" id="transport" name="transport" required />
-            </div>
+           
             <button type="submit">Save Profile</button>
         </form>
     </div>
@@ -47,10 +37,9 @@
             const formData = {
                 username: username, // Include username from the URL
                 about: form.about.value,
-                qualification: form.qualification.value,
+               
                 skills: form.skills.value,
-                languages: form.languages.value,
-                transport: form.transport.value,
+              
             };
 
             try {
