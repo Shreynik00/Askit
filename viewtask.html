@@ -18,7 +18,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-
             box-shadow: 0px 0px 10px cyan;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -44,6 +43,7 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             transition: left 0.3s ease;
             padding: 20px;
+            z-index: 1000;
         }
 
         #sidebar.open {
@@ -86,6 +86,7 @@
             align-items: center;
             cursor: pointer;
             font-size: 20px;
+            z-index: 1001;
         }
     </style>
 </head>
@@ -115,10 +116,20 @@
 
         document.getElementById('sidebarUsername').textContent = username || "User";
 
+        const sidebar = document.getElementById('sidebar');
+        const menuButton = document.getElementById('menuButton');
+
+        // Function to toggle sidebar visibility
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('open');
         }
+
+        // Close sidebar when clicking a button inside
+        sidebar.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                sidebar.classList.remove('open');
+            }
+        });
 
         function redirectToAddSkills() {
             if (username) {
