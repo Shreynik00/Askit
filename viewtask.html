@@ -4,31 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Tasks</title>
-    <link rel="stylesheet" href="viewtaskStyles.css">
     <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            position: relative;
+            padding: 10px;
+            background-color: #111;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        #taskList {
+            padding: 20px;
+        }
+
+        .task-item {
+            background-color: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item h3 {
+            margin: 0 0 10px;
+            font-size: 1.2em;
+        }
+
+        .task-item .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-item .usernam a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        /* Add Skills Button */
+        #addSkillsBtn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 10px 20px;
+            background-color: cyan;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px cyan;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #addSkillsBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px cyan;
+        }
+
         /* Sidebar styles */
         #sidebar {
             position: fixed;
             top: 0;
-            left: -250px; /* Fully inside the left border */
-            width: 250px; /* Shortened width */
+            left: -300px;
+            width: 150px;
             height: 100%;
             background-color: #111;
             color: white;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             transition: left 0.3s ease;
-            padding: 20px;
+            padding: 10px;
             z-index: 1000;
         }
 
         #sidebar.open {
-            left: 0; /* Slide out of the left border */
+            left: 0;
         }
 
         #sidebar h2 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-size: 1.2em;
-            margin-top: 50px; /* Push greeting down */
+            margin-top: 60px; /* Push greeting down */
         }
 
         #sidebar button {
@@ -65,29 +134,35 @@
             z-index: 1001;
         }
 
-        /* Add Skills button styles */
-        #addSkillsBtn {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            padding: 10px 20px;
-            background-color: cyan;
-            color: black;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0px 0px 10px cyan;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            #addSkillsBtn {
+                padding: 8px 16px; /* Smaller padding for mobile */
+                font-size: 0.9em;
+                top: 15px;
+                right: 10px;
+            }
 
-        #addSkillsBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 0px 20px cyan;
-        }
+            h1 {
+                font-size: 1.5em;
+            }
 
-        header {
-            position: relative;
+            #sidebar {
+                width: 200px; /* Reduce sidebar width for smaller screens */
+            }
+
+            .task-item h3 {
+                font-size: 1em;
+            }
+
+            .task-item {
+                padding: 10px;
+            }
+
+            .task-item .button-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
