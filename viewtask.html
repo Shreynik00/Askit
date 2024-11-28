@@ -4,58 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Tasks</title>
-     <link rel="stylesheet" href="viewtaskStyles.css">
     <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            position: relative;
-            padding: 10px;
-            background-color: #111;
-            color: white;
-            text-align: center;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 1.8em;
-        }
-
-        #taskList {
-            padding: 20px;
-        }
-
-        .task-item {
-            background-color: white;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .task-item h3 {
-            margin: 0 0 10px;
-            font-size: 1.2em;
-        }
-
-        .task-item .button-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .task-item .usernam a {
-            color: blue;
-            text-decoration: none;
-        }
-
-        /* Add Skills Button */
+        /* Old CSS for Add Skills button */
         #addSkillsBtn {
             position: absolute;
             right: 20px;
@@ -74,6 +24,10 @@
         #addSkillsBtn:hover {
             transform: scale(1.1);
             box-shadow: 0px 0px 20px cyan;
+        }
+
+        header {
+            position: relative; /* Allows absolute positioning of Add Skills button */
         }
 
         /* Sidebar styles */
@@ -135,34 +89,17 @@
             z-index: 1001;
         }
 
-        /* Responsive Styles */
+        /* Responsive styles for Add Skills button */
         @media (max-width: 768px) {
             #addSkillsBtn {
-                padding: 8px 16px; /* Smaller padding for mobile */
+                padding: 8px 16px;
                 font-size: 0.9em;
                 top: 15px;
                 right: 10px;
             }
 
-            h1 {
-                font-size: 1.5em;
-            }
-
             #sidebar {
-                width: 200px; /* Reduce sidebar width for smaller screens */
-            }
-
-            .task-item h3 {
-                font-size: 1em;
-            }
-
-            .task-item {
-                padding: 10px;
-            }
-
-            .task-item .button-group {
-                flex-direction: column;
-                align-items: flex-start;
+                width: 200px; /* Adjust sidebar width for smaller screens */
             }
         }
     </style>
@@ -239,7 +176,7 @@
                         new Date(task.deadline) >= new Date(currentDate) &&
                         (task.status !== "accepted" || !task.status)
                     )
-                    .map(task => `
+                    .map(task => ` 
                         <div class="task-item">
                             <h3>${task.title}</h3>
                             <p>Budget: ${task.budget}</p>
