@@ -1,10 +1,15 @@
 /* Resetting some default styles */
-body, h1, h2, p, button {
+body, h1, h2, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+p{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #121212;
+}
 /* Body styles */
 body {
     background-color: #121212; /* Dark background */
@@ -15,14 +20,15 @@ body {
 
 /* Heading styles */
 h1, h2 {
-    color: #00acc1; /* Cyan color for headings */
+    color: #02e2ff; /* Cyan color for headings */
     text-align: center; /* Center align headings */
-    text-shadow: 0px 1px 3px rgba(0, 172, 193, 0.5); /* Subtle glow effect */
+    text-shadow: 0px 1px 3px rgb(19, 194, 218); /* Subtle glow effect */
 }
 
 h1 {
     font-size: 2.8rem; /* Increased font size */
     margin-bottom: 20px; /* Space below h1 */
+      color:  #05acf9;
 }
 
 h2 {
