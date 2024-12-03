@@ -67,7 +67,7 @@ header h1 {
     flex: 1; /* Make buttons equal width */
     padding: 8px 10px;
     margin-right: 10px;
-    background-color: #40e0d0; /* Cyan background */
+  background-color: #00ffe5; /* Cyan background */
     color: #000000; /* White text */
     border: none;
     border-radius: 5px;
