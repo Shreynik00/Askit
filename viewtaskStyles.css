@@ -50,7 +50,8 @@ header h1 {
 }
 
 .task-item p {
-    color: #ffffff; /* White text for task details */
+
+    color: #101010; /* White text for task details */
     margin: 5px 0;
 }
 
