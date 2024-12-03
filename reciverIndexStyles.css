@@ -77,6 +77,8 @@ h2 {
     border: 1px solid #444444; /* Subtle border */
     border-radius: 8px; /* Rounded corners */
     padding: 20px; /* Increased padding inside the task */
+        
+ color: #ffffff;
     margin-bottom: 15px; /* Space between tasks */
     position: relative; /* For positioning the button */
 }
