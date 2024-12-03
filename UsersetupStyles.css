@@ -98,7 +98,7 @@ button {
 }
 
 button:hover {
-    background-color: #8df58db7;
+background-color: #00ff00b7;
     color: #000;
     box-shadow: 0px 0px 5px #90e990, 0px 0px 6px #a3f2a3;
     color: #222; /* Dark text on hover */
