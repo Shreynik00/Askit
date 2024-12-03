@@ -68,7 +68,7 @@ header h1 {
     padding: 8px 10px;
     margin-right: 10px;
     background-color: #40e0d0; /* Cyan background */
-    color: #ffffff; /* White text */
+    color: #000000; /* White text */
     border: none;
     border-radius: 5px;
     font-size: 14px;
