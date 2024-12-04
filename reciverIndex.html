@@ -41,12 +41,12 @@
             } else {
                 tasksContainer.innerHTML = tasks.map(task => `
                     <div class="task">
-                        <h2><p>Status:${taisk.status}</p></h2>
+                        <h2><p>Status: ${task.status}</p></h2>
                         <i>${task.title}</i>
-                        <p><strong>Detail:</strong> ${task.detail}</p>
+                        <p>Detail: ${task.detail}</p>
                         <p>Deadline: ${task.deadline}</p>
                         <p>Type: ${task.type}</p>
-                        <p>Mode: ${task.mode}</p>
+                        <p>Mode:${task.mode}</p>
                         <p>Budget: ${task.budget}</p>
                         <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
                         <br>
