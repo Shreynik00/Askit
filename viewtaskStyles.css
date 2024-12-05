@@ -103,7 +103,7 @@ header h1 {
 }
 
 .usernam a {
-    color: #cccccc; /* Light gray for clickable username */
+    color: #030000; /* Light gray for clickable username */
     text-decoration: underline; /* Underline for links */
 }
 
