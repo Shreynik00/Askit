@@ -5,8 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Receiver - Post Task</title>
     <link rel="stylesheet" href="reciverIndexStyles.css">
+    <style>
+        /* Sidebar styles */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 150px;
+            height: 100%;
+            background-color: #40aecd;
+            color: white;
+            box-shadow: 0px 5px 10px rgb(0, 213, 255);
+            transition: left 0.3s ease;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        #sidebar.open {
+            left: 0;
+        }
+
+        #sidebar h2 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            margin-top: 60px; /* Push greeting down */
+        }
+
+        #sidebar button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+        }
+
+        #sidebar button:hover {
+            background-color: #555;
+        }
+
+        #menuButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #111;
+            color: white;
+            border: none;
+            border-radius: 20%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1001;
+        }
+
+        /* Responsive styles for sidebar */
+        @media (max-width: 768px) { 
+            #sidebar {
+                width: 200px; /* Increase width for mobile */
+            }
+
+            #menuButton {
+                top: 10px;
+                left: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Sidebar and Menu Button -->
+    <button id="menuButton" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar">
+        <h2>Hello, <span id="sidebarUsername"></span></h2>
+        <button onclick="goToHome()">Home</button>
+        <button onclick="goToProfile()">My Profile</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Page content -->
     <div>
         <h2>Askit</h2>
         <button id="addTaskButton">Add a Task</button>
@@ -14,87 +96,112 @@
         <h4 align="center">Your Posted Tasks</h4>
         <div id="tasksContainer"></div>
     </div>
-   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username'); // Keep the username from URL
-    let userId = ''; // Assuming userId might be set elsewhere
 
-    // Redirect to post task page with username and userId
-    document.getElementById('addTaskButton').onclick = () => {
-        window.location.href = 'https://shreynik00.github.io/Askit/posttask.html?username=' + encodeURIComponent(username) + '&userId=' + encodeURIComponent(userId);
-    };
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username'); // Keep the username from URL
+        let userId = ''; // Assuming userId might be set elsewhere
 
-    // Fetch tasks for the logged-in user (tasks that the current user posted)
-    async function fetchUserTasks() {
-        try {
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
+        // Redirect to post task page with username and userId
+        document.getElementById('addTaskButton').onclick = () => {
+            window.location.href = 'https://shreynik00.github.io/Askit/posttask.html?username=' + encodeURIComponent(username) + '&userId=' + encodeURIComponent(userId);
+        };
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch tasks');
-            }
+        // Fetch tasks for the logged-in user (tasks that the current user posted)
+        async function fetchUserTasks() {
+            try {
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
 
-            const tasks = await response.json();
-            const tasksContainer = document.getElementById('tasksContainer');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tasks');
+                }
 
-            if (tasks.length === 0) {
-                tasksContainer.innerHTML = '<p>No tasks posted.</p>';
-            } else {
-                tasksContainer.innerHTML = tasks.map(task => `
-                    <div class="task">
-                        <h2><p>Status: ${task.status}</p></h2>
-                        <i>${task.title}</i>
-                        <p>Detail: ${task.detail}</p>
-                        <p>Deadline: ${task.deadline}</p>
-                        <p>Type: ${task.type}</p>
-                        <p>Mode:${task.mode}</p>
-                        <p>Budget: ${task.budget}</p>
-                        <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
-                        <br>
-                        <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                    </div>
-                `).join('');
+                const tasks = await response.json();
+                const tasksContainer = document.getElementById('tasksContainer');
 
-                // Add event listeners to "View Offers" buttons
-                document.querySelectorAll('.viewOffersButton').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const taskId = event.target.getAttribute('data-taskid');
-                        window.location.href = `https://shreynik00.github.io/Askit/viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+                if (tasks.length === 0) {
+                    tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+                } else {
+                    tasksContainer.innerHTML = tasks.map(task => `
+                        <div class="task">
+                            <h2><p>Status: ${task.status}</p></h2>
+                            <i>${task.title}</i>
+                            <br>
+                            <p>Detail: ${task.detail}</p>
+                            <p>Deadline: ${task.deadline}</p>
+                            <p>Type: ${task.type}</p>
+                            <p>Mode:${task.mode}</p>
+                            <p>Budget: ${task.budget}</p>
+                            <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
+                            <br>
+                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
+                        </div>
+                    `).join('');
+
+                    // Add event listeners to "View Offers" buttons
+                    document.querySelectorAll('.viewOffersButton').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const taskId = event.target.getAttribute('data-taskid');
+                            window.location.href = `https://shreynik00.github.io/Askit/viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+                        });
                     });
-                });
 
-                // Add event listeners to "Delete Task" buttons
-                document.querySelectorAll('.deleteTaskButton').forEach(button => {
-                    button.addEventListener('click', async (event) => {
-                        const taskId = event.target.getAttribute('data-taskid');
-                        try {
-                            const response = await fetch(`https://apiserveraskit-4.onrender.com/deleteTask`, {
-                                method: 'DELETE',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ taskId })
-                            });
-                            if (!response.ok) {
-                                throw new Error('Failed to delete task');
+                    // Add event listeners to "Delete Task" buttons
+                    document.querySelectorAll('.deleteTaskButton').forEach(button => {
+                        button.addEventListener('click', async (event) => {
+                            const taskId = event.target.getAttribute('data-taskid');
+                            try {
+                                const response = await fetch(`https://apiserveraskit-4.onrender.com/deleteTask`, {
+                                    method: 'DELETE',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ taskId })
+                                });
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete task');
+                                }
+                                
+                                fetchUserTasks(); // Refresh the task list
+                            } catch (error) {
+                                console.error('Error deleting task:', error);
+                                alert('Failed to delete task.');
                             }
-                            
-                            fetchUserTasks(); // Refresh the task list
-                        } catch (error) {
-                            console.error('Error deleting task:', error);
-                            alert('Failed to delete task.');
-                        }
+                        });
                     });
-                });
+                }
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+                const tasksContainer = document.getElementById('tasksContainer');
+                tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
             }
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-            const tasksContainer = document.getElementById('tasksContainer');
-            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
         }
-    }
 
-    fetchUserTasks(); // Fetch the tasks when the page loads
-</script>
+        fetchUserTasks(); // Fetch the tasks when the page loads
 
+        const sidebar = document.getElementById('sidebar');
 
+        // Function to toggle sidebar visibility
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+        }
 
+        document.getElementById('sidebarUsername').textContent = username || "User";
+
+        function goToHome() {
+            if (username) {
+                window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}`;
+            } else {
+                alert('Username not available.');
+            }
+        }
+
+        function goToProfile() {
+            alert('Redirecting to profile (not yet implemented).');
+        }
+
+        function logout() {
+            alert('Logging out (not yet implemented).');
+        }
+    </script>
 </body>
 </html>
+
