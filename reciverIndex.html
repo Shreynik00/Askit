@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="reciverIndexStyles.css">
 </head>
 <body>
+      <button id="menuButton" onclick="toggleSidebar()">☰</button>
+
+    <div id="sidebar">
+        <h2>Hello, <span id="sidebarUsername"></span></h2>
+        <button onclick="goToHome()">Home</button>
+        <button onclick="goToProfile()">My Profile</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
     <div>
         <h2>Askit</h2>
         <button id="addTaskButton">Add a Task</button>
@@ -18,6 +27,31 @@
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username'); // Keep the username from URL
     let userId = ''; // Assuming userId might be set elsewhere
+
+        document.getElementById('sidebarUsername').textContent = username || "User";
+
+        const sidebar = document.getElementById('sidebar');
+
+        // Function to toggle sidebar visibility
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+        }
+
+        function redirectToAddSkills() {
+            if (username) {
+                window.location.href = `https://shreynik00.github.io/Askit/profileSetup.html?username=${username}`;
+            } else {
+                alert('Username not available.');
+            }
+        }
+
+        function goToHome() {
+            if (username) {
+                window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}`;
+            } else {
+                alert('Username not available.');
+            }
+        }
 
     // Redirect to post task page with username and userId
     document.getElementById('addTaskButton').onclick = () => {
