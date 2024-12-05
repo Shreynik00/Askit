@@ -148,88 +148,87 @@
     <section id="taskList">
         <!-- Task list will be injected here -->
     </section>
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username');
+ <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
 
-    document.getElementById('sidebarUsername').textContent = username || "User";
+        document.getElementById('sidebarUsername').textContent = username || "User";
 
-    const sidebar = document.getElementById('sidebar');
+        const sidebar = document.getElementById('sidebar');
 
-    // Function to toggle sidebar visibility
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-    }
-    
-    function redirectToAcceptedOffers() {
+        // Function to toggle sidebar visibility
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+        }
+
+        function redirectToAddSkills() {
+            if (username) {
+                window.location.href = `https://shreynik00.github.io/Askit/profileSetup.html?username=${username}`;
+            } else {
+                alert('Username not available.');
+            }
+        }
+
+        function goToHome() {
+            if (username) {
+                window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}`;
+            } else {
+                alert('Username not available.');
+            }
+        }
+
+        function redirectToAcceptedOffers() {
         if (username) {
             window.location.href = `acceptedOffer.html?username=${username}`;
         } else {
             alert('Username not available.');
         }
     }
-
-    function redirectToAddSkills() {
-        if (username) {
-            window.location.href = `https://shreynik00.github.io/Askit/profileSetup.html?username=${username}`;
-        } else {
-            alert('Username not available.');
+        function goToProfile() {
+            alert('Redirecting to profile (not yet implemented).');
         }
-    }
 
-    function goToHome() {
-        if (username) {
-            window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}`;
-        } else {
-            alert('Username not available.');
+        function logout() {
+            alert('Logging out (not yet implemented).');
         }
-    }
 
-    function goToProfile() {
-        alert('Redirecting to profile (not yet implemented).');
-    }
+        async function fetchTasks() {
+            try {
+                const response = await fetch('https://apiserveraskit-4.onrender.com/tasks');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const tasks = await response.json();
+                const taskList = document.getElementById('taskList');
+                const currentDate = new Date().toISOString().split('T')[0];
 
-    function logout() {
-        alert('Logging out (not yet implemented).');
-    }
-
-    async function fetchTasks() {
-        try {
-            const response = await fetch('https://apiserveraskit-4.onrender.com/tasks');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const tasks = await response.json();
-            const taskList = document.getElementById('taskList');
-            const currentDate = new Date().toISOString().split('T')[0];
-
-            taskList.innerHTML = tasks
-                .filter(task => 
-                    new Date(task.deadline) >= new Date(currentDate) &&
-                    (task.status !== "accepted" || !task.status)
-                )
-                .map(task => `
-                    <div class="task-item">
-                        <h3>${task.title}</h3>
-                        <p>Budget: ${task.budget}</p>
-                        <p>Deadline: ${task.deadline}</p>
-                        <div class="button-group">
-                            <button onclick="viewTaskDetails('${task._id}')">View More</button>
-                            <p class="usernam">Posted by: <a href="https://shreynik00.github.io/Askit/user-details.html?username=${task.username}">${task.username}</a></p>
+                taskList.innerHTML = tasks
+                    .filter(task => 
+                        new Date(task.deadline) >= new Date(currentDate) &&
+                        (task.status !== "accepted" || !task.status)
+                    )
+                    .map(task => ` 
+                        <div class="task-item">
+                            <h3>${task.title}</h3>
+                            <p>Budget: ${task.budget}</p>
+                            <p>Deadline: ${task.deadline}</p>
+                            <div class="button-group">
+                                <button onclick="viewTaskDetails('${task._id}')">View More</button>
+                                <p class="usernam">Posted by: <a href="https://shreynik00.github.io/Askit/user-details.html?username=${task.username}"><p class="vv"${task.username}></a></p>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
+                    `).join('');
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
         }
-    }
 
-    function viewTaskDetails(taskId) {
-        window.location.href = `https://shreynik00.github.io/Askit/task-details.html?id=${taskId}&username=${username}`;
-    }
+        function viewTaskDetails(taskId) {
+            window.location.href = `https://shreynik00.github.io/Askit/task-details.html?id=${taskId}&username=${username}`;
+        }
 
-    fetchTasks();
-</script>
+        fetchTasks();
+    </script>
 
 </body>
 </html>
