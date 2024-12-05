@@ -32,7 +32,7 @@
                             <p><strong>Pitch:</strong> ${offer.pitch}</p>
                             <p><strong>Expected Fee :Rs</strong> ${offer.expectedfee}</p>
                             <button class="viewProfileButton" data-userid="${offer.userId}">View Profile</button>
-                            <button class="viewProfileButton" data-taskid="${taskId}" data-offerid="${offer._id}">Accept Offer</button>
+                            <button class="acceptOfferButton" data-taskid="${taskId}" data-offerid="${offer._id}" data-username="${offer.username}">Accept Offer</button>
                         </div>
                     `).join('');
 
@@ -50,16 +50,17 @@
                         button.addEventListener('click', async (event) => {
                             const taskId = event.target.getAttribute('data-taskid');
                             const offerId = event.target.getAttribute('data-offerid');
+                            const username = event.target.getAttribute('data-username');
                             try {
                                 const response = await fetch(`https://apiserveraskit-4.onrender.com/acceptOffer`, {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ taskId, offerId })
+                                    body: JSON.stringify({ taskId, offerId, username })
                                 });
                                 if (!response.ok) {
                                     throw new Error('Failed to accept offer');
-                                 }
-                             
+                                }
+                                alert('Offer accepted successfully!');
                             } catch (error) {
                                 console.error('Error accepting offer:', error);
                                 alert('Failed to accept offer.');
