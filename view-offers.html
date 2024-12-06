@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Offers</title>
     <link rel="stylesheet" href="viewOfferStyles.css">
-       <script src="baseUrl.js"></script>
     <style>
         .username-button {
             padding: 10px 20px;
@@ -45,7 +44,7 @@
             }
 
             try {
-                const response = await fetch(`${SERVER_URL}offers/${taskId}`); // Correct the URL
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/offers/${taskId}`); // Correct the URL
                 if (!response.ok) {
                     throw new Error('Failed to fetch offers');
                 }
@@ -72,7 +71,7 @@
 
         // Redirect to the user detail page
         function redirectToDetail(userId) {
-          window.location.href = `${BASE_URL}viewDetailToContact.html?username=${username}`;
+          window.location.href = `https://shreynik00.github.io/Askit/viewDetailToContact.html?username=${username}`;
 
         }
 
