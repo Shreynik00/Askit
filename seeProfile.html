@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View User Profile</title>
-   
+      <script src="baseUrl.js"></script>
 </head>
 <body>
     <h1>User Profile</h1>
@@ -23,7 +23,7 @@
 
         try {
             // Fetch the user profile data from the backend API
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/user/${userId}`); // Correct URL
+            const response = await fetch(`${SERVER_URL}user/${userId}`); // Correct URL
 
             // Check if the request was successful
             if (!response.ok) {
