@@ -29,33 +29,50 @@
 <script>
     window.onload = function() {
         // Clear form values on page load
-        document.getElementById('loginUsername').value = '';
-        document.getElementById('loginPassword').value = '';
+        const usernameField = document.getElementById('loginUsername');
+        const passwordField = document.getElementById('loginPassword');
+
+        if (usernameField && passwordField) {
+            usernameField.value = '';
+            passwordField.value = '';
+        }
     };
 
     // Login
     document.getElementById('loginForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
+        
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
 
         // Clear any previous messages
         document.getElementById('loginMessage').textContent = '';
 
+        // Validate input
+        if (!username || !password) {
+            document.getElementById('loginMessage').textContent = 'Both fields are required.';
+            return;
+        }
+
         try {
             // Send the login request to your backend server
-            const response = await fetch(`${SERVER_URL}login`, {  // Use your actual backend URL
+            const response = await fetch(`${SERVER_URL}login`, { // Use your actual backend URL
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
             });
 
-            // Check if response is ok and content type is JSON
+            // Check if response is ok
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data = await response.json();  // Parse response as JSON
+            let data;
+            try {
+                data = await response.json(); // Parse response as JSON
+            } catch {
+                throw new Error('Invalid JSON response from server');
+            }
 
             // Display login message in HTML
             if (data.message === 'Login successful') {
@@ -63,10 +80,9 @@
                 document.getElementById('loginPassword').value = '';
 
                 // Redirect to role selection page
-                window.location.href = `${SERVER_URL}role-selection.html?username=${username}&email=${data.email}`;
-
+                window.location.href = `${SERVER_URL}role-selection.html?username=${username}&email=${encodeURIComponent(data.email)}`;
             } else {
-                document.getElementById('loginMessage').textContent = data.message;
+                document.getElementById('loginMessage').textContent = data.message || 'Login failed.';
             }
         } catch (error) {
             document.getElementById('loginMessage').textContent = 'There was an error: ' + error.message;
@@ -74,6 +90,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>
