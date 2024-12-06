@@ -44,7 +44,7 @@
 
         try {
             // Send the login request to your backend server
-            const response = await fetch('${SERVER_URL}login', {  // Use your actual backend URL
+            const response = await fetch(`${SERVER_URL}login`, {  // Use your actual backend URL
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
