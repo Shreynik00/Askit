@@ -85,10 +85,9 @@ i{
     background-color: #1e1e1e; /* Darker background for tasks */
     border: 1px solid #444444; /* Subtle border */
     border-radius: 8px; /* Rounded corners */
-       
-        
-                    box-shadow: 0 3px 8px rgba(0, 172, 193, 0.2); /* Reduced cyan glow */
     border: 2px solid #00acc1; /* Cyan border */
+     box-shadow: 1px 3px 8px rgba(0, 172, 193, 0.2); /* Reduced cyan glow */
+
         
     padding: 20px; /* Increased padding inside the task */
         
