@@ -74,6 +74,8 @@ i{
 /* Task container styles */
 #tasksContainer {
     margin-top: 20px; /* Space above tasks */
+        box-shadow: 0 2px 6px rgba(0, 172, 193, 0.2); /* Reduced cyan glow */
+    border: 1.5px solid #00acc1; /* Cyan border */
 }
 
 /* Individual task styles */
