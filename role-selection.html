@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Your Role</title>
     <link rel="stylesheet" href="role-selectionStyles.css">
+       <script src="baseUrl.js"></script>
     <style>
         /* Simple styling for the continue button */
         #continueButton {
@@ -72,9 +73,9 @@
         // Function to redirect to the next page based on selected role
         function continueToNextPage() {
             if (document.getElementById('serviceProvider').checked) {
-                window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${username}&role=provider`;
+                window.location.href = `${BASE_URL}viewtask.html?username=${username}&role=provider`;
             } else if (document.getElementById('serviceReceiver').checked) {
-                window.location.href = `https://shreynik00.github.io/Askit/reciverIndex.html?username=${username}&role=receiver`;
+                window.location.href = `${BASE_URL}reciverIndex.html?username=${username}&role=receiver`;
             }
         }
     </script>
