@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Askit</title>
     <link rel="stylesheet" href="UsersetupStyles.css">
+       <script src="baseUrl.js"></script>
 </head>
 <body>
     <div>
@@ -62,7 +63,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
         document.getElementById('confirmPassword').value = '';
 
         // Redirect to index.html with username and email as URL parameters
-        window.location.href = `https://shreynik00.github.io/Askit/index.html?username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}`;
+        window.location.href = `${BASE_URL}index.html?username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}`;
     }
 });
 </script>
