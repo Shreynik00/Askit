@@ -108,13 +108,13 @@
 
         // Redirect to post task page with username and userId
         document.getElementById('addTaskButton').onclick = () => {
-            window.location.href = '${BASE_URL}posttask.html?username=' + encodeURIComponent(username) + '&userId=' + encodeURIComponent(userId);
+            window.location.href = 'https://shreynik00.github.io/Askit/posttask.html?username=' + encodeURIComponent(username) + '&userId=' + encodeURIComponent(userId);
         };
 
         // Fetch tasks for the logged-in user (tasks that the current user posted)
         async function fetchUserTasks() {
             try {
-                const response = await fetch(`${SERVER_URL}reciverIndex/tasks?username=${encodeURIComponent(username)}`);
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
 
                 if (!response.ok) {
                     throw new Error('Failed to fetch tasks');
@@ -146,7 +146,7 @@
                     document.querySelectorAll('.viewOffersButton').forEach(button => {
                         button.addEventListener('click', (event) => {
                             const taskId = event.target.getAttribute('data-taskid');
-                            window.location.href = `${BASE_URL}viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+                            window.location.href = `https://shreynik00.github.io/Askit/viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
                         });
                     });
 
@@ -155,7 +155,7 @@
                         button.addEventListener('click', async (event) => {
                             const taskId = event.target.getAttribute('data-taskid');
                             try {
-                                const response = await fetch(`${SERVER_URL}deleteTask`, {
+                                const response = await fetch(`https://apiserveraskit-4.onrender.com/deleteTask`, {
                                     method: 'DELETE',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ taskId })
@@ -192,7 +192,7 @@
 
         function goToHome() {
             if (username) {
-                window.location.href = '${BASE_URL}role-selection.html?username=${username}`;
+                window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}`;
             } else {
                 alert('Username not available.');
             }
@@ -208,4 +208,3 @@
     </script>
 </body>
 </html>
-
