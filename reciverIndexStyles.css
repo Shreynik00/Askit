@@ -74,11 +74,14 @@ i{
 /* Task container styles */
 #tasksContainer {
     margin-top: 20px; /* Space above tasks */
+   
 
 }
 
 /* Individual task styles */
 .task {
+            box-shadow: 0 2px 6px rgba(0, 172, 193, 0.2); /* Reduced cyan glow */
+    border: 1.5px solid #00acc1; /* Cyan border */
     background-color: #1e1e1e; /* Darker background for tasks */
     border: 1px solid #444444; /* Subtle border */
     border-radius: 8px; /* Rounded corners */
