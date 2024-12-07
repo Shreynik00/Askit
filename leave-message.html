@@ -26,7 +26,7 @@
 <script>
     // Parse URL to extract sender and receiver usernames
     const urlParams = new URLSearchParams(window.location.search);
-    const sender = urlParams.get('sender'); // Current user (logged-in)
+    const currentUser = urlParams.get('sender'); // Current user (logged-in)
     const receiver = urlParams.get('reciver'); // Chat target (task owner)
 
     // Display receiver's username
@@ -41,17 +41,16 @@
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
 
-    // Join the unique room for sender and receiver
-    const roomId = [sender, receiver].sort().join('-');
-    socket.emit('joinRoom', { sender, receiver });
-
-    // Fetch previous messages when joining the room
-    fetch(`/chat/${sender}/${receiver}`)
+    // Fetch messages from the database
+    fetch(`/messages?currentUser=${currentUser}&receiver=${receiver}`)
         .then((response) => response.json())
         .then((messages) => {
-            // Add each previous message to the chat box
+            // Sort messages by timestamp
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            
+            // Display messages in the chat box
             messages.forEach((message) => {
-                addMessageToChat(message.sender, message.message, false); // Append previous messages
+                addMessageToChat(message.sender, message.message, message.timestamp);
             });
         });
 
@@ -59,48 +58,51 @@
     messageForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const message = messageInput.value.trim();
-        if (!message) return; // Do nothing if the input is empty
+        const messageContent = messageInput.value.trim();
+        if (!messageContent) return; // Do nothing if the input is empty
 
-        // Send message data to server
         const messageData = {
-            sender,
+            sender: currentUser,
             receiver,
-            message
+            message: messageContent,
+            timestamp: new Date().toISOString()
         };
+
+        // Emit the message to the server
         socket.emit('chatMessage', messageData);
 
-        // Add the message to the chat box (local display)
-        addMessageToChat('You', message, true); // Append current message
+        // Add the new message to the chat box
+        addMessageToChat('You', messageContent, messageData.timestamp);
         messageInput.value = ''; // Clear the input field
     });
 
-    // Listen for incoming messages
+    // Listen for new incoming messages
     socket.on('newMessage', (messageData) => {
-        const { sender: messageSender, message } = messageData;
+        const { sender: messageSender, receiver: messageReceiver, message, timestamp } = messageData;
 
-        // Display the message if it is not sent by the current user
-        if (messageSender !== sender) {
-            addMessageToChat(messageSender, message, true); // Append new incoming messages
+        // Display the message if it is relevant to the current user
+        if (messageSender === currentUser || messageReceiver === currentUser) {
+            addMessageToChat(messageSender, message, timestamp);
         }
     });
 
-    // Add message to chat box
-    function addMessageToChat(senderName, messageContent, isNewMessage) {
+    // Function to add a message to the chat box
+    function addMessageToChat(senderName, messageContent, timestamp) {
         const messageElement = document.createElement('div');
+        const timeElement = document.createElement('small');
+        
         messageElement.textContent = `${senderName}: ${messageContent}`;
         messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
 
-        if (isNewMessage) {
-            chatBox.appendChild(messageElement); // Append current/new messages to the end
-        } else {
-            chatBox.prepend(messageElement); // Prepend previous messages to the beginning
-        }
+        timeElement.textContent = new Date(timestamp).toLocaleString();
+        timeElement.className = 'timestamp';
+        
+        messageElement.appendChild(timeElement);
+        chatBox.appendChild(messageElement);
 
         // Auto-scroll to the latest message
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 </script>
-
 </body>
 </html>
