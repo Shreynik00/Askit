@@ -141,7 +141,7 @@
     button.addEventListener('click', async (event) => {
         const taskId = event.target.getAttribute('data-taskid'); // Task ID might not be used on server
         try {
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/chatProvider`, {
+            const response = await fetch(`https://apiserveraskit-4.onrender.com/chatredirector`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username }) // Ensure this username exists in the database
