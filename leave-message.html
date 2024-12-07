@@ -22,6 +22,7 @@
             <button type="submit">Send</button>
         </form>
     </div>
+
 <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
 <script>
     // Parse URL to extract sender and receiver usernames
@@ -41,20 +42,21 @@
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
 
-    // Fetch messages from the database
-    fetch(`/messages?currentUser=${currentUser}&receiver=${receiver}`)
+    // Fetch previous messages from the database (API call)
+    fetch(`/chat/${currentUser}/${receiver}`)
         .then((response) => response.json())
         .then((messages) => {
             // Sort messages by timestamp
             messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            
+
             // Display messages in the chat box
             messages.forEach((message) => {
                 addMessageToChat(message.sender, message.message, message.timestamp);
             });
-        });
+        })
+        .catch((error) => console.error('Error fetching previous messages:', error));
 
-    // Send message on form submission
+    // Send new message on form submission
     messageForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
