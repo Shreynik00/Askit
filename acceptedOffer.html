@@ -126,7 +126,7 @@ h1 {
     // Function to handle the redirection to the chat page
     function redirectToChat(taskUsername, taskProviderName) {
         // Redirect to leave-message.html with taskUsername and taskProvider as parameters
-        window.location.href = `leave-message.html?username=${encodeURIComponent(taskUsername)}&TaskProvider=${encodeURIComponent(taskProviderName)}`;
+        window.location.href = `leave-message.html?reciver=${encodeURIComponent(taskUsername)}&sender=${encodeURIComponent(taskProviderName)}`;
     }
 
     fetchAcceptedOffers();
