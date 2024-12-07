@@ -144,7 +144,7 @@
                             const response = await fetch(`https://apiserveraskit-4.onrender.com/chatProvider`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ currentUser: username })
+                                body: JSON.stringify({ username : username })
                             });
 
                             const { TaskProvider } = await response.json();
