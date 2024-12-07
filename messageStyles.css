@@ -1,5 +1,4 @@
 /* Global styles */
-/* Global styles */
 body {
     background-color: #121212; /* Dark background */
     color: #e0f7fa; /* Light cyan text */
@@ -10,6 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
 .container {
@@ -18,11 +18,13 @@ body {
     background-color: #1e1e1e; /* Slightly darker container background */
     border-radius: 10px;
     padding: 20px;
-    height: 63%;
+    height: 80%; /* Adjusted height for a better chat view */
     box-shadow: 0 8px 10px rgba(0, 172, 193, 0.4); /* Cyan shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* Title for the receiver */
 h2 {
     text-align: left;
     font-size: 1.4rem;
@@ -32,59 +34,85 @@ h2 {
     text-shadow: 0 2px 5px rgba(0, 172, 193, 0.6); /* Cyan text glow */
 }
 
-/* Box for input fields */
-.input-box {
-    margin-bottom: 15px;
+/* Chat Box */
+#chat-box {
+    flex-grow: 1;
+    overflow-y: auto; /* Scrollable chat area */
+    margin-bottom: 20px;
     padding: 10px;
-    background-color: #2a2a2a; /* Slightly lighter input box background */
+    background-color: #2a2a2a; /* Slightly lighter background */
     border-radius: 5px;
-    box-shadow: 0 4px 5px rgba(0, 172, 193, 0.2); /* Subtle shadow for input box */
+    box-shadow: 0 2px 6px rgba(0, 172, 193, 0.3);
 }
 
-/* Input fields */
-input[type="text"],
-textarea {
-    width: 100%;
+.message {
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.sender {
+    background-color: #00acc1; /* Cyan for sender's messages */
+    color: #121212; /* Dark text for contrast */
+    align-self: flex-end; /* Right-align sender's messages */
+}
+
+.receiver {
+    background-color: #333333; /* Darker for receiver's messages */
+    color: #e0f7fa; /* Light text for contrast */
+    align-self: flex-start; /* Left-align receiver's messages */
+}
+
+.timestamp {
+    font-size: 0.8rem;
+    color: #b3e5fc;
+    display: block;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Box for input fields */
+.input-box {
+    display: flex;
+    margin-bottom: 15px;
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0, 172, 193, 0.2);
+}
+
+input[type="text"] {
+    width: 90%; /* Occupy most of the space */
     padding: 10px;
     margin: 0;
     background-color: transparent;
-    color: #e0f7fa; /* Cyan text */
+    color: #e0f7fa;
     border: none;
     outline: none;
     font-size: 1rem;
+    border-radius: 5px;
 }
 
-/* Change textarea font family */
-textarea {
-    resize: none; /* Prevent resizing of textarea */
-    font-family: 'Courier New', monospace;
-}
-
-/* Placeholder styles */
-input[type="text"]::placeholder,
-textarea::placeholder {
-    color: #b3e5fc; /* Lighter cyan for placeholders */
-}
-
-/* Submit button */
 button {
-    width: 100%;
-    padding: 12px;
-    background-color: #00acc1; /* Cyan background */
-    color: #000; /* Black text for buttons */
+    width: 10%; /* Smaller button */
+    padding: 10px;
+    background-color: #00acc1;
+    color: #000;
     border: none;
     border-radius: 5px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4); /* Cyan button shadow */
+    box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4);
 }
 
 button:hover {
-    background-color: #00838f; /* Darker cyan on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-    box-shadow: 0 5px 10px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
+    background-color: #00838f;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 172, 193, 0.6);
 }
 
 /* Responsive layout */
