@@ -95,25 +95,28 @@ input[type="text"] {
     border-radius: 5px;
 }
 
+
+/* Submit button */
 button {
-    width: 10%; /* Smaller button */
-    padding: 15px;
-    background-color: #00acc1;
-    color: #000;
+    width: 100%; /* Make the button occupy full width of its container */
+    padding: 12px; /* Uniform padding on all sides */
+    background-color: #00acc1; /* Cyan background */
+    color: #000; /* Black text for buttons */
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
-
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4);
+    box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4); /* Cyan button shadow */
 }
 
 button:hover {
-    background-color: #00838f;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 172, 193, 0.6);
+    background-color: #00838f; /* Darker cyan on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 5px 10px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
 }
+
 
 /* Responsive layout */
 @media screen and (min-width: 768px) {
