@@ -123,6 +123,11 @@ button:hover {
     bottom: 15px; /* Align to the bottom */
 }
 
+.chatButton {
+    position: absolute; /* Position absolutely within the task */
+    right: 15px; /* Align to the right */
+    bottom: 15px; /* Align to the bottom */
+}
 /* Display username styles */
 #usernameDisplay {
     font-size: 1.4em; /* Larger font for username */
