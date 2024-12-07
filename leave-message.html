@@ -49,8 +49,9 @@
     fetch(`/chat/${sender}/${receiver}`)
         .then((response) => response.json())
         .then((messages) => {
+            // Add each previous message to the chat box
             messages.forEach((message) => {
-                addMessageToChat(message.sender, message.message);
+                addMessageToChat(message.sender, message.message, false); // Append previous messages
             });
         });
 
@@ -70,7 +71,7 @@
         socket.emit('chatMessage', messageData);
 
         // Add the message to the chat box (local display)
-        addMessageToChat('You', message);
+        addMessageToChat('You', message, true); // Append current message
         messageInput.value = ''; // Clear the input field
     });
 
@@ -80,16 +81,21 @@
 
         // Display the message if it is not sent by the current user
         if (messageSender !== sender) {
-            addMessageToChat(messageSender, message);
+            addMessageToChat(messageSender, message, true); // Append new incoming messages
         }
     });
 
     // Add message to chat box
-    function addMessageToChat(senderName, messageContent) {
+    function addMessageToChat(senderName, messageContent, isNewMessage) {
         const messageElement = document.createElement('div');
         messageElement.textContent = `${senderName}: ${messageContent}`;
         messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
-        chatBox.appendChild(messageElement);
+
+        if (isNewMessage) {
+            chatBox.appendChild(messageElement); // Append current/new messages to the end
+        } else {
+            chatBox.prepend(messageElement); // Prepend previous messages to the beginning
+        }
 
         // Auto-scroll to the latest message
         chatBox.scrollTop = chatBox.scrollHeight;
