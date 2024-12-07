@@ -103,7 +103,7 @@
         messageElement.textContent = `${senderName}: ${messageContent}`;
         messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
 
-        timeElement.textContent = new Date(timestamp).toLocaleString();
+       // timeElement.textContent = new Date(timestamp).toLocaleString();
         timeElement.className = 'timestamp';
         
         messageElement.appendChild(timeElement);
