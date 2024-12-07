@@ -93,37 +93,39 @@
             window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
         };
 
-      async function fetchUserTasks() {
-    try {
-        const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
-        if (!response.ok) throw new Error('Failed to fetch tasks');
+        async function fetchUserTasks() {
+            try {
+                const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
+                if (!response.ok) throw new Error('Failed to fetch tasks');
 
-        const tasks = await response.json();
-        const tasksContainer = document.getElementById('tasksContainer');
-
-        if (tasks.length === 0) {
-            tasksContainer.innerHTML = '<p>No tasks posted.</p>';
-        } else {
-            tasksContainer.innerHTML = tasks.map(task => {
-                const isAccepted = task.status === 'Accepted'; // Ensure condition is evaluated correctly
-                return `
-                    <div class="task">
-                        <h2><p>Status: ${task.status}</p></h2>
-                        <i>${task.title}</i>
-                        <br>
-                        <p><b>Detail:</b> ${task.detail}</p>
-                        <p><b>Deadline:</b> ${task.deadline}</p>
-                        <p><b>Type: </b>${task.type}</p>
-                        <p><b>Mode:</b>${task.mode}</p>
-                        <p><b>Budget:</b> ${task.budget}</p>
-                        ${isAccepted 
-                            ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
-                            : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
-                        <br>
-                        <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                    </div>
-                `;
-            }).join('');
+                const tasks = await response.json();
+                const tasksContainer = document.getElementById('tasksContainer');
+                if (tasks.length === 0) {
+                    tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+                } else {
+                    tasksContainer.innerHTML = tasks.map(task => `
+                        <div class="task">
+                            <h2><p>Status: ${task.status}</p></h2>
+                            <i>${task.title}</i>
+                            <br>
+                            <p><b>Detail:</b> ${task.detail}</p>
+                            <p><b>Deadline:</b> ${task.deadline}</p>
+                            <p><b>Type: </b>${task.type}</p>
+                            <p><b>Mode:</b>${task.mode}</p>
+                            <p><b>Budget:</b> ${task.budget}</p>
+                            if(task.status === 'Accepted')
+                            {
+                            
+                                <button class="chatButton" data-taskid="${task._id}">Chat</button>
+                                }
+                                else
+                                
+                                <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
+                                }}
+                            <br>
+                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
+                        </div>
+                    `).join('');
 
                     document.querySelectorAll('.viewOffersButton').forEach(button => {
                         button.addEventListener('click', (event) => {
