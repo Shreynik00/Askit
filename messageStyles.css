@@ -45,10 +45,12 @@ h1 {
 /* Timestamp styling */
 .timestamp {
     display: block;
-    font-size: 0.75rem;
-    color: #bbb;
-    text-align: right;
+    font-size: 0.75rem; /* Smaller font size */
+    color: #bbb; /* Light gray color for the timestamp */
+    text-align: right; /* Align the timestamp to the right */
+    margin-top: 5px; /* Space between the message and the timestamp */
 }
+
 
 /* Input fields */
 input[type="text"],
