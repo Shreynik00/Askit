@@ -22,75 +22,79 @@
             <button type="submit">Send</button>
         </form>
     </div>
+<script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
+<script>
+    // Parse URL to extract sender and receiver usernames
+    const urlParams = new URLSearchParams(window.location.search);
+    const sender = urlParams.get('sender'); // Current user (logged-in)
+    const receiver = urlParams.get('receiver'); // Chat target (task owner)
 
-    <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
-    <script>
-        // Parse URL to extract sender and receiver usernames
-        const urlParams = new URLSearchParams(window.location.search);
-        const sender = urlParams.get('sender'); // Current user (logged-in)
-        const receiver = urlParams.get('reciver'); // Chat target (task owner)
+    // Display receiver's username
+    const recipientDisplay = document.getElementById('recipientDisplay');
+    recipientDisplay.innerHTML = `Chatting with: ${receiver}`;
 
-        // Display receiver's username
-        const recipientDisplay = document.getElementById('recipientDisplay');
-        recipientDisplay.innerHTML = `Chatting with: ${receiver}`;
+    // Socket.IO connection
+    const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
 
-        // Socket.IO connection
-        const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
+    // DOM Elements
+    const chatBox = document.getElementById('chat-box');
+    const messageInput = document.getElementById('message-input');
+    const messageForm = document.getElementById('messageForm');
 
-        // DOM Elements
-        const chatBox = document.getElementById('chat-box');
-        const messageInput = document.getElementById('message-input');
-        const messageForm = document.getElementById('messageForm');
+    // Join the unique room for sender and receiver
+    const roomId = [sender, receiver].sort().join('-');
+    socket.emit('joinRoom', { sender, receiver });
 
-        // Join room unique to sender and receiver
-        const roomId = `${sender}-${receiver}`;
-        socket.emit('joinRoom', roomId);
-
-        // Fetch previous messages when joining the room
-        socket.emit('getMessages', roomId);  // Emit a request to get past messages
-
-        // Display previous messages when received
-        socket.on('previousMessages', (messages) => {
-            messages.forEach(message => {
+    // Fetch previous messages when joining the room
+    fetch(`/chat/${sender}/${receiver}`)
+        .then((response) => response.json())
+        .then((messages) => {
+            messages.forEach((message) => {
                 addMessageToChat(message.sender, message.message);
             });
         });
 
-        // Send message on form submission
-        messageForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+    // Send message on form submission
+    messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-            const message = messageInput.value.trim();
-            if (!message) return; // Do nothing if the input is empty
+        const message = messageInput.value.trim();
+        if (!message) return; // Do nothing if the input is empty
 
-            // Send message data to server
-            const messageData = {
-                sender,
-                receiver,
-                message
-            };
-            socket.emit('chatMessage', messageData);
+        // Send message data to server
+        const messageData = {
+            sender,
+            receiver,
+            message
+        };
+        socket.emit('chatMessage', messageData);
 
-            // Add the message to the chat box (local display)
-            addMessageToChat('You', message);
-            messageInput.value = ''; // Clear the input field
-        });
+        // Add the message to the chat box (local display)
+        addMessageToChat('You', message);
+        messageInput.value = ''; // Clear the input field
+    });
 
-        // Listen for incoming messages
-        socket.on('newMessage', (messageData) => {
-            addMessageToChat(messageData.sender, messageData.message);
-        });
+    // Listen for incoming messages
+    socket.on('newMessage', (messageData) => {
+        const { sender: messageSender, message } = messageData;
 
-        // Add message to chat box
-        function addMessageToChat(senderName, messageContent) {
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${senderName}: ${messageContent}`;
-            messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
-            chatBox.appendChild(messageElement);
-
-            // Auto-scroll to the latest message
-            chatBox.scrollTop = chatBox.scrollHeight;
+        // Display the message if it is not sent by the current user
+        if (messageSender !== sender) {
+            addMessageToChat(messageSender, message);
         }
-    </script>
+    });
+
+    // Add message to chat box
+    function addMessageToChat(senderName, messageContent) {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = `${senderName}: ${messageContent}`;
+        messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
+        chatBox.appendChild(messageElement);
+
+        // Auto-scroll to the latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+
 </body>
 </html>
