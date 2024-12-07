@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <!-- Display recipient's username -->
-        <div id="recipientDisplay"></div>
+        <!-- Display recipient's username as a heading -->
+        <h1 id="recipientDisplay">Chatting with: <span id="receiverName"></span></h1>
 
         <!-- Chat Box -->
         <div id="chat-box"></div>
@@ -32,7 +32,8 @@
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
-    recipientDisplay.innerHTML = `Chatting with: ${receiver}`;
+    const receiverName = document.getElementById('receiverName');
+    receiverName.textContent = receiver; // Set receiver name in heading
 
     // Socket.IO connection
     const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
