@@ -83,7 +83,7 @@
         <h4 align="center">Your Posted Tasks</h4>
         <div id="tasksContainer"></div>
     </div>
-<script>
+    <script>
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username'); // Current username
     let userId = ''; // Assuming userId might be set elsewhere
@@ -103,23 +103,32 @@
             if (tasks.length === 0) {
                 tasksContainer.innerHTML = '<p>No tasks posted.</p>';
             } else {
-                tasksContainer.innerHTML = tasks.map(task => `
-                    <div class="task">
-                        <h2><p>Status: ${task.status}</p></h2>
-                        <i>${task.title}</i>
-                        <br>
-                        <p><b>Detail:</b> ${task.detail}</p>
-                        <p><b>Deadline:</b> ${task.deadline}</p>
-                        <p><b>Type: </b>${task.type}</p>
-                        <p><b>Mode:</b>${task.mode}</p>
-                        <p><b>Budget:</b> ${task.budget}</p>
-                        ${task.status === 'Accepted'
-                            ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>`
-                            : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
-                        <br>
-                        <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                    </div>
-                `).join('');
+                tasksContainer.innerHTML = tasks.map(task => {
+                    let actionButton = '';
+
+                    // Using if-else for conditional button rendering
+                    if (task.status === 'Accepted') {
+                        actionButton = `<button class="chatButton" data-taskid="${task._id}">Chat</button>`;
+                    } else {
+                        actionButton = `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`;
+                    }
+
+                    return `
+                        <div class="task">
+                            <h2><p>Status: ${task.status}</p></h2>
+                            <i>${task.title}</i>
+                            <br>
+                            <p><b>Detail:</b> ${task.detail}</p>
+                            <p><b>Deadline:</b> ${task.deadline}</p>
+                            <p><b>Type: </b>${task.type}</p>
+                            <p><b>Mode:</b>${task.mode}</p>
+                            <p><b>Budget:</b> ${task.budget}</p>
+                            ${actionButton}
+                            <br>
+                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
+                        </div>
+                    `;
+                }).join('');
 
                 document.querySelectorAll('.viewOffersButton').forEach(button => {
                     button.addEventListener('click', (event) => {
@@ -193,6 +202,7 @@
         alert('Logging out (not yet implemented).');
     }
 </script>
+
 
 </body>
 </html>
