@@ -97,13 +97,13 @@ input[type="text"] {
 
 button {
     width: 10%; /* Smaller button */
-    padding: 10px;
+    padding: 15px;
     background-color: #00acc1;
     color: #000;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
-    font-weight: bold;
+
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4);
