@@ -113,14 +113,13 @@
                             <p><b>Type: </b>${task.type}</p>
                             <p><b>Mode:</b>${task.mode}</p>
                             <p><b>Budget:</b> ${task.budget}</p>
+                             task.status === 'Accepted
                             if(task.status === 'Accepted')
                             {
-                            
-                                <button class="chatButton" data-taskid="${task._id}">Chat</button>
-                                }
+                                  <button class="chatButton" data-taskid="${task._id}">Chat</button>
+                             }
                                 else
-                                
-                                <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
+                               <button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
                                 }}
                             <br>
                             <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
