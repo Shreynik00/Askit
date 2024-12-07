@@ -9,96 +9,56 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
 }
 
+/* Container for the chat */
 .container {
     width: 80%;
     max-width: 500px;
     background-color: #1e1e1e; /* Slightly darker container background */
     border-radius: 10px;
     padding: 20px;
-    height: 80%; /* Adjusted height for a better chat view */
+    height: 63%;
     box-shadow: 0 8px 10px rgba(0, 172, 193, 0.4); /* Cyan shadow */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-h2 {
-    text-align: left;
-    font-size: 1.4rem;
+/* Title for the receiver (Centered) */
+h1 {
+    text-align: center;
+    font-size: 2rem; /* Larger font size */
     margin-bottom: 15px;
     color: #00acc1; /* Cyan title */
     padding-left: 5px;
     text-shadow: 0 2px 5px rgba(0, 172, 193, 0.6); /* Cyan text glow */
 }
 
-/* Chat Box */
-#chat-box {
-    flex-grow: 1;
-    overflow-y: auto; /* Scrollable chat area */
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #2a2a2a; /* Slightly lighter background */
-    border-radius: 5px;
-    box-shadow: 0 2px 6px rgba(0, 172, 193, 0.3);
-}
-
-.message {
-    margin-bottom: 15px;
-    padding: 8px 12px;
-    border-radius: 10px;
-    max-width: 80%;
-    word-wrap: break-word;
-}
-
-.sender {
-    background-color: #00acc1; /* Cyan for sender's messages */
-    color: #121212; /* Dark text for contrast */
-    align-self: flex-end; /* Right-align sender's messages */
-}
-
-.receiver {
-    background-color: #333333; /* Darker for receiver's messages */
-    color: #e0f7fa; /* Light text for contrast */
-    align-self: flex-start; /* Left-align receiver's messages */
-}
-
-.timestamp {
-    font-size: 0.8rem;
-    color: #b3e5fc;
-    display: block;
-    margin-top: 5px;
-    text-align: right;
-}
-
 /* Box for input fields */
 .input-box {
-    display: flex;
     margin-bottom: 15px;
-    background-color: #2a2a2a;
     padding: 10px;
+    background-color: #2a2a2a; /* Slightly lighter input box background */
     border-radius: 5px;
-    box-shadow: 0 4px 5px rgba(0, 172, 193, 0.2);
+    box-shadow: 0 4px 5px rgba(0, 172, 193, 0.2); /* Subtle shadow for input box */
 }
 
-input[type="text"] {
-    width: 90%; /* Occupy most of the space */
+/* Input fields */
+input[type="text"],
+textarea {
+    width: 100%;
     padding: 10px;
     margin: 0;
     background-color: transparent;
-    color: #e0f7fa;
+    color: #e0f7fa; /* Cyan text */
     border: none;
     outline: none;
     font-size: 1rem;
-    border-radius: 5px;
 }
-
 
 /* Submit button */
 button {
-    width: 100%; /* Make the button occupy full width of its container */
+    width: 100%;
     padding: 12px; /* Uniform padding on all sides */
     background-color: #00acc1; /* Cyan background */
     color: #000; /* Black text for buttons */
@@ -117,6 +77,15 @@ button:hover {
     box-shadow: 0 5px 10px rgba(0, 172, 193, 0.6); /* Brighter shadow on hover */
 }
 
+/* Chat Box */
+#chat-box {
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+}
 
 /* Responsive layout */
 @media screen and (min-width: 768px) {
@@ -124,8 +93,8 @@ button:hover {
         width: 70%;
     }
 
-    h2 {
-        font-size: 1.6rem;
+    h1 {
+        font-size: 2.2rem;
     }
 }
 
