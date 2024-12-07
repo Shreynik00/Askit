@@ -44,7 +44,12 @@
 
     // Fetch previous messages from the database (API call)
     fetch(`/chat/${currentUser}/${receiver}`)
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then((messages) => {
             // Sort messages by timestamp
             messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -54,7 +59,9 @@
                 addMessageToChat(message.sender, message.message, message.timestamp);
             });
         })
-        .catch((error) => console.error('Error fetching previous messages:', error));
+        .catch((error) => {
+            console.error('Error fetching previous messages:', error);
+        });
 
     // Send new message on form submission
     messageForm.addEventListener('submit', (event) => {
@@ -67,13 +74,13 @@
             sender: currentUser,
             receiver,
             message: messageContent,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString() // Generate ISO string for timestamp
         };
 
-        // Emit the message to the server
+        // Emit the message to the server via Socket.IO
         socket.emit('chatMessage', messageData);
 
-        // Add the new message to the chat box
+        // Add the new message to the chat box for the current user
         addMessageToChat('You', messageContent, messageData.timestamp);
         messageInput.value = ''; // Clear the input field
     });
