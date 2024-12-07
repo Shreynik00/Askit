@@ -43,7 +43,7 @@
     const messageForm = document.getElementById('messageForm');
 
     // Fetch previous messages from the database (API call)
-    fetch(`/chat/${currentUser}/${receiver}`)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
