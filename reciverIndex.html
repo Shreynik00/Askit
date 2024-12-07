@@ -128,24 +128,43 @@
                         });
                     });
 
-                    document.querySelectorAll('.chatButton').forEach(button => {
-                        button.addEventListener('click', async (event) => {
-                            const taskId = event.target.getAttribute('data-taskid');
-                            try {
-                                const response = await fetch(`https://apiserveraskit-4.onrender.com/chatProvider`, {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ taskId, currentUser: username })
-                                });
+                document.querySelectorAll('.chatButton').forEach(button => {
+    button.addEventListener('click', async (event) => {
+        const taskId = event.target.getAttribute('data-taskid');
+        const username = "your-username"; // Replace with actual username if dynamically set
 
-                                const { TaskProvider } = await response.json();
-                                window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(TaskProvider)}`;
-                            } catch (error) {
-                                console.error('Error redirecting to chat:', error);
-                                alert('Failed to redirect to chat.');
-                            }
-                        });
-                    });
+        if (!taskId || !username) {
+            alert("Task ID or Username is missing!");
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://apiserveraskit-4.onrender.com/chatProvider`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ taskId, currentUser: username })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Server Error:", errorData.message);
+                throw new Error(errorData.message || "Failed to fetch TaskProvider.");
+            }
+
+            const { TaskProvider } = await response.json();
+            if (TaskProvider) {
+                // Redirect to the chat page
+                window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(TaskProvider)}`;
+            } else {
+                alert("No Task Provider found for this task.");
+            }
+        } catch (error) {
+            console.error('Error redirecting to chat:', error);
+            alert('Failed to redirect to chat.');
+        }
+    });
+});
+
 
                     document.querySelectorAll('.deleteTaskButton').forEach(button => {
                         button.addEventListener('click', async (event) => {
