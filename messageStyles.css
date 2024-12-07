@@ -87,6 +87,31 @@ button:hover {
     border-radius: 5px;
 }
 
+/* Message style */
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.sender {
+    background-color: #4caf50; /* Green for sender */
+    text-align: left;
+}
+
+.receiver {
+    background-color: #00acc1; /* Cyan for receiver */
+    text-align: right;
+}
+
+/* Timestamp styling */
+.timestamp {
+    display: block;
+    font-size: 0.75rem;
+    color: #bbb;
+    text-align: right;
+}
+
 /* Responsive layout */
 @media screen and (min-width: 768px) {
     .container {
