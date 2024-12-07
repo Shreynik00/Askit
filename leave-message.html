@@ -104,7 +104,9 @@
         messageElement.textContent = `${senderName}: ${messageContent}`;
         messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
 
-       // timeElement.textContent = new Date(timestamp).toLocaleString();
+        // Format the timestamp to display the time
+        const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        timeElement.textContent = formattedTime;
         timeElement.className = 'timestamp';
         
         messageElement.appendChild(timeElement);
