@@ -83,116 +83,111 @@
         <h4 align="center">Your Posted Tasks</h4>
         <div id="tasksContainer"></div>
     </div>
-
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username'); // Current username
-        let userId = ''; // Assuming userId might be set elsewhere
-        let reciver='';
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username'); // Current username
+    let userId = ''; // Assuming userId might be set elsewhere
+    let reciver = ''; // Global variable to store receiver value
 
-        document.getElementById('addTaskButton').onclick = () => {
-            window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
-        };
+    document.getElementById('addTaskButton').onclick = () => {
+        window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
+    };
 
-        async function fetchUserTasks() {
-    try {
-        const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
-        if (!response.ok) throw new Error('Failed to fetch tasks');
+    async function fetchUserTasks() {
+        try {
+            const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
+            if (!response.ok) throw new Error('Failed to fetch tasks');
 
-        const tasks = await response.json();
-        const tasksContainer = document.getElementById('tasksContainer');
-        if (tasks.length === 0) {
-            tasksContainer.innerHTML = '<p>No tasks posted.</p>';
-        } else {
-            tasksContainer.innerHTML = tasks.map(task => {
-                // Storing task title in a variable
-                 reciver = task.TaskProvider; // Store the task title here
+            const tasks = await response.json();
+            const tasksContainer = document.getElementById('tasksContainer');
+            if (tasks.length === 0) {
+                tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+            } else {
+                tasksContainer.innerHTML = tasks.map(task => {
+                    // Store the TaskProvider value
+                    reciver = task.TaskProvider;
 
-                return `
-                    <div class="task">
-                        <h2><p>Status: ${task.status}</p></h2>
-                        <i>${task.title}</i> <!-- Displaying task title here -->
-                        <br>
-                        <p><b>Detail:</b> ${task.detail}</p>
-                        <p><b>Deadline:</b> ${task.deadline}</p>
-                        <p><b>Type: </b>${task.type}</p>
-                        <p><b>Mode:</b>${task.mode}</p>
-                        <p><b>Budget:</b> ${task.budget}</p>
-                        ${task.status === 'accepted' 
-                            ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
-                            : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
-                        <br>
-                        <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                    </div>
-                `;
-            }).join('');
+                    return `
+                        <div class="task">
+                            <h2><p>Status: ${task.status}</p></h2>
+                            <i>${task.title}</i> <!-- Displaying task title here -->
+                            <br>
+                            <p><b>Detail:</b> ${task.detail}</p>
+                            <p><b>Deadline:</b> ${task.deadline}</p>
+                            <p><b>Type: </b>${task.type}</p>
+                            <p><b>Mode:</b>${task.mode}</p>
+                            <p><b>Budget:</b> ${task.budget}</p>
+                            ${task.status === 'accepted' 
+                                ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
+                                : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
+                            <br>
+                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
+                        </div>
+                    `;
+                }).join('');
 
-                    document.querySelectorAll('.viewOffersButton').forEach(button => {
-                        button.addEventListener('click', (event) => {
-                            const taskId = event.target.getAttribute('data-taskid');
-                            window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
-                        });
+                // Event listener for 'View Offers' buttons
+                document.querySelectorAll('.viewOffersButton').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const taskId = event.target.getAttribute('data-taskid');
+                        window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
                     });
+                });
 
+                // Event listener for 'Chat' buttons
                 document.querySelectorAll('.chatButton').forEach(button => {
-    button.addEventListener('click', async (event) => {
-      
-                window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}`;
-            } 
+                    button.addEventListener('click', async (event) => {
+                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}`;
+                    });
+                });
+
+                // Event listener for 'Delete Task' buttons
+                document.querySelectorAll('.deleteTaskButton').forEach(button => {
+                    button.addEventListener('click', async (event) => {
+                        const taskId = event.target.getAttribute('data-taskid');
+                        try {
+                            const response = await fetch('https://apiserveraskit-4.onrender.com/deleteTask', {
+                                method: 'DELETE',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ taskId })
+                            });
+                            if (!response.ok) throw new Error('Failed to delete task');
+                            fetchUserTasks(); // Refresh task list
+                        } catch (error) {
+                            console.error('Error deleting task:', error);
+                            alert('Failed to delete task.');
+                        }
+                    });
+                });
             }
         } catch (error) {
-            console.error('Error redirecting to chat:', error);
-            alert('Failed to redirect to chat.');
+            console.error('Error fetching tasks:', error);
+            const tasksContainer = document.getElementById('tasksContainer');
+            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
         }
-    });
-});
+    }
 
+    fetchUserTasks();
 
-                    document.querySelectorAll('.deleteTaskButton').forEach(button => {
-                        button.addEventListener('click', async (event) => {
-                            const taskId = event.target.getAttribute('data-taskid');
-                            try {
-                                const response = await fetch('https://apiserveraskit-4.onrender.com/deleteTask', {
-                                    method: 'DELETE',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ taskId })
-                                });
-                                if (!response.ok) throw new Error('Failed to delete task');
-                                fetchUserTasks(); // Refresh task list
-                            } catch (error) {
-                                console.error('Error deleting task:', error);
-                                alert('Failed to delete task.');
-                            }
-                        });
-                    });
-                }
-            } catch (error) {
-                console.error('Error fetching tasks:', error);
-                const tasksContainer = document.getElementById('tasksContainer');
-                tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
-            }
-        }
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+    }
 
-        fetchUserTasks();
+    document.getElementById('sidebarUsername').textContent = username || "User";
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
+    function goToHome() {
+        window.location.href = `role-selection.html?username=${username}`;
+    }
 
-        document.getElementById('sidebarUsername').textContent = username || "User";
+    function goToProfile() {
+        alert('Redirecting to profile (not yet implemented).');
+    }
 
-        function goToHome() {
-            window.location.href = `role-selection.html?username=${username}`;
-        }
+    function logout() {
+        alert('Logging out (not yet implemented).');
+    }
+</script>
 
-        function goToProfile() {
-            alert('Redirecting to profile (not yet implemented).');
-        }
-
-        function logout() {
-            alert('Logging out (not yet implemented).');
-        }
-    </script>
 </body>
 </html>
