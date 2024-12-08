@@ -27,8 +27,8 @@
 <script>
     // Parse URL to extract sender and receiver usernames
     const urlParams = new URLSearchParams(window.location.search);
-    const currentUser = urlParams.get('sender'); // Current user (logged-in)
-    const receiver = urlParams.get('reciver'); // Chat target (task owner)
+    const currentUser = urlParams.get('reciver'); // Current user (logged-in)
+    const receiver = urlParams.get('sender'); // Chat target (task owner)
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
