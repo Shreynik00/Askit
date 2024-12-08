@@ -64,6 +64,27 @@
             console.error('Error fetching previous messages:', error);
         });
 
+      fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then((messages) => {
+            // Sort messages by timestamp
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+            // Display messages in the chat box
+            messages.forEach((message) => {
+                addMessageToChat(message.sender, message.message, message.timestamp);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching previous messages:', error);
+        });
+
+
        // Fetch previous messages from the database (API call)
     fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
         .then((response) => {
