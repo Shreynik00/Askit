@@ -65,7 +65,7 @@
         });
 
        // Fetch previous messages from the database (API call)
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${reciever}/${currentUser}`)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
