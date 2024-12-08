@@ -88,7 +88,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username'); // Current username
         let userId = ''; // Assuming userId might be set elsewhere
-        let title='';
+        let reciver='';
 
         document.getElementById('addTaskButton').onclick = () => {
             window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
@@ -106,12 +106,12 @@
         } else {
             tasksContainer.innerHTML = tasks.map(task => {
                 // Storing task title in a variable
-                 title = task.title; // Store the task title here
+                 reciver = task.TaskProvider; // Store the task title here
 
                 return `
                     <div class="task">
                         <h2><p>Status: ${task.status}</p></h2>
-                        <i>${title}</i> <!-- Displaying task title here -->
+                        <i>${task.title}</i> <!-- Displaying task title here -->
                         <br>
                         <p><b>Detail:</b> ${task.detail}</p>
                         <p><b>Deadline:</b> ${task.deadline}</p>
@@ -160,7 +160,7 @@
             const { TaskProvider } = await response.json();
             if (TaskProvider) {
                 // Redirect to the chat page
-                window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(TaskProvider)}`;
+                window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}`;
             } else {
                 alert("No Task Provider found for this task.");
             }
