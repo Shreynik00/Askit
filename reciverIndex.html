@@ -94,32 +94,37 @@
         };
 
         async function fetchUserTasks() {
-            try {
-                const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
-                if (!response.ok) throw new Error('Failed to fetch tasks');
+    try {
+        const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
+        if (!response.ok) throw new Error('Failed to fetch tasks');
 
-                const tasks = await response.json();
-                const tasksContainer = document.getElementById('tasksContainer');
-                if (tasks.length === 0) {
-                    tasksContainer.innerHTML = '<p>No tasks posted.</p>';
-                } else {
-                    tasksContainer.innerHTML = tasks.map(task => `
-                        <div class="task">
-                            <h2><p>Status: ${task.status}</p></h2>
-                            <i>${task.title}</i>
-                            <br>
-                            <p><b>Detail:</b> ${task.detail}</p>
-                            <p><b>Deadline:</b> ${task.deadline}</p>
-                            <p><b>Type: </b>${task.type}</p>
-                            <p><b>Mode:</b>${task.mode}</p>
-                            <p><b>Budget:</b> ${task.budget}</p>
-                            ${task.status === 'accepted' 
-                                ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
-                                : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
-                            <br>
-                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                        </div>
-                    `).join('');
+        const tasks = await response.json();
+        const tasksContainer = document.getElementById('tasksContainer');
+        if (tasks.length === 0) {
+            tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+        } else {
+            tasksContainer.innerHTML = tasks.map(task => {
+                // Storing task title in a variable
+                const title = task.title; // Store the task title here
+
+                return `
+                    <div class="task">
+                        <h2><p>Status: ${task.status}</p></h2>
+                        <i>${taskTitle}</i> <!-- Displaying task title here -->
+                        <br>
+                        <p><b>Detail:</b> ${task.detail}</p>
+                        <p><b>Deadline:</b> ${task.deadline}</p>
+                        <p><b>Type: </b>${task.type}</p>
+                        <p><b>Mode:</b>${task.mode}</p>
+                        <p><b>Budget:</b> ${task.budget}</p>
+                        ${task.status === 'accepted' 
+                            ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
+                            : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
+                        <br>
+                        <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
+                    </div>
+                `;
+            }).join('');
 
                     document.querySelectorAll('.viewOffersButton').forEach(button => {
                         button.addEventListener('click', (event) => {
@@ -142,7 +147,7 @@
             const response = await fetch(`https://apiserveraskit-4.onrender.com/chatProvider`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ taskId, currentUser: username })
+                body: JSON.stringify({ title, currentUser: username })
             });
 
             if (!response.ok) {
