@@ -99,7 +99,7 @@
 
             // Display messages in the chat box
             messages.forEach((message) => {
-                addMessageToChat(message.sender, message.message, message.timestamp);
+                addMessageToChat(message.reciver, message.message, message.timestamp);
             });
         })
         .catch((error) => {
