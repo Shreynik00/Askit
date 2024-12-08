@@ -88,6 +88,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username'); // Current username
         let userId = ''; // Assuming userId might be set elsewhere
+        let title='';
 
         document.getElementById('addTaskButton').onclick = () => {
             window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
@@ -105,7 +106,7 @@
         } else {
             tasksContainer.innerHTML = tasks.map(task => {
                 // Storing task title in a variable
-                const title = task.title; // Store the task title here
+                 title = task.title; // Store the task title here
 
                 return `
                     <div class="task">
