@@ -232,6 +232,14 @@
                             </div>
                         </div>
                     `).join('');
+
+                 function redirectToAcceptedOffers() {
+        if (username) {
+            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&taskid=${taskId}`;
+        } else {
+            alert('Username not available.');
+        }
+    }
             } catch (error) {
                 console.error('Error fetching tasks:', error);
             }
@@ -240,13 +248,7 @@
         function viewTaskDetails(taskId) {
             window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}`;
         }
-         function redirectToAcceptedOffers() {
-        if (username) {
-            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&taskid=${taskId}`;
-        } else {
-            alert('Username not available.');
-        }
-    }
+        
 
         fetchTasks();
     </script>
