@@ -23,101 +23,142 @@
         </form>
     </div>
 
-    <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
-    <script>
-        // Parse URL to extract sender and receiver usernames
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentUser = urlParams.get('receiver'); // Current user (logged-in)
-        const receiver = urlParams.get('sender'); // Chat target (task owner)
+<script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
+<script>
+    // Parse URL to extract sender and receiver usernames
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentUser = urlParams.get('receiver'); // Current user (logged-in)
+    const receiver = urlParams.get('sender'); // Chat target (task owner)
 
-        // Display receiver's username
-        const recipientDisplay = document.getElementById('recipientDisplay');
-        const receiverName = document.getElementById('receiverName');
-        receiverName.textContent = receiver; // Set receiver name in heading
+    // Display receiver's username
+    const recipientDisplay = document.getElementById('recipientDisplay');
+    const receiverName = document.getElementById('receiverName');
+    receiverName.textContent = receiver; // Set receiver name in heading
 
-        // Socket.IO connection
-        const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
+    // Socket.IO connection
+    const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
 
-        // DOM Elements
-        const chatBox = document.getElementById('chat-box');
-        const messageInput = document.getElementById('message-input');
-        const messageForm = document.getElementById('messageForm');
+    // DOM Elements
+    const chatBox = document.getElementById('chat-box');
+    const messageInput = document.getElementById('message-input');
+    const messageForm = document.getElementById('messageForm');
 
-        // Fetch and display chat history
-        fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
-                }
-                return response.json();
-            })
-            .then((messages) => {
-                // Sort messages by timestamp
-                messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-                // Display messages in the chat box
-                messages.forEach((message) => {
-                    addMessageToChat(message.sender, message.message, message.timestamp);
-                });
-            })
-            .catch((error) => {
-                console.error('Error fetching chat history:', error);
-            });
-
-        // Send new message on form submission
-        messageForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const messageContent = messageInput.value.trim();
-            if (!messageContent) return; // Do nothing if the input is empty
-
-            const messageData = {
-                sender: currentUser,
-                receiver,
-                message: messageContent,
-                timestamp: new Date().toISOString() // Generate ISO string for timestamp
-            };
-
-            // Emit the message to the server via Socket.IO
-            socket.emit('chatMessage', messageData);
-
-            // Add the new message to the chat box for the current user
-            addMessageToChat('You', messageContent, messageData.timestamp);
-            messageInput.value = ''; // Clear the input field
-        });
-
-        // Listen for new incoming messages
-        socket.on('newMessage', (messageData) => {
-            const { sender, receiver: messageReceiver, message, timestamp } = messageData;
-
-            // Display the message if it is relevant to the current chat
-            if (
-                (sender === currentUser && messageReceiver === receiver) ||
-                (sender === receiver && messageReceiver === currentUser)
-            ) {
-                addMessageToChat(sender, message, timestamp);
+    // Fetch previous messages from the database (API call)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
             }
+            return response.json();
+        })
+        .then((messages) => {
+            // Sort messages by timestamp
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+            // Display messages in the chat box
+            messages.forEach((message) => {
+                addMessageToChat(message.sender, message.message, message.timestamp);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching previous messages:', error);
         });
 
-        // Function to add a message to the chat box
-        function addMessageToChat(senderName, messageContent, timestamp) {
-            const messageElement = document.createElement('div');
-            const timeElement = document.createElement('small');
+      fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then((messages) => {
+            // Sort messages by timestamp
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-            messageElement.textContent = `${senderName}: ${messageContent}`;
-            messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
+            // Display messages in the chat box
+            messages.forEach((message) => {
+                addMessageToChat(message.sender, message.message, message.timestamp);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching previous messages:', error);
+        });
 
-            // Format the timestamp to display the time
-            const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            timeElement.textContent = formattedTime;
-            timeElement.className = 'timestamp';
 
-            messageElement.appendChild(timeElement);
-            chatBox.appendChild(messageElement);
+       // Fetch previous messages from the database (API call)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then((messages) => {
+            // Sort messages by timestamp
+            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-            // Auto-scroll to the latest message
-            chatBox.scrollTop = chatBox.scrollHeight;
+            // Display messages in the chat box
+            messages.forEach((message) => {
+                addMessageToChat(message.receiver, message.message, message.timestamp);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching previous messages:', error);
+        });
+
+    
+
+    // Send new message on form submission
+    messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const messageContent = messageInput.value.trim();
+        if (!messageContent) return; // Do nothing if the input is empty
+
+        const messageData = {
+            sender: currentUser,
+            receiver,
+            message: messageContent,
+            timestamp: new Date().toISOString() // Generate ISO string for timestamp
+        };
+
+        // Emit the message to the server via Socket.IO
+        socket.emit('chatMessage', messageData);
+
+        // Add the new message to the chat box for the current user
+        addMessageToChat('You', messageContent, messageData.timestamp);
+        messageInput.value = ''; // Clear the input field
+    });
+
+    // Listen for new incoming messages
+    socket.on('newMessage', (messageData) => {
+        const { sender: messageSender, receiver: messageReceiver, message, timestamp } = messageData;
+
+        // Display the message if it is relevant to the current user
+        if (messageSender === currentUser || messageReceiver === currentUser) {
+            addMessageToChat(messageSender, message, timestamp);
         }
-    </script>
+    });
+
+    // Function to add a message to the chat box
+    function addMessageToChat(senderName, messageContent, timestamp) {
+        const messageElement = document.createElement('div');
+        const timeElement = document.createElement('small');
+        
+        messageElement.textContent = `${senderName}: ${messageContent}`;
+        messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
+
+        // Format the timestamp to display the time
+        const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        timeElement.textContent = formattedTime;
+        timeElement.className = 'timestamp';
+        
+        messageElement.appendChild(timeElement);
+        chatBox.appendChild(messageElement);
+
+        // Auto-scroll to the latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
 </body>
 </html>
