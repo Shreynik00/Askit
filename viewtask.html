@@ -168,6 +168,7 @@
  <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
+       var taskId;
 
         document.getElementById('sidebarUsername').textContent = username || "User";
 
@@ -194,7 +195,13 @@
             }
         }
 
-    
+        function redirectToAcceptedOffers() {
+        if (username) {
+            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}`;
+        } else {
+            alert('Username not available.');
+        }
+    }
         function goToProfile() {
             alert('Redirecting to profile (not yet implemented).');
         }
@@ -214,8 +221,7 @@
                 const tasks = await response.json();
                 const taskList = document.getElementById('taskList');
                 const currentDate = new Date().toISOString().split('T')[0];
-              const  taskId=task._id;
-
+                taskId=task._id;
                 taskList.innerHTML = tasks
                     .filter(task => 
                         new Date(task.deadline) >= new Date(currentDate) &&
@@ -232,8 +238,6 @@
                             </div>
                         </div>
                     `).join('');
-
-               
             } catch (error) {
                 console.error('Error fetching tasks:', error);
             }
@@ -242,14 +246,7 @@
         function viewTaskDetails(taskId) {
             window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}`;
         }
-        
-  function redirectToAcceptedOffers() {
-        if (username) {
-            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&taskid=${taskId}`;
-        } else {
-            alert('Username not available.');
-        }
-    }
+
         fetchTasks();
     </script>
 
