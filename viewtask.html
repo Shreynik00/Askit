@@ -195,13 +195,6 @@
             }
         }
 
-        function redirectToAcceptedOffers() {
-        if (username) {
-            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}`;
-        } else {
-            alert('Username not available.');
-        }
-    }
         function goToProfile() {
             alert('Redirecting to profile (not yet implemented).');
         }
@@ -221,7 +214,7 @@
                 const tasks = await response.json();
                 const taskList = document.getElementById('taskList');
                 const currentDate = new Date().toISOString().split('T')[0];
-                taskId=task._id;
+                taskId=tasks._id;
                 taskList.innerHTML = tasks
                     .filter(task => 
                         new Date(task.deadline) >= new Date(currentDate) &&
@@ -246,6 +239,15 @@
         function viewTaskDetails(taskId) {
             window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}`;
         }
+
+     
+        function redirectToAcceptedOffers() {
+        if (username) {
+            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&id=${taskId}`;
+        } else {
+            alert('Username not available.');
+        }
+    }
 
         fetchTasks();
     </script>
