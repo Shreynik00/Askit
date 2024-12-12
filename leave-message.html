@@ -29,7 +29,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('sender'); // Current user (logged-in)
     const receiver = urlParams.get('reciver'); // Chat target (task owner)
-     const takId = urlParams.get('id'); // Chat target (task owner)
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
@@ -45,7 +44,7 @@
     const messageForm = document.getElementById('messageForm');
 
     // Fetch previous messages from the database (API call)
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
