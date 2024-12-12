@@ -166,6 +166,7 @@
         <!-- Task list will be injected here -->
     </section>
  <script>
+     
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
 
@@ -194,13 +195,7 @@
             }
         }
 
-        function redirectToAcceptedOffers() {
-        if (username) {
-            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&taskid=${taskId}`;
-        } else {
-            alert('Username not available.');
-        }
-    }
+    
         function goToProfile() {
             alert('Redirecting to profile (not yet implemented).');
         }
@@ -245,6 +240,13 @@
         function viewTaskDetails(taskId) {
             window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}`;
         }
+         function redirectToAcceptedOffers() {
+        if (username) {
+            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&taskid=${taskId}`;
+        } else {
+            alert('Username not available.');
+        }
+    }
 
         fetchTasks();
     </script>
