@@ -29,7 +29,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('sender'); // Current user (logged-in)
     const receiver = urlParams.get('reciver'); // Chat target (task owner)
-     const taskId = urlParams.get('id'); // Chat target (task owner)
+     const takId = urlParams.get('id'); // Chat target (task owner)
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
@@ -76,7 +76,6 @@
             sender: currentUser,
             receiver,
             message: messageContent,
-               taskid = taskId,
             timestamp: new Date().toISOString() // Generate ISO string for timestamp
         };
 
@@ -90,7 +89,7 @@
 
     // Listen for new incoming messages
     socket.on('newMessage', (messageData) => {
-        const { sender: messageSender, receiver: messageReceiver, message, timestamp,taskid } = messageData;
+        const { sender: messageSender, receiver: messageReceiver, message, timestamp } = messageData;
 
         // Display the message if it is relevant to the current user
         if (messageSender === currentUser || messageReceiver === currentUser) {
