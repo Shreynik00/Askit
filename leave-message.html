@@ -58,8 +58,16 @@
 
             // Display messages in the chat box
             messages.forEach((message) => {
+                if(message.sender == currentUser)
+                {
+                    isSentByCurrentUser = currentUser;
+                }
+                else
+                {
+                    isSentByCurrentUser = message.receiver;
+                }
                 const isSentByCurrentUser = message.sender === currentUser;
-                const displayName = isSentByCurrentUser ? 'You' : message.receiver;
+               const displayName = isSentByCurrentUser ;
                 addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
             });
         })
