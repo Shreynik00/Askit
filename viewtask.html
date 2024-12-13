@@ -149,7 +149,7 @@
     <header>
         <h1>View Tasks</h1>
         <button id="addSkillsBtn" onclick="redirectToAddSkills()">Add Skills</button>
-       
+         <button id="acceptedOffersBtn" onclick="redirectToAcceptedOffers()">Accepted Offers</button>
         <div id="usernameDisplay"></div>
     </header>
 
@@ -228,7 +228,6 @@
                             <div class="button-group">
                                 <button onclick="viewTaskDetails('${task._id}')"><i>View More</i></button>
                                 <p class="usernam">Posted by: <a href="${BASE_URL}user-details.html?username=${task.username}"> <i>${task.username}</i></a></p>
-                                  <button id="acceptedOffersBtn" onclick="redirectToAcceptedOffers('${task._id}')">Accepted Offers</button>
                             </div>
                         </div>
                     `).join('');
@@ -242,7 +241,7 @@
         }
 
      
-        function redirectToAcceptedOffers(taskId) {
+        function redirectToAcceptedOffers() {
         if (username) {
             window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&id=${taskId}`;
         } else {
