@@ -88,6 +88,7 @@
     const username = urlParams.get('username'); // Current username
     let userId = ''; // Assuming userId might be set elsewhere
     let reciver = ''; // Global variable to store receiver value
+        let taskId = '' ;
 
     document.getElementById('addTaskButton').onclick = () => {
         window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
@@ -106,6 +107,7 @@
                 tasksContainer.innerHTML = tasks.map(task => {
                     // Store the TaskProvider value
                     reciver = task.TaskProvider;
+                    taskId = task._id;
 
                     return `
                         <div class="task">
@@ -137,7 +139,7 @@
                 // Event listener for 'Chat' buttons
                 document.querySelectorAll('.chatButton').forEach(button => {
                     button.addEventListener('click', async (event) => {
-                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}`;
+                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}&id=${encodeURIComponent(taskId)}`;
                     });
                 });
 
