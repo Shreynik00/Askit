@@ -165,7 +165,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
-        var taskId;
+        let taskId = '';
 
         document.getElementById('sidebarUsername').textContent = username || "User";
 
