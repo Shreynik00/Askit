@@ -25,10 +25,11 @@
 
 <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
 <script>
-    // Parse URL to extract sender and receiver usernames
+    // Parse URL to extract sender, receiver, and taskId
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('receiver'); // Current user (logged-in)
     const receiver = urlParams.get('sender'); // Chat target (task owner)
+    const taskId = urlParams.get('id'); // Extract taskId
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
@@ -44,7 +45,7 @@
     const messageForm = document.getElementById('messageForm');
 
     // Fetch previous messages from the database (API call)
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
@@ -63,50 +64,6 @@
         .catch((error) => {
             console.error('Error fetching previous messages:', error);
         });
-
-      fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then((messages) => {
-            // Sort messages by timestamp
-            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-            // Display messages in the chat box
-            messages.forEach((message) => {
-                addMessageToChat(message.sender, message.message, message.timestamp);
-            });
-        })
-        .catch((error) => {
-            console.error('Error fetching previous messages:', error);
-        });
-
-
-       // Fetch previous messages from the database (API call)
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${receiver}/${currentUser}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then((messages) => {
-            // Sort messages by timestamp
-            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-            // Display messages in the chat box
-            messages.forEach((message) => {
-                addMessageToChat(message.receiver, message.message, message.timestamp);
-            });
-        })
-        .catch((error) => {
-            console.error('Error fetching previous messages:', error);
-        });
-
-    
 
     // Send new message on form submission
     messageForm.addEventListener('submit', (event) => {
@@ -119,6 +76,7 @@
             sender: currentUser,
             receiver,
             message: messageContent,
+            taskId, // Include taskId
             timestamp: new Date().toISOString() // Generate ISO string for timestamp
         };
 
@@ -132,10 +90,10 @@
 
     // Listen for new incoming messages
     socket.on('newMessage', (messageData) => {
-        const { sender: messageSender, receiver: messageReceiver, message, timestamp } = messageData;
+        const { sender: messageSender, receiver: messageReceiver, message, timestamp, taskId: messageTaskId } = messageData;
 
-        // Display the message if it is relevant to the current user
-        if (messageSender === currentUser || messageReceiver === currentUser) {
+        // Display the message if it is relevant to the current user and task
+        if ((messageSender === currentUser || messageReceiver === currentUser) && messageTaskId === taskId) {
             addMessageToChat(messageSender, message, timestamp);
         }
     });
