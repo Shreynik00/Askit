@@ -165,7 +165,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
-        let taskId = '';
+     //   let taskId = '';
 
         document.getElementById('sidebarUsername').textContent = username || "User";
 
@@ -217,7 +217,7 @@
             )
             .map(task => {
                 // Assign task._id to the taskId variable
-                taskId = task._id; 
+           const     taskId = task._id; 
 
                 return `
                     <div class="task-item">
