@@ -242,7 +242,7 @@
         }
 
         function redirectToAcceptedOffers() {
-            if (username && taskId) {
+            if (username) {
                 window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&id=${taskId}`;
             } else {
                 alert('Task ID or Username is not available.');
