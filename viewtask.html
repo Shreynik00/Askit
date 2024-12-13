@@ -4,152 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Tasks</title>
-     <link rel="stylesheet" href="viewtaskStyles.css">
+    <link rel="stylesheet" href="viewtaskStyles.css">
     <script src="baseUrl.js"></script>
-  <style>
-    /* Original styles for Add Skills button */
-    #acceptedOffersBtn {
-        position: absolute;
-        right:150px;
-        top: 20px;
-        padding: 10px 20px;
-        background-color: cyan;
-        color: black;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        box-shadow: 0px 0px 10px cyan;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    
-    #acceptedOffersBtn:hover {
-        transform: scale(1.1);
-        box-shadow: 0px 0px 20px cyan;
-    }
-
-    #addSkillsBtn {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        padding: 10px 20px;
-        background-color: cyan;
-        color: black;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        box-shadow: 0px 0px 10px cyan;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    #addSkillsBtn:hover {
-        transform: scale(1.1);
-        box-shadow: 0px 0px 20px cyan;
-    }
-
-    header {
-        position: relative; /* Allows absolute positioning of Add Skills button */
-    }
-
-    /* Sidebar styles */
-    #sidebar {
-        position: fixed;
-        top: 0;
-        left: -300px;
-        width: 150px;
-        height: 100%;
-        background-color: #40aecd;
-        color: white;
-        box-shadow: 0px 5px 10px rgb(0, 213, 255);
-        transition: left 0.3s ease;
-        padding: 10px;
-        z-index: 1000;
-    }
-
-    #sidebar.open {
-        left: 0;
-    }
-
-    #sidebar h2 {
-        margin-bottom: 10px;
-        font-size: 1.2em;
-        margin-top: 60px; /* Push greeting down */
-    }
-
-    #sidebar button {
-        background-color: #333;
-        color: white;
-        padding: 10px 20px;
-        margin: 10px 0;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: left;
-        width: 100%;
-    }
-
-    #sidebar button:hover {
-        background-color: #555;
-    }
-
-    #menuButton {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background-color:  #ffffff;
-        color: rgb(8, 8, 8);
-        border: none;
-        border-radius: 20%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        font-size: 20px;
-        z-index: 1001;
-    }
-
-    /* Responsive styles for Add Skills button */
-    @media (max-width: 768px) { 
+    <style>
+        /* Original styles for Add Skills button */
         #acceptedOffersBtn {
-        position: static; /* Removes absolute positioning */
-        margin-top: 10px; /* Adds spacing from the heading */
-        margin-right: 10px; /* Adds spacing between buttons */
-        padding: 8px 16px; /* Slightly smaller padding */
-        font-size: 0.9em; /* Reduces font size */
-        display: inline-block; /* Ensures proper alignment */
-        box-shadow: 0px 0px 5px cyan; /* Subtle shadow */
-    }
+            position: absolute;
+            right: 150px;
+            top: 20px;
+            padding: 10px 20px;
+            background-color: cyan;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px cyan;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    #addSkillsBtn {
-        position: static; /* Removes absolute positioning */
-        margin-top: 10px; /* Adds spacing from the heading */
-        padding: 8px 16px; /* Slightly smaller padding */
-        font-size: 0.9em; /* Reduces font size */
-        display: inline-block; /* Ensures proper alignment */
-        box-shadow: 0px 0px 5px cyan; /* Subtle shadow */
-    }
+        #acceptedOffersBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px cyan;
+        }
 
-    header {
-        display: flex; /* Enables flex layout */
-        flex-direction: column; /* Stacks heading and buttons vertically */
-        align-items: center; /* Centers the elements */
-        gap: 10px; /* Adds spacing between elements */
-    }
-      
-}
-    
-</style>
+        #addSkillsBtn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 10px 20px;
+            background-color: cyan;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px cyan;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
+        #addSkillsBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px cyan;
+        }
+
+        header {
+            position: relative;
+        }
+
+        /* Sidebar styles */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 150px;
+            height: 100%;
+            background-color: #40aecd;
+            color: white;
+            box-shadow: 0px 5px 10px rgb(0, 213, 255);
+            transition: left 0.3s ease;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        #sidebar.open {
+            left: 0;
+        }
+
+        #sidebar h2 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            margin-top: 60px;
+        }
+
+        #sidebar button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+        }
+
+        #sidebar button:hover {
+            background-color: #555;
+        }
+
+        #menuButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color:  #ffffff;
+            color: rgb(8, 8, 8);
+            border: none;
+            border-radius: 20%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1001;
+        }
+
+        /* Responsive styles for Add Skills button */
+        @media (max-width: 768px) { 
+            #acceptedOffersBtn {
+                position: static;
+                margin-top: 10px;
+                margin-right: 10px;
+                padding: 8px 16px;
+                font-size: 0.9em;
+                display: inline-block;
+                box-shadow: 0px 0px 5px cyan;
+            }
+
+            #addSkillsBtn {
+                position: static;
+                margin-top: 10px;
+                padding: 8px 16px;
+                font-size: 0.9em;
+                display: inline-block;
+                box-shadow: 0px 0px 5px cyan;
+            }
+
+            header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>View Tasks</h1>
         <button id="addSkillsBtn" onclick="redirectToAddSkills()">Add Skills</button>
-     
+        <button id="acceptedOffersBtn" onclick="redirectToAcceptedOffers()">Accepted Offers</button>
         <div id="usernameDisplay"></div>
     </header>
 
@@ -165,10 +161,11 @@
     <section id="taskList">
         <!-- Task list will be injected here -->
     </section>
- <script>
+ 
+    <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
-       let taskId;
+        let taskId;
 
         document.getElementById('sidebarUsername').textContent = username || "User";
 
@@ -203,55 +200,56 @@
             alert('Logging out (not yet implemented).');
         }
 
-        async function fetchTasks() {
-            try {
-             const response = await fetch(`${SERVER_URL}tasks`);
+    async function fetchTasks() {
+    try {
+        const response = await fetch(`${SERVER_URL}tasks`);
 
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const tasks = await response.json();
-                const taskList = document.getElementById('taskList');
-                const currentDate = new Date().toISOString().split('T')[0];
-                taskId=tasks._id;
-                taskList.innerHTML = tasks
-                    .filter(task => 
-                        new Date(task.deadline) >= new Date(currentDate) &&
-                        (task.status !== "accepted" || !task.status)
-                    )
-                    .map(task => ` 
-                        <div class="task-item">
-                            <h3>${task.title}</h3>
-                            <p>Budget: ${task.budget}</p>
-                            <p>Deadline: ${task.deadline}</p>
-                            <div class="button-group">
-                                <button onclick="viewTaskDetails('${task._id}')"><i>View More</i></button>
-                                    <button id="acceptedOffersBtn" onclick="redirectToAcceptedOffers('${task._id}')">Accepted Offers</button>
-                                <p class="usernam">Posted by: <a href="${BASE_URL}user-details.html?username=${task.username}"> <i>${task.username}</i></a></p>
-                            </div>
-                        </div>
-                    `).join('');
-            } catch (error) {
-                console.error('Error fetching tasks:', error);
-            }
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        const tasks = await response.json();
+        const taskList = document.getElementById('taskList');
+        const currentDate = new Date().toISOString().split('T')[0];
+        taskList.innerHTML = tasks
+            .filter(task => 
+                new Date(task.deadline) >= new Date(currentDate) &&
+                (task.status !== "accepted" || !task.status)
+            )
+            .map(task => {
+                // Assign task._id to the taskId variable
+                taskId = task._id; 
+
+                return `
+                    <div class="task-item">
+                        <h3>${task.title}</h3>
+                        <p>Budget: ${task.budget}</p>
+                        <p>Deadline: ${task.deadline}</p>
+                        <div class="button-group">
+                            <button onclick="viewTaskDetails('${task._id}')"><i>View More</i></button>
+                            <p class="usernam">Posted by: <a href="${BASE_URL}user-details.html?username=${task.username}"><i>${task.username}</i></a></p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+    }
+}
+
 
         function viewTaskDetails(taskId) {
             window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}`;
         }
 
-     
-        function redirectToAcceptedOffers(taskId) {
-        if (username) {
-            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&id=${taskId}`;
-        } else {
-            alert('Username not available.');
+        function redirectToAcceptedOffers() {
+            if (username && taskId) {
+                window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}&id=${taskId}`;
+            } else {
+                alert('Task ID or Username is not available.');
+            }
         }
-    }
 
         fetchTasks();
     </script>
-
 </body>
 </html>
