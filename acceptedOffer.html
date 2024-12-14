@@ -127,7 +127,7 @@ h1 {
                     if (task.TaskProvider === username) {
                         // If there's a match, extract the task's username (which is the person accepting the task)
                         const taskUsername = task.username;
-                    const    taskId = task._id;
+                 const asId = task._id;
                         // Create the task HTML with the "Chat" button
                         return `
                             <div class="task-item">
@@ -135,7 +135,7 @@ h1 {
                                 <p>Budget: ${task.budget}</p>
                                 <p>Deadline: ${task.deadline}</p>
                                 <p>Status: ${task.status}</p>
-                                <button class="chat-button" onclick="redirectToChat('${taskUsername}', '${username}', '${taskId}')">Chat</button>
+                                <button class="chat-button" onclick="redirectToChat('${taskUsername}', '${username}', '${askId}')">Chat</button>
                             </div>
                         `;
                     }
