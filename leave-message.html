@@ -91,7 +91,7 @@
         socket.emit('chatMessage', messageData);
 
         // Add the new message to the chat box for the current user
-        addMessageToChat('You', messageContent, messageData.timestamp, true);
+        addMessageToChat('You', messageContent, messageData.timestamp);
         messageInput.value = ''; // Clear the input field
     });
 
@@ -100,24 +100,30 @@
         const { sender: messageSender, receiver: messageReceiver, message, timestamp, taskId: messageTaskId } = messageData;
 
         // Display the message if it is relevant to the current user and taskId
-        if ((messageSender === currentUser || messageReceiver === currentUser) && messageTaskId === taskId) {
-            const isSentByCurrentUser = messageSender === currentUser;
-            const displayName = isSentByCurrentUser ? 'You' : messageSender;
-            const receiverName = messageReceiver === currentUser ? receiver : messageReceiver;
-            addMessageToChat(receiverName, message, timestamp, !isSentByCurrentUser);
+        if ((messageSender === currentUser ) && messageTaskId === taskId) {
+           // const isSentByCurrentUser = messageSender === currentUser;
+            const displayName ;
+            if( receiver = currentUser){
+                
+           
+            addMessageToChat(receiver, message, timestamp);
+            } if ( sender = currentUser){
+                
+            addMessageToChat(sender, message, timestamp);
+            }
         }
     });
 
     // Function to add a message to the chat box
-    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
+    function addMessageToChat(senderName, messageContent, timestamp) {
         const messageElement = document.createElement('div');
         const timeElement = document.createElement('small');
         
         // Determine display name based on whether the current user sent the message
-        const displayName = isSentByCurrentUser ? 'You' : senderName;
+        const displayName = senderName;
 
         messageElement.textContent = `${displayName}: ${messageContent}`;
-        messageElement.className = 'message ' + (isSentByCurrentUser ? 'sender' : 'receiver');
+        messageElement.className = 'message ' ;
 
         // Format the timestamp to display the time
         const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
