@@ -60,12 +60,12 @@
             messages.forEach((message) => {
                 if(message.sender = currentUser){
                 const isSentByCurrentUser = message.sender === currentUser;
-                addMessageToChat(isSentByCurrentUser , message.message, message.timestamp, );
+                addMessageToChat(isSentByCurrentUser , message.message, message.timestamp, isSentByCurrentUser);
                 }
                 if(message.receiver = currentUser)
                 {
                      const SentByCurrentUser = message.receiver === currentUser;
-                addMessageToChat(SentByCurrentUser , message.message, message.timestamp);
+                addMessageToChat(SentByCurrentUser , message.message, message.timestamp, SentByCurrentUser);
                 }
             });
         })
@@ -92,7 +92,7 @@
         socket.emit('chatMessage', messageData);
 
         // Add the new message to the chat box for the current user
-        addMessageToChat('You', messageContent, messageData.timestamp);
+        addMessageToChat('You', messageContent, messageData.timestamp, true);
         messageInput.value = ''; // Clear the input field
     });
 
@@ -103,12 +103,12 @@
         // Display the message if it is relevant to the current user and taskId
         if ((messageSender === currentUser || messageReceiver === currentUser) && messageTaskId === taskId) {
             const isSentByCurrentUser = messageSender === currentUser;
-            addMessageToChat(isSentByCurrentUser ? 'You' : messageSender, message, timestamp);
+            addMessageToChat(isSentByCurrentUser ? 'You' : messageSender, message, timestamp, isSentByCurrentUser);
         }
     });
 
     // Function to add a message to the chat box
-    function addMessageToChat(senderName, messageContent, timestamp ) {
+    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
         const messageElement = document.createElement('div');
         const timeElement = document.createElement('small');
         
