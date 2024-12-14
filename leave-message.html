@@ -64,8 +64,8 @@
                 }
                 if(message.receiver = currentUser)
                 {
-                     const SentByCurrentUser = message.sender === currentUser;
-                addMessageToChat(SentByCurrentUser , message.message, message.timestamp, isSentByCurrentUser);
+                     const SentByCurrentUser = message.receiver === currentUser;
+                addMessageToChat(SentByCurrentUser , message.message, message.timestamp, SentByCurrentUser);
                 }
             });
         })
