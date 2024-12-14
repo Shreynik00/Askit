@@ -25,11 +25,10 @@
 
 <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
 <script>
-    // Parse URL to extract sender, receiver, and taskId
+    // Parse URL to extract sender and receiver usernames
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('sender'); // Current user (logged-in)
     const receiver = urlParams.get('reciver'); // Chat target (task owner)
-    const taskId = urlParams.get('id'); // Task ID
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
@@ -44,8 +43,8 @@
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
 
-    // Fetch previous messages from the database filtered by taskId
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
+    // Fetch previous messages from the database (API call)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
@@ -58,18 +57,7 @@
 
             // Display messages in the chat box
             messages.forEach((message) => {
-              
-                const isSentByCurrentUser = message.sender === currentUser;
-                  if(message.sender == currentUser)
-                {
-                    isSentByCurrentUser = message.sender;
-                }
-                else
-                {
-                    isSentByCurrentUser = message.receiver;
-                }
-               const displayName = isSentByCurrentUser ;
-                addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
+                addMessageToChat(message.sender, message.message, message.timestamp);
             });
         })
         .catch((error) => {
@@ -87,7 +75,6 @@
             sender: currentUser,
             receiver,
             message: messageContent,
-            taskId, // Include taskId in the message data
             timestamp: new Date().toISOString() // Generate ISO string for timestamp
         };
 
@@ -95,35 +82,33 @@
         socket.emit('chatMessage', messageData);
 
         // Add the new message to the chat box for the current user
-        addMessageToChat('You', messageContent, messageData.timestamp, true);
+        addMessageToChat('You', messageContent, messageData.timestamp);
         messageInput.value = ''; // Clear the input field
     });
 
     // Listen for new incoming messages
     socket.on('newMessage', (messageData) => {
-        const { sender: messageSender, receiver: messageReceiver, message, timestamp, taskId: messageTaskId } = messageData;
+        const { sender: messageSender, receiver: messageReceiver, message, timestamp } = messageData;
 
-        // Display the message if it is relevant to the current user and taskId
-        if ((messageSender === currentUser || messageReceiver === currentUser) && messageTaskId === taskId) {
-            const isSentByCurrentUser = messageSender === currentUser;
-            const displayName = isSentByCurrentUser ? 'You' : messageSender;
-            addMessageToChat(displayName, message, timestamp, isSentByCurrentUser);
+        // Display the message if it is relevant to the current user
+        if (messageSender === currentUser || messageReceiver === currentUser) {
+            addMessageToChat(messageSender, message, timestamp);
         }
     });
 
     // Function to add a message to the chat box
-    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
+    function addMessageToChat(senderName, messageContent, timestamp) {
         const messageElement = document.createElement('div');
         const timeElement = document.createElement('small');
-
+        
         messageElement.textContent = `${senderName}: ${messageContent}`;
-        messageElement.className = 'message ' + (isSentByCurrentUser ? 'sender' : 'receiver');
+        messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
 
         // Format the timestamp to display the time
         const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         timeElement.textContent = formattedTime;
         timeElement.className = 'timestamp';
-
+        
         messageElement.appendChild(timeElement);
         chatBox.appendChild(messageElement);
 
