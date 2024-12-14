@@ -58,14 +58,18 @@
 
             // Display messages in the chat box
             messages.forEach((message) => {
-                if(message.sender === currentUser) {
-                    const isSentByCurrentUser = true;
-                    addMessageToChat('You', message.message, message.timestamp, isSentByCurrentUser);
+              
+                const isSentByCurrentUser = message.sender === currentUser;
+                  if(message.sender == currentUser)
+                {
+                    isSentByCurrentUser = message.sender;
                 }
-                if(message.receiver === currentUser) {
-                    const isSentByCurrentUser = false;
-                    addMessageToChat(receiver, message.message, message.timestamp, isSentByCurrentUser);
+                else
+                {
+                    isSentByCurrentUser = message.receiver;
                 }
+               const displayName = isSentByCurrentUser ;
+                addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
             });
         })
         .catch((error) => {
@@ -91,7 +95,7 @@
         socket.emit('chatMessage', messageData);
 
         // Add the new message to the chat box for the current user
-        addMessageToChat('You', messageContent, messageData.timestamp);
+        addMessageToChat('You', messageContent, messageData.timestamp, true);
         messageInput.value = ''; // Clear the input field
     });
 
@@ -100,36 +104,26 @@
         const { sender: messageSender, receiver: messageReceiver, message, timestamp, taskId: messageTaskId } = messageData;
 
         // Display the message if it is relevant to the current user and taskId
-        if ((messageSender === currentUser ) && messageTaskId === taskId) {
-           // const isSentByCurrentUser = messageSender === currentUser;
-            const displayName ;
-            if( receiver = currentUser){
-                
-           
-            addMessageToChat(receiver, message, timestamp);
-            } if ( sender = currentUser){
-                
-            addMessageToChat(sender, message, timestamp);
-            }
+        if ((messageSender === currentUser || messageReceiver === currentUser) && messageTaskId === taskId) {
+            const isSentByCurrentUser = messageSender === currentUser;
+            const displayName = isSentByCurrentUser ? 'You' : messageSender;
+            addMessageToChat(displayName, message, timestamp, isSentByCurrentUser);
         }
     });
 
     // Function to add a message to the chat box
-    function addMessageToChat(senderName, messageContent, timestamp) {
+    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
         const messageElement = document.createElement('div');
         const timeElement = document.createElement('small');
-        
-        // Determine display name based on whether the current user sent the message
-        const displayName = senderName;
 
-        messageElement.textContent = `${displayName}: ${messageContent}`;
-        messageElement.className = 'message ' ;
+        messageElement.textContent = `${senderName}: ${messageContent}`;
+        messageElement.className = 'message ' + (isSentByCurrentUser ? 'sender' : 'receiver');
 
         // Format the timestamp to display the time
         const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         timeElement.textContent = formattedTime;
         timeElement.className = 'timestamp';
-        
+
         messageElement.appendChild(timeElement);
         chatBox.appendChild(messageElement);
 
