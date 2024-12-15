@@ -3,193 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Receiver - Post Task</title>
-    <link rel="stylesheet" href="reciverIndexStyles.css">
-    <style>
-        /* Sidebar styles (unchanged) */
-        #sidebar {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 150px;
-            height: 100%;
-            background-color: #40aecd;
-            color: white;
-            box-shadow: 0px 5px 10px rgb(0, 213, 255);
-            transition: left 0.3s ease;
-            padding: 10px;
-            z-index: 1000;
-        }
-
-        #sidebar.open {
-            left: 0;
-        }
-
-        #sidebar h2 {
-            margin-bottom: 10px;
-            font-size: 1.5em;
-            color: white;
-            margin-top: 60px;
-        }
-
-        #sidebar button {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: left;
-            width: 100%;
-        }
-
-        #sidebar button:hover {
-            background-color: #555;
-        }
-
-        #menuButton {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: #ffffff;
-            color: rgb(8, 8, 8);
-            border: none;
-            border-radius: 20%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 20px;
-            z-index: 1001;
-        }
-    </style>
+    <title>Chat System</title>
+    <link rel="stylesheet" href="messageStyles.css"> <!-- Link to your CSS file -->
 </head>
 <body>
-    <button id="menuButton" onclick="toggleSidebar()">☰</button>
-    <div id="sidebar">
-        <h2>Hello, <span id="sidebarUsername"></span></h2>
-        <button onclick="goToHome()">Home</button>
-        <button onclick="goToProfile()">My Profile</button>
-        <button onclick="logout()">Logout</button>
+    <div class="container">
+        <h1 id="recipientDisplay">Chatting with: <span id="receiverName"></span></h1>
+
+        <!-- Chat Box -->
+        <div id="chat-box"></div>
+
+        <!-- Input and Send -->
+        <form id="messageForm">
+            <div class="input-box">
+                <input type="text" id="message-input" placeholder="Type a message..." required>
+            </div>
+            <button type="submit">Send</button>
+        </form>
     </div>
 
-    <div>
-        <h2>Askit</h2>
-        <button id="addTaskButton">Add a Task</button>
-        
-        <h4 align="center">Your Posted Tasks</h4>
-        <div id="tasksContainer"></div>
-    </div>
-    <script>
+<script>
+    // Parse URL to extract sender, receiver, and taskId
     const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username'); // Current username
-    let userId = ''; // Assuming userId might be set elsewhere
-    let reciver = ''; // Global variable to store receiver value
-        let taskId = '' ;
+    const currentUser = urlParams.get('sender'); // Current user (logged-in)
+    const receiver = urlParams.get('receiver'); // Chat target (task owner)
+    const taskId = urlParams.get('id'); // Task ID
 
-    document.getElementById('addTaskButton').onclick = () => {
-        window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
-    };
+    // Display receiver's username
+    const recipientDisplay = document.getElementById('recipientDisplay');
+    const receiverName = document.getElementById('receiverName');
+    receiverName.textContent = receiver; // Set receiver name in heading
 
-    async function fetchUserTasks() {
-        try {
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
-            if (!response.ok) throw new Error('Failed to fetch tasks');
+    // DOM Elements
+    const chatBox = document.getElementById('chat-box');
+    const messageInput = document.getElementById('message-input');
+    const messageForm = document.getElementById('messageForm');
 
-            const tasks = await response.json();
-            const tasksContainer = document.getElementById('tasksContainer');
-            if (tasks.length === 0) {
-                tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+    // Fetch previous messages from the database filtered by taskId
+    function fetchMessages() {
+        fetch(`/chat/${currentUser}/${receiver}/${taskId}`)
+            .then(response => response.json())
+            .then(messages => {
+                // Clear the chat box before appending new messages
+                chatBox.innerHTML = '';
+
+                // Display messages in the chat box
+                messages.forEach(message => {
+                    const isSentByCurrentUser = message.sender === currentUser;
+                    const displayName = isSentByCurrentUser ? 'You' : message.sender;
+                    addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
+            });
+    }
+
+    // Fetch messages initially
+    fetchMessages();
+
+    // Send new message on form submission
+    messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const messageContent = messageInput.value.trim();
+        if (!messageContent) return; // Do nothing if the input is empty
+
+        const messageData = {
+            sender: currentUser,
+            receiver,
+            message: messageContent,
+            taskId, // Include taskId in the message data
+            timestamp: new Date().toISOString() // Generate ISO string for timestamp
+        };
+
+        // Send the message to the backend via the Send Message API
+        fetch('/chat/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(messageData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Add the new message to the chat box for the current user
+                addMessageToChat('You', messageContent, messageData.timestamp, true);
+                messageInput.value = ''; // Clear the input field
             } else {
-                tasksContainer.innerHTML = tasks.map(task => {
-                    // Store the TaskProvider value
-                    reciver = task.TaskProvider;
-                    taskId = task._id;
-
-                    return `
-                        <div class="task">
-                            <h2><p>Status: ${task.status}</p></h2>
-                            <i>${task.title}</i> <!-- Displaying task title here -->
-                            <br>
-                            <p><b>Detail:</b> ${task.detail}</p>
-                            <p><b>Deadline:</b> ${task.deadline}</p>
-                            <p><b>Type: </b>${task.type}</p>
-                            <p><b>Mode:</b>${task.mode}</p>
-                            <p><b>Budget:</b> ${task.budget}</p>
-                            ${task.status === 'accepted' 
-                                ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
-                                : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
-                            <br>
-                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                        </div>
-                    `;
-                }).join('');
-
-                // Event listener for 'View Offers' buttons
-                document.querySelectorAll('.viewOffersButton').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const taskId = event.target.getAttribute('data-taskid');
-                        window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
-                    });
-                });
-
-                // Event listener for 'Chat' buttons
-                document.querySelectorAll('.chatButton').forEach(button => {
-                    button.addEventListener('click', async (event) => {
-                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}&id=${encodeURIComponent(taskId)}`;
-                    });
-                });
-
-                // Event listener for 'Delete Task' buttons
-                document.querySelectorAll('.deleteTaskButton').forEach(button => {
-                    button.addEventListener('click', async (event) => {
-                        const taskId = event.target.getAttribute('data-taskid');
-                        try {
-                            const response = await fetch('https://apiserveraskit-4.onrender.com/deleteTask', {
-                                method: 'DELETE',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ taskId })
-                            });
-                            if (!response.ok) throw new Error('Failed to delete task');
-                            fetchUserTasks(); // Refresh task list
-                        } catch (error) {
-                            console.error('Error deleting task:', error);
-                            alert('Failed to delete task.');
-                        }
-                    });
-                });
+                console.error('Error sending message:', data.error);
             }
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-            const tasksContainer = document.getElementById('tasksContainer');
-            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
-        }
-    }
+        })
+        .catch(error => {
+            console.error('Error sending message:', error);
+        });
+    });
 
-    fetchUserTasks();
+    // Function to add a message to the chat box
+    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
+        const messageElement = document.createElement('div');
+        const timeElement = document.createElement('small');
 
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('open');
-    }
+        messageElement.textContent = `${senderName}: ${messageContent}`;
+        messageElement.className = 'message ' + (isSentByCurrentUser ? 'sender' : 'receiver');
 
-    document.getElementById('sidebarUsername').textContent = username || "User";
+        // Format the timestamp to display the time
+        const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        timeElement.textContent = formattedTime;
+        timeElement.className = 'timestamp';
 
-    function goToHome() {
-        window.location.href = `role-selection.html?username=${username}`;
-    }
+        messageElement.appendChild(timeElement);
+        chatBox.appendChild(messageElement);
 
-    function goToProfile() {
-        alert('Redirecting to profile (not yet implemented).');
-    }
-
-    function logout() {
-        alert('Logging out (not yet implemented).');
+        // Auto-scroll to the latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 </script>
-
 </body>
 </html>
