@@ -102,7 +102,6 @@ h1 {
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
-        
 
     async function fetchAcceptedOffers() {
         try {
@@ -127,7 +126,7 @@ h1 {
                     if (task.TaskProvider === username) {
                         // If there's a match, extract the task's username (which is the person accepting the task)
                         const taskUsername = task.username;
-                 const askId = task._id;
+                        
                         // Create the task HTML with the "Chat" button
                         return `
                             <div class="task-item">
@@ -135,7 +134,7 @@ h1 {
                                 <p>Budget: ${task.budget}</p>
                                 <p>Deadline: ${task.deadline}</p>
                                 <p>Status: ${task.status}</p>
-                                <button class="chat-button" onclick="redirectToChat('${taskUsername}', '${username}', '${askId}')">Chat</button>
+                                <button class="chat-button" onclick="redirectToChat('${taskUsername}', '${username}')">Chat</button>
                             </div>
                         `;
                     }
@@ -148,9 +147,9 @@ h1 {
     }
 
     // Function to handle the redirection to the chat page
-    function redirectToChat(taskUsername, taskProviderName,taskId) {
+    function redirectToChat(taskUsername, taskProviderName) {
         // Redirect to leave-message.html with taskUsername and taskProvider as parameters
-        window.location.href = `leave-message.html?reciver=${encodeURIComponent(taskUsername)}&sender=${encodeURIComponent(taskProviderName)}&id=${(taskId)}`;
+        window.location.href = `leave-message.html?reciver=${encodeURIComponent(taskUsername)}&sender=${encodeURIComponent(taskProviderName)}`;
     }
 
     fetchAcceptedOffers();
