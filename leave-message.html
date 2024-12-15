@@ -78,7 +78,7 @@
         };
 
         // Send the message to the backend via the Send Message API
-        fetch('/chat/send', {
+        fetch('https://apiserveraskit-4.onrender.com/chat/send', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(messageData)
