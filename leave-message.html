@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Display recipient's username as a heading -->
         <h1 id="recipientDisplay">Chatting with: <span id="receiverName"></span></h1>
 
         <!-- Chat Box -->
@@ -23,46 +22,45 @@
         </form>
     </div>
 
-<script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
 <script>
-    // Parse URL to extract sender and receiver usernames
+    // Parse URL to extract sender, receiver, and taskId
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('sender'); // Current user (logged-in)
-    const receiver = urlParams.get('reciver'); // Chat target (task owner)
+    const receiver = urlParams.get('receiver'); // Chat target (task owner)
+    const taskId = urlParams.get('id'); // Task ID
 
     // Display receiver's username
     const recipientDisplay = document.getElementById('recipientDisplay');
     const receiverName = document.getElementById('receiverName');
     receiverName.textContent = receiver; // Set receiver name in heading
 
-    // Socket.IO connection
-    const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
-
     // DOM Elements
     const chatBox = document.getElementById('chat-box');
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
 
-    // Fetch previous messages from the database (API call)
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch chat history: ${response.status} ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then((messages) => {
-            // Sort messages by timestamp
-            messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    // Fetch previous messages from the database filtered by taskId
+    function fetchMessages() {
+        fetch(`/chat/${currentUser}/${receiver}/${taskId}`)
+            .then(response => response.json())
+            .then(messages => {
+                // Clear the chat box before appending new messages
+                chatBox.innerHTML = '';
 
-            // Display messages in the chat box
-            messages.forEach((message) => {
-                addMessageToChat(message.sender, message.message, message.timestamp);
+                // Display messages in the chat box
+                messages.forEach(message => {
+                    const isSentByCurrentUser = message.sender === currentUser;
+                    const displayName = isSentByCurrentUser ? 'You' : message.sender;
+                    addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
             });
-        })
-        .catch((error) => {
-            console.error('Error fetching previous messages:', error);
-        });
+    }
+
+    // Fetch messages initially
+    fetchMessages();
 
     // Send new message on form submission
     messageForm.addEventListener('submit', (event) => {
@@ -75,40 +73,44 @@
             sender: currentUser,
             receiver,
             message: messageContent,
+            taskId, // Include taskId in the message data
             timestamp: new Date().toISOString() // Generate ISO string for timestamp
         };
 
-        // Emit the message to the server via Socket.IO
-        socket.emit('chatMessage', messageData);
-
-        // Add the new message to the chat box for the current user
-        addMessageToChat('You', messageContent, messageData.timestamp);
-        messageInput.value = ''; // Clear the input field
-    });
-
-    // Listen for new incoming messages
-    socket.on('newMessage', (messageData) => {
-        const { sender: messageSender, receiver: messageReceiver, message, timestamp } = messageData;
-
-        // Display the message if it is relevant to the current user
-        if (messageSender === currentUser || messageReceiver === currentUser) {
-            addMessageToChat(messageSender, message, timestamp);
-        }
+        // Send the message to the backend via the Send Message API
+        fetch('/chat/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(messageData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Add the new message to the chat box for the current user
+                addMessageToChat('You', messageContent, messageData.timestamp, true);
+                messageInput.value = ''; // Clear the input field
+            } else {
+                console.error('Error sending message:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending message:', error);
+        });
     });
 
     // Function to add a message to the chat box
-    function addMessageToChat(senderName, messageContent, timestamp) {
+    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
         const messageElement = document.createElement('div');
         const timeElement = document.createElement('small');
-        
+
         messageElement.textContent = `${senderName}: ${messageContent}`;
-        messageElement.className = 'message ' + (senderName === 'You' ? 'sender' : 'receiver');
+        messageElement.className = 'message ' + (isSentByCurrentUser ? 'sender' : 'receiver');
 
         // Format the timestamp to display the time
         const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         timeElement.textContent = formattedTime;
         timeElement.className = 'timestamp';
-        
+
         messageElement.appendChild(timeElement);
         chatBox.appendChild(messageElement);
 
