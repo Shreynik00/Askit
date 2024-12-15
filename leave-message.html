@@ -41,7 +41,7 @@
 
     // Fetch previous messages from the database filtered by taskId
     function fetchMessages() {
-        fetch(`/chat/${currentUser}/${receiver}/${taskId}`)
+        fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
             .then(response => response.json())
             .then(messages => {
                 // Clear the chat box before appending new messages
