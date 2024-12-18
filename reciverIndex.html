@@ -87,7 +87,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username'); // Current username
     let userId = ''; // Assuming userId might be set elsewhere
-    let receiver ; // Global variable to store receiver value
+
         let taskId = '' ;
 
     document.getElementById('addTaskButton').onclick = () => {
@@ -106,7 +106,7 @@
             } else {
                 tasksContainer.innerHTML = tasks.map(task => {
                     // Store the TaskProvider value
-                   receiver = task.TaskProvider;
+                 const  receiver = task.TaskProvider;
                     taskId = task._id;
 
                     return `
