@@ -87,7 +87,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username'); // Current username
     let userId = ''; // Assuming userId might be set elsewhere
-    let reciver = ''; // Global variable to store receiver value
+ let receiver ='';
         let taskId = '' ;
 
     document.getElementById('addTaskButton').onclick = () => {
@@ -106,7 +106,7 @@
             } else {
                 tasksContainer.innerHTML = tasks.map(task => {
                     // Store the TaskProvider value
-                    reciver = task.TaskProvider;
+                  receiver = task.TaskProvider;
                     taskId = task._id;
 
                     return `
@@ -139,7 +139,7 @@
                 // Event listener for 'Chat' buttons
                 document.querySelectorAll('.chatButton').forEach(button => {
                     button.addEventListener('click', async (event) => {
-                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}&id=${encodeURIComponent(taskId)}`;
+                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
                     });
                 });
 
