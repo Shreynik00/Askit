@@ -120,7 +120,7 @@
                             <p><b>Mode:</b>${task.mode}</p>
                             <p><b>Budget:</b> ${task.budget}</p>
                             ${task.status === 'accepted' 
-                                ? `<button class="chatButton" data-taskid="${task._id}">Chat</button>` 
+                                ? `<button class="chatButton" data-reciver="${task.TaskProvider}  ">Chat</button>` 
                                 : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
                             <br>
                             <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
@@ -139,7 +139,8 @@
                 // Event listener for 'Chat' buttons
                 document.querySelectorAll('.chatButton').forEach(button => {
                     button.addEventListener('click', async (event) => {
-                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&reciver=${encodeURIComponent(receiver)}`;
+                          const reciver = event.target.getAttribute('data-reciver');
+                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&reciver=${encodeURIComponent(reciver)}`;
                     });
                 });
 
