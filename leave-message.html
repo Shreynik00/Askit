@@ -28,7 +28,7 @@
     // Parse URL to extract sender, receiver, and taskId
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('sender'); // Current user (logged-in)
-    const receiver = urlParams.get('reciver'); // Chat target (task owner)
+    const receiver = urlParams.get('receiver'); // Chat target (task owner)
     const taskId = urlParams.get('id'); // Task ID
 
     // Display receiver's username
@@ -37,12 +37,15 @@
     receiverName.textContent = receiver; // Set receiver name in heading
 
     // Socket.IO connection
-    const socket = io('https://apiserveraskit-4.onrender.com/'); // Replace with your server URL
+    const socket = io('https://apiserveraskit-4.onrender.com'); // Ensure this URL matches your server's URL
 
     // DOM Elements
     const chatBox = document.getElementById('chat-box');
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
+
+    // Join a room based on sender, receiver, and taskId
+    socket.emit('joinRoom', { sender: currentUser, receiver: receiver, taskId: taskId });
 
     // Fetch previous messages from the database filtered by taskId
     fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
