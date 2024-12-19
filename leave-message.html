@@ -42,7 +42,7 @@
     // Fetch previous messages from the database filtered by taskId
 // Fetch previous messages from the database filtered by taskId
 function fetchMessages() {
-    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${taskId}`)
         .then(response => response.json())
         .then(messages => {
             // Check if the response is an array
@@ -57,15 +57,7 @@ function fetchMessages() {
             // Display messages in the chat box
             messages.forEach(message => {
                 const isSentByCurrentUser = message.sender === currentUser;
-                let displayName ='';
-                if( currentUser == message.sender)
-                {
-                    displayName = currentUser;
-                }
-                else
-                {
-                    displayName = message.receiver;
-                }
+                const displayName = isSentByCurrentUser ? 'You' : message.sender;
                 addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
             });
         })
