@@ -94,7 +94,7 @@
         .then(data => {
             if (data.success) {
                 // Add the new message to the chat box for the current user
-                addMessageToChat('You', messageContent, messageData.timestamp, true);
+                addMessageToChat('You', messageContent, messageData.timestamp);
                 messageInput.value = ''; // Clear the input field
             } else {
                 console.error('Error sending message:', data.error);
