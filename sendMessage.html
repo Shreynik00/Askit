@@ -26,7 +26,7 @@
     // Parse URL to extract sender, receiver, and taskId
     const urlParams = new URLSearchParams(window.location.search);
     const currentUser = urlParams.get('sender'); // Current user (logged-in)
-    const receiver = urlParams.get('reciver'); // Corrected: Chat target (task owner)
+    const receiver = urlParams.get('reciver'); // Chat target (task owner)
     const taskId = urlParams.get('id'); // Task ID
 
     // Display receiver's username
@@ -40,29 +40,32 @@
     const messageForm = document.getElementById('messageForm');
 
     // Fetch previous messages from the database filtered by taskId
-    function fetchMessages() {
-        fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${receiver}/${taskId}`)
-            .then(response => response.json())
-            .then(messages => {
-                // Check if the response is an array and if it's not empty
-                if (!Array.isArray(messages)) {
-                    console.error('Expected an array of messages, but got:', messages);
-                    return;
-                }
+// Fetch previous messages from the database filtered by taskId
+function fetchMessages() {
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${currentUser}/${taskId}`)
+        .then(response => response.json())
+        .then(messages => {
+            // Check if the response is an array
+            if (!Array.isArray(messages)) {
+                console.error('Expected an array of messages, but got:', messages);
+                return;
+            }
 
-                // Clear the chat box before appending new messages
-                chatBox.innerHTML = '';
+            // Clear the chat box before appending new messages
+            chatBox.innerHTML = '';
 
-                // Display messages in the chat box
-                messages.forEach(message => {
-                    const isSentByCurrentUser = message.sender === currentUser;
-                    addMessageToChat(message.sender, message.message, message.timestamp, isSentByCurrentUser);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching messages:', error);
+            // Display messages in the chat box
+            messages.forEach(message => {
+                const isSentByCurrentUser = message.sender === currentUser;
+                const displayName = isSentByCurrentUser ? 'You' : message.sender;
+                addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
             });
-    }
+        })
+        .catch(error => {
+            console.error('Error fetching messages:', error);
+        });
+}
+
 
     // Fetch messages initially
     fetchMessages();
