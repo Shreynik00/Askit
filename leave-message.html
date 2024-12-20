@@ -19,6 +19,7 @@
                 <input type="text" id="message-input" placeholder="Type a message..." required>
             </div>
             <button type="submit">Send</button>
+            <button class="back-button" onclick="window.history.back()">Back</button>
         </form>
     </div>
 
@@ -64,7 +65,7 @@
                 console.error('Error fetching messages:', error);
             });
     }
-
+    
 // Fetch messages initially and set a periodic refresh
 fetchMessages();
 setInterval(fetchMessages, 2000);
