@@ -38,6 +38,7 @@
     const chatBox = document.getElementById('chat-box');
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
+    let  isSentByCurrentUser = '';
 
     // Fetch previous messages from the database filtered by taskId
 // Fetch previous messages from the database filtered by taskId
@@ -57,7 +58,7 @@ function fetchMessages() {
             // Display messages in the chat box
             messages.forEach(message => {
            if(  message.receiver === currentUser){
-                  const isSentByCurrentUser = true; }
+                   isSentByCurrentUser = true; }
                 const displayName = isSentByCurrentUser ?  message.receiver : message.sender ;
                 addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
             });
