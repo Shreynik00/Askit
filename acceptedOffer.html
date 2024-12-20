@@ -140,6 +140,11 @@ h1 {
                     }
                     return ''; // If no match, return nothing for that task
                 }).join('');
+                 if (offersFound) {
+                    container.innerHTML = taskHTML;
+                } else {
+                    container.innerHTML = '<p>No accepted offers found for tasks assigned to you.</p>';
+                }
             }
         } catch (error) {
             console.error('Error fetching accepted offers:', error);
