@@ -38,36 +38,36 @@
     const chatBox = document.getElementById('chat-box');
     const messageInput = document.getElementById('message-input');
     const messageForm = document.getElementById('messageForm');
+    let  isSentByCurrentUser = '';
 
     // Fetch previous messages from the database filtered by taskId
-    function fetchMessages() {
-        fetch(`https://apiserveraskit-4.onrender.com/chat/${taskId}`)
-            .then(response => response.json())
-            .then(messages => {
-                if (!Array.isArray(messages)) {
-                    console.error('Expected an array of messages, but got:', messages);
-                    return;
-                }
+// Fetch previous messages from the database filtered by taskId
+function fetchMessages() {
+    fetch(`https://apiserveraskit-4.onrender.com/chat/${taskId}`)
+        .then(response => response.json())
+        .then(messages => {
+            // Check if the response is an array
+            if (!Array.isArray(messages)) {
+                console.error('Expected an array of messages, but got:', messages);
+                return;
+            }
 
-                // Clear the chat box before appending new messages
-                chatBox.innerHTML = '';
+            // Clear the chat box before appending new messages
+            chatBox.innerHTML = '';
 
-                // Display messages in the chat box
-                messages.forEach(message => {
-                    // Determine if the currentUser sent the message
-                    const isSentByCurrentUser = message.sender === currentUser;
-
-                    // Determine the display name
-                    const displayName = isSentByCurrentUser ? 'You' : message.sender;
-
-                    // Add the message to the chat
-                    addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching messages:', error);
+            // Display messages in the chat box
+            messages.forEach(message => {
+           if(  message.receiver === currentUser){
+                   isSentByCurrentUser = true; }
+                const displayName = isSentByCurrentUser ?  message.receiver : message.sender ;
+                addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
             });
-    }
+        })
+        .catch(error => {
+            console.error('Error fetching messages:', error);
+        });
+}
+
 
     // Fetch messages initially
     fetchMessages();
@@ -93,19 +93,19 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(messageData)
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Add the new message to the chat box for the current user
-                    addMessageToChat('You', messageContent, messageData.timestamp, true);
-                    messageInput.value = ''; // Clear the input field
-                } else {
-                    console.error('Error sending message:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error sending message:', error);
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Add the new message to the chat box for the current user
+                addMessageToChat('You', messageContent, messageData.timestamp, true);
+                messageInput.value = ''; // Clear the input field
+            } else {
+                console.error('Error sending message:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending message:', error);
+        });
     });
 
     // Function to add a message to the chat box
@@ -128,6 +128,5 @@
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 </script>
-
 </body>
 </html>
