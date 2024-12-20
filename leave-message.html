@@ -65,12 +65,9 @@
             });
     }
 
-    // Fetch messages initially
-    function refresh(){
-        
-    fetchMessages();
-    }
-    setInterval(refresh,2000);
+// Fetch messages initially and set a periodic refresh
+fetchMessages();
+setInterval(fetchMessages, 2000);
 
     // Send new message on form submission
     messageForm.addEventListener('submit', (event) => {
