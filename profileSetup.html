@@ -7,6 +7,27 @@
  
       <link rel="stylesheet" href="profileSetupStyles.css">
 </head>
+    <style>
+        .back-button
+{
+   
+        width: 10%;
+      
+        padding-top: 14px;
+        background-color: #00acc1; /* Cyan background */
+        margin-top: 9px;
+        color: #000; /* Black text for buttons */
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4); /* Cyan button shadow */
+    
+    
+}
+    </style>
 <body>
     <div class="form-container">
         <h1>Profile Setup</h1>
@@ -22,6 +43,7 @@
             </div>
            
             <button type="submit">Save Profile</button>
+            <button class="back-button" onclick="window.history.back()">Back</button>
         </form>
     </div>
 
