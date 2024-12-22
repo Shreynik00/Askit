@@ -104,29 +104,49 @@
             if (tasks.length === 0) {
                 tasksContainer.innerHTML = '<p>No tasks posted.</p>';
             } else {
-                tasksContainer.innerHTML = tasks.map(task => {
-                    // Store the TaskProvider value
-                  receiver = task.TaskProvider;
-                    taskId = task._id;
+             tasksContainer.innerHTML = tasks.map(task => {
+    receiver = task.TaskProvider;
+    taskId = task._id;
 
-                    return `
-                        <div class="task">
-                            <h2><p>Status: ${task.status}</p></h2>
-                            <i>${task.title}</i> <!-- Displaying task title here -->
-                            <br>
-                            <p><b>Detail:</b> ${task.detail}</p>
-                            <p><b>Deadline:</b> ${task.deadline}</p>
-                            <p><b>Type: </b>${task.type}</p>
-                            <p><b>Mode:</b>${task.mode}</p>
-                            <p><b>Budget:</b> ${task.budget}</p>
-                            ${task.status === 'accepted' 
-                                ? `<button class="chatButton" data-reciver="${task.TaskProvider}  ">Chat</button>` 
-                                : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>`}
-                            <br>
-                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>
-                        </div>
-                    `;
-                }).join('');
+    return `
+        <div class="task">
+            <h2><p>Status: ${task.status}</p></h2>
+            <i>${task.title}</i>
+            <br>
+            <p><b>Detail:</b> ${task.detail}</p>
+            <p><b>Deadline:</b> ${task.deadline}</p>
+            <p><b>Type:</b> ${task.type}</p>
+            <p><b>Mode:</b> ${task.mode}</p>
+            <p><b>Budget:</b> ${task.budget}</p>
+            ${task.status === 'accepted' 
+                ? `<button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
+                   <button class="completeTaskButton" data-taskid="${task._id}">Complete Task</button>`
+                : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
+                   <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>`}
+        </div>
+    `;
+}).join('');
+
+// Event listener for 'Complete Task' buttons
+document.querySelectorAll('.completeTaskButton').forEach(button => {
+    button.addEventListener('click', async (event) => {
+        const taskId = event.target.getAttribute('data-taskid');
+        try {
+            const response = await fetch('https://apiserveraskit-4.onrender.com/completeTask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ taskId, RequesterEndedTask: true })
+            });
+            if (!response.ok) throw new Error('Failed to complete task');
+            alert('Task marked as complete.');
+            fetchUserTasks(); // Refresh task list
+        } catch (error) {
+            console.error('Error completing task:', error);
+            alert('Failed to mark task as complete.');
+        }
+    });
+});
+
 
                 // Event listener for 'View Offers' buttons
                 document.querySelectorAll('.viewOffersButton').forEach(button => {
