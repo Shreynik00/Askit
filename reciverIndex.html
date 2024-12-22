@@ -135,7 +135,7 @@ document.querySelectorAll('.completeTaskButton').forEach(button => {
             const response = await fetch('https://apiserveraskit-4.onrender.com/completeTask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ taskId, RequesterEndedTask: true })
+                body: JSON.stringify({ taskId })
             });
             if (!response.ok) throw new Error('Failed to complete task');
             alert('Task marked as complete.');
@@ -172,7 +172,7 @@ document.querySelectorAll('.completeTaskButton').forEach(button => {
                             const response = await fetch('https://apiserveraskit-4.onrender.com/deleteTask', {
                                 method: 'DELETE',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ taskId ,ProviderEndedTask: true})
+                                body: JSON.stringify({ taskId })
                             });
                             if (!response.ok) throw new Error('Failed to delete task');
                             fetchUserTasks(); // Refresh task list
