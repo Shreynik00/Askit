@@ -119,6 +119,7 @@ h1 {
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
+    let offersFound ='';
 
     async function fetchAcceptedOffers() {
         try {
@@ -143,7 +144,7 @@ h1 {
                     if ((task.TaskProvider === username)  && (task.RequesterEndedTask === "false") && (task.ProviderEndedTask === "false") && (task.isdeleted ==="false") ) {
                         // If there's a match, extract the task's username (which is the person accepting the task)
                         const taskUsername = task.username;
-                        const offersFound = true;
+                         offersFound = true;
                         const idd = task._id;
                         // Create the task HTML with the "Chat" button
                         return `
@@ -159,7 +160,7 @@ h1 {
                     }
                     return ''; // If no match, return nothing for that task
                 }).join('');
-                 if (offersFound) {
+                 if (offersFound == true) {
                     container.innerHTML = taskHTML;
                 } else {
                     container.innerHTML = '<p>No accepted offers found for tasks assigned to you.</p>';
