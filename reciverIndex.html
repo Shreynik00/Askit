@@ -193,7 +193,7 @@ document.querySelectorAll('.completeTaskButton').forEach(button => {
                     });
                 });
             }
-        } catch (error) {
+        } }catch (error) {
             console.error('Error fetching tasks:', error);
             const tasksContainer = document.getElementById('tasksContainer');
             tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
