@@ -104,28 +104,25 @@
             if (tasks.length === 0) {
                 tasksContainer.innerHTML = '<p>No tasks posted.</p>';
             } else {
-       tasksContainer.innerHTML = tasks
-                        .filter(task => !task.isdeleted)
-                        .map(task => `
-                            <div class="task">
-                                <h2><p>Status: ${task.status}</p></h2>
-                                <i>${task.title}</i>
-                                <br>
-                                <p><b>Detail:</b> ${task.detail}</p>
-                                <p><b>Deadline:</b> ${task.deadline}</p>
-                                <p><b>Type:</b> ${task.type}</p>
-                                <p><b>Mode:</b> ${task.mode}</p>
-                                <p><b>Budget:</b> ${task.budget}</p>
-                                ${task.status === 'accepted' 
-                                    ? `<button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
-                                       <button class="completeTaskButton" data-taskid="${task._id}">Complete Task</button>`
-                                    : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
-                                       <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>`}
-                            </div>
-                        `).join('');
-                    
-                   
-            }
+      tasksContainer.innerHTML = filteredTasks.map(task => {
+                    return `
+                        <div class="task">
+                            <h2><p>Status: ${task.status}</p></h2>
+                            <i>${task.title}</i>
+                            <br>
+                            <p><b>Detail:</b> ${task.detail}</p>
+                            <p><b>Deadline:</b> ${task.deadline}</p>
+                            <p><b>Type:</b> ${task.type}</p>
+                            <p><b>Mode:</b> ${task.mode}</p>
+                            <p><b>Budget:</b> ${task.budget}</p>
+                            ${task.status === 'accepted' 
+                                ? `<button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
+                                   <button class="completeTaskButton" data-taskid="${task._id}">Complete Task</button>`
+                                : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
+                                   <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>`}
+                        </div>
+                    `;
+                }).join('');
 
 
 // Event listener for 'Complete Task' buttons
