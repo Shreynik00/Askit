@@ -140,7 +140,7 @@ h1 {
             } else {
                 container.innerHTML = tasks.map(task => {
                     // Check if the task's TaskProvider matches the current username
-                    if (task.TaskProvider === username) {
+                    if ((task.TaskProvider === username)  && (task.RequesterEndedTask === "false") && (task.ProviderEndedTask === "false") && (task.isdeleted ==="false") ) {
                         // If there's a match, extract the task's username (which is the person accepting the task)
                         const taskUsername = task.username;
                         const idd = task._id;
