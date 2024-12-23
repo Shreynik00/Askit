@@ -213,7 +213,7 @@
         taskList.innerHTML = tasks
             .filter(task => 
                 new Date(task.deadline) >= new Date(currentDate) &&
-                (task.status !== "accepted" || !task.status)
+                (task.status !== "accepted" || !task.status|| task.isdeleted !== "true")
             )
             .map(task => {
                 // Assign task._id to the taskId variable
