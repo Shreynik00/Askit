@@ -126,10 +126,11 @@ async function fetchAcceptedOffers() {
     try {
         // Send a POST request to fetch accepted offers
         const response = await fetch('https://apiserveraskit-4.onrender.com/acceptedOffers', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username })
-        });
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+
 
         // Check if the response is OK
         if (!response.ok) {
