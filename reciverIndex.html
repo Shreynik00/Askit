@@ -6,7 +6,7 @@
     <title>Service Receiver - Post Task</title>
     <link rel="stylesheet" href="reciverIndexStyles.css">
     <style>
-        /* Sidebar styles */
+        /* Sidebar styles (unchanged) */
         #sidebar {
             position: fixed;
             top: 0;
@@ -84,26 +84,27 @@
         <div id="tasksContainer"></div>
     </div>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username'); // Current username
-        let userId = ''; // Assuming userId might be set elsewhere
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username'); // Current username
+    let userId = ''; // Assuming userId might be set elsewhere
+ let receiver ='';
+        let taskId = '' ;
 
-        document.getElementById('addTaskButton').onclick = () => {
-            window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
-        };
+    document.getElementById('addTaskButton').onclick = () => {
+        window.location.href = `posttask.html?username=${encodeURIComponent(username)}&userId=${encodeURIComponent(userId)}`;
+    };
 
-        async function fetchUserTasks() {
-            try {
-                const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
-                if (!response.ok) throw new Error('Failed to fetch tasks');
+    async function fetchUserTasks() {
+        try {
+            const response = await fetch(`https://apiserveraskit-4.onrender.com/reciverIndex/tasks?username=${encodeURIComponent(username)}`);
+            if (!response.ok) throw new Error('Failed to fetch tasks');
 
-                const tasks = await response.json();
-                const tasksContainer = document.getElementById('tasksContainer');
-
-                if (tasks.length === 0) {
-                    tasksContainer.innerHTML = '<p>No tasks posted.</p>';
-                } else {
-                    tasksContainer.innerHTML = tasks
+            const tasks = await response.json();
+            const tasksContainer = document.getElementById('tasksContainer');
+            if (tasks.length === 0) {
+                tasksContainer.innerHTML = '<p>No tasks posted.</p>';
+            } else {
+       tasksContainer.innerHTML = tasks
                         .filter(task => !task.isdeleted)
                         .map(task => `
                             <div class="task">
@@ -123,90 +124,97 @@
                             </div>
                         `).join('');
                     
-                    attachEventListeners();
-                }
-            } catch (error) {
-                console.error('Error fetching tasks:', error);
-                const tasksContainer = document.getElementById('tasksContainer');
-                tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
+                   
             }
-        }
 
-        function attachEventListeners() {
-            document.querySelectorAll('.completeTaskButton').forEach(button => {
-                button.addEventListener('click', async (event) => {
-                    const taskId = event.target.getAttribute('data-taskid');
-                    try {
-                        const response = await fetch('https://apiserveraskit-4.onrender.com/completeTask', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ taskId })
-                        });
-                        if (!response.ok) throw new Error('Failed to complete task');
-                        alert('Task marked as complete.');
-                        fetchUserTasks(); // Refresh task list
-                    } catch (error) {
-                        console.error('Error completing task:', error);
-                        alert('Failed to mark task as complete.');
-                    }
-                });
+
+// Event listener for 'Complete Task' buttons
+document.querySelectorAll('.completeTaskButton').forEach(button => {
+    button.addEventListener('click', async (event) => {
+     //   const taskId = event.target.getAttribute('data-taskid');
+        try {
+            const response = await fetch('https://apiserveraskit-4.onrender.com/completeTask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ taskId })
             });
+            if (!response.ok) throw new Error('Failed to complete task');
+            alert('Task marked as complete.');
+            fetchUserTasks(); // Refresh task list
+        } catch (error) {
+            console.error('Error completing task:', error);
+            alert('Failed to mark task as complete.');
+        }
+    });
+});
 
-            document.querySelectorAll('.viewOffersButton').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const taskId = event.target.getAttribute('data-taskid');
-                    window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+
+                // Event listener for 'View Offers' buttons
+                document.querySelectorAll('.viewOffersButton').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const taskId = event.target.getAttribute('data-taskid');
+                        window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+                    });
                 });
-            });
 
-            document.querySelectorAll('.chatButton').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const receiver = event.target.getAttribute('data-receiver');
-                    const taskId = event.target.getAttribute('data-taskid');
-                    window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
+                // Event listener for 'Chat' buttons
+                document.querySelectorAll('.chatButton').forEach(button => {
+                    button.addEventListener('click', async (event) => {
+                          const reciver = event.target.getAttribute('data-reciver');
+                        window.location.href = `sendMessage.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&reciver=${encodeURIComponent(reciver)}`;
+                    });
                 });
-            });
 
-            document.querySelectorAll('.deleteTaskButton').forEach(button => {
-                button.addEventListener('click', async (event) => {
-                    const taskId = event.target.getAttribute('data-taskid');
-                    try {
-                        const response = await fetch('https://apiserveraskit-4.onrender.com/deleteTask', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ taskId })
-                        });
-                        if (!response.ok) throw new Error('Failed to delete task');
-                        alert('Task deleted successfully.');
-                        fetchUserTasks(); // Refresh task list
-                    } catch (error) {
-                        console.error('Error deleting task:', error);
-                        alert('Failed to delete task.');
-                    }
+                // Event listener for 'Delete Task' buttons
+                document.querySelectorAll('.deleteTaskButton').forEach(button => {
+                    button.addEventListener('click', async (event) => {
+
+                        const taskId = event.target.getAttribute('data-taskid');
+                        try {
+                            const response = await fetch('https://apiserveraskit-4.onrender.com/deleteTask', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ taskId })
+                            });
+                            if (!response.ok) throw new Error('Failed to delete task');
+                            fetchUserTasks(); // Refresh task list
+                            if(response.ok) alert('deleted') ;
+                            fetchUserTask();
+                        } catch (error) {
+                            console.error('Error deleting task:', error);
+                            alert('Failed to delete task.');
+                        }
+                    });
                 });
-            });
+            }
+        } catch (error) {
+            console.error('Error fetching tasks:', error);
+            const tasksContainer = document.getElementById('tasksContainer');
+            tasksContainer.innerHTML = '<p>Error fetching tasks. Please try again later.</p>';
         }
+    }
 
-        fetchUserTasks();
+    fetchUserTasks();
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+    }
 
-        document.getElementById('sidebarUsername').textContent = username || "User";
+    document.getElementById('sidebarUsername').textContent = username || "User";
 
-        function goToHome() {
-            window.location.href = `role-selection.html?username=${username}`;
-        }
+    function goToHome() {
+        window.location.href = `role-selection.html?username=${username}`;
+    }
 
-        function goToProfile() {
-            alert('Redirecting to profile (not yet implemented).');
-        }
+    function goToProfile() {
+        alert('Redirecting to profile (not yet implemented).');
+    }
 
-        function logout() {
-            window.location.href = `https://shreynik00.github.io/Askit/login.html`;
-        }
-    </script>
+    function logout() {
+        window.location.href = `https://shreynik00.github.io/Askit/login.html`;
+    }
+</script>
+
 </body>
 </html>
