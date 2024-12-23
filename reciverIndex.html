@@ -108,6 +108,7 @@
     receiver = task.TaskProvider;
     taskId = task._id;
 
+ return tasks.filter(task => !task.isdeleted).map(task => {
     return `
         <div class="task">
             <h2><p>Status: ${task.status}</p></h2>
@@ -126,6 +127,7 @@
         </div>
     `;
 }).join('');
+
 
 // Event listener for 'Complete Task' buttons
 document.querySelectorAll('.completeTaskButton').forEach(button => {
