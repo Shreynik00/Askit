@@ -87,7 +87,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username'); // Current username
     let userId = ''; // Assuming userId might be set elsewhere
- let receiver ='';
+ let reciver ='';
         let taskId = '' ;
 
     document.getElementById('addTaskButton').onclick = () => {
@@ -106,6 +106,8 @@ async function fetchUserTasks() {
             tasksContainer.innerHTML = '<p>No tasks posted.</p>';
         } else {
             // Filter out tasks where isdeleted is true
+            taskId=tasks._id;
+            reciver = tasks.TaskProvider;
          const filteredTasks = tasks.filter(task => task.isdeleted === "false");
             // Check if there are any tasks left after filtering
             if (filteredTasks.length === 0) {
