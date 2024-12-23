@@ -212,7 +212,7 @@
         const currentDate = new Date().toISOString().split('T')[0];
         taskList.innerHTML = tasks
             .filter(task => 
-                new Date(task.deadline) >= new Date(currentDate) && (task.isdeleted !== "true") &&
+                new Date(task.deadline) >= new Date(currentDate) && (task.isdeleted == "false") &&
                 (task.status !== "accepted" || !task.status)
             )
             .map(task => {
