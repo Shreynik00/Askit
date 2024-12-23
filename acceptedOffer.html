@@ -72,6 +72,23 @@ h1 {
     box-shadow: 0px 3px 8px rgba(13, 223, 202, 0.4); /* Subtle shadow effect */
     text-align: center; /* Text centered inside the button */
 }
+                /* Chat button styling */
+        .chat-buttonn {
+    display: inline-block; /* Make it inline block to allow left alignment */
+    margin: 8px 0; /* Space above and below the button */
+    padding: 0.6em 1em; /* Smaller padding for a more compact button */
+    font-size: 1.0em; /* Smaller font size */
+    max-width: 90px; /* Max width to avoid overly large buttons */
+    width: 90%; /* Ensure it spans the width on smaller screens */
+    border-radius: 6px; /* Slightly rounded corners */
+    background-color: #30b6df; /* Cyan background */
+    color:  #282727; /* Dark text */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    box-shadow: 0px 3px 8px rgba(13, 223, 202, 0.4); /* Subtle shadow effect */
+    text-align: center; /* Text centered inside the button */
+}
 
 .chat-button:hover {
     background-color: #00ffdd; /* Darker cyan on hover */
@@ -102,50 +119,73 @@ h1 {
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username');
+    let offersFound ='';
 
-    async function fetchAcceptedOffers() {
-        try {
-            const response = await fetch('https://apiserveraskit-4.onrender.com/acceptedOffers', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username })
-            });
+   // Function to fetch accepted offers for the logged-in user
+async function fetchAcceptedOffers() {
+    try {
+        // Send a POST request to fetch accepted offers
+        const response = await fetch('https://apiserveraskit-4.onrender.com/acceptedOffers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch accepted offers');
-            }
-
-            const tasks = await response.json();
-            const container = document.getElementById('acceptedOffersContainer');
-
-            if (tasks.length === 0) {
-                container.innerHTML = '<p>No accepted offers found.</p>';
-            } else {
-                container.innerHTML = tasks.map(task => {
-                    // Check if the task's TaskProvider matches the current username
-                    if (task.TaskProvider === username) {
-                        // If there's a match, extract the task's username (which is the person accepting the task)
-                        const taskUsername = task.username;
-                        const idd = task._id;
-                        // Create the task HTML with the "Chat" button
-                        return `
-                            <div class="task-item">
-                                <h3>${task.title}</h3>
-                                <p>Budget: ${task.budget}</p>
-                                <p>Deadline: ${task.deadline}</p>
-                                <p>Status: ${task.status}</p>
-                                <button class="chat-button" onclick="redirectToChat('${taskUsername}', '${username}', '${idd}')">Chat</button>
-                            </div>
-                        `;
-                    }
-                    return ''; // If no match, return nothing for that task
-                }).join('');
-            }
-        } catch (error) {
-            console.error('Error fetching accepted offers:', error);
+        // Check if the response is OK
+        if (!response.ok) {
+            throw new Error('Failed to fetch accepted offers');
         }
-    }
 
+        // Parse the JSON response
+        const tasks = await response.json();
+
+        // Get the container element
+        const container = document.getElementById('acceptedOffersContainer');
+
+        // Filter tasks based on specific criteria
+        const validTasks = tasks.filter(task => 
+            task.TaskProvider === username && 
+            task.RequesterEndedTask === "false" && 
+            task.ProviderEndedTask === "false" && 
+            task.isdeleted === "false"
+        );
+
+        // Update the container content
+        if (validTasks.length === 0) {
+            container.innerHTML = '<p>No accepted offers found for tasks assigned to you.</p>';
+        } else {
+            container.innerHTML = validTasks.map(task => `
+                <div class="task-item">
+                    <h3>${task.title}</h3>
+                    <p>Budget: ${task.budget}</p>
+                    <p>Deadline: ${task.deadline}</p>
+                    <p>Status: ${task.status}</p>
+                    <button class="chat-button" onclick="redirectToChat('${task.username}', '${username}', '${task._id}')">Chat</button>
+                    <button class="chat-buttonn" onclick="completeTask('${task._id}')">Complete Task</button>
+                </div>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Error fetching accepted offers:', error);
+    }
+}
+
+  async  function completeTask(taskId){
+        // const taskId = event.target.getAttribute('data-taskid');
+                                try {
+                                    const response = await fetch('https://apiserveraskit-4.onrender.com/completeTaskProvider', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ taskId })
+                                    });
+                                    if (!response.ok) throw new Error('Failed to complete task');
+                                    alert('Task marked as complete.');
+                                    fetchUserTasks(); // Refresh task list
+                                } catch (error) {
+                                    console.error('Error completing task:', error);
+                                    //alert('Failed to mark task as complete.');
+                                }
+    }
     // Function to handle the redirection to the chat page
     function redirectToChat(taskUsername, taskProviderName, taskid) {
         // Redirect to leave-message.html with taskUsername and taskProvider as parameters
