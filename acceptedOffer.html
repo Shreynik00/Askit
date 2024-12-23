@@ -143,6 +143,7 @@ h1 {
                     if ((task.TaskProvider === username)  && (task.RequesterEndedTask === "false") && (task.ProviderEndedTask === "false") && (task.isdeleted ==="false") ) {
                         // If there's a match, extract the task's username (which is the person accepting the task)
                         const taskUsername = task.username;
+                        const offersFound = true;
                         const idd = task._id;
                         // Create the task HTML with the "Chat" button
                         return `
