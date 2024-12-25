@@ -152,7 +152,7 @@ body {
 
     const username = getUrlParameter('username'); // Extract username from the URL
     const taskId = getUrlParameter('id'); // Extract task ID from the URL
-  //  let receiver = ''; // Extract task ID from the URL
+    let receiver ; // Extract task ID from the URL
 
     // Fetch task details by ID
     async function fetchTaskDetails(id) {
@@ -162,7 +162,7 @@ body {
                 throw new Error('Task not found'); // Handle 404 error
             }
             const task = await response.json(); // Parse JSON response
-         const   receiver = task.TaskProvider;
+        receiver = task.TaskProvider;
             displayTaskDetails(task); // Display the task details
         } catch (error) {
             console.error('Error fetching task details:', error); // Log errors
@@ -172,7 +172,7 @@ body {
 
     // Function to display task details
     function displayTaskDetails(task) {
-       // const receiver = encodeURIComponent(task.TaskProvider); // Ensure valid URL encoding for receiver
+        receiver = encodeURIComponent(task.TaskProvider); // Ensure valid URL encoding for receiver
         const taskDetailsContainer = document.getElementById('taskDetails');
         taskDetailsContainer.innerHTML = `
             <h2 class="task-title">${task.title}</h2>
