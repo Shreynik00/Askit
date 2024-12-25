@@ -180,7 +180,7 @@
         const user = await response.json();
 
         if (user && user.username) {
-          
+          fetchTasks();
         } else {
            redirectToAddSkills();
             
