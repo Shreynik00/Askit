@@ -185,7 +185,7 @@
                         document.querySelectorAll('.viewOffersButton').forEach(button => {
                             button.addEventListener('click', (event) => {
                                 const taskId = event.target.getAttribute('data-taskid');
-                                window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&userId=${encodeURIComponent(userId)}`;
+                                window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&username=${encodeURIComponent(username)}`;
                             });
                         });
 
