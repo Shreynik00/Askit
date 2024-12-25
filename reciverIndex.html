@@ -124,7 +124,8 @@
                                     <p><b>Mode:</b> ${task.mode}</p>
                                     <p><b>Budget:</b> ${task.budget}</p>
                                     ${task.status === 'accepted' 
-                                        ? `<button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
+                                        ? ` <button class="viewButton" data-username="${task.username}">view Profile</button>
+                                        <button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
                                            <button class="completeTaskButton" data-taskid="${task._id}">Complete Task</button>`
                                         : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
                                            <button class="deleteTaskButton" data-taskid="${task._id}">Delete Task</button>`}
@@ -151,6 +152,33 @@
                                 }
                             });
                         });
+
+                                                document.querySelectorAll('.completeTaskButton').forEach(button => {
+                            button.addEventListener('click', async (event) => {
+                                const taskId = event.target.getAttribute('data-taskid');
+                                try {
+                                    const response = await fetch('https://apiserveraskit-4.onrender.com/completeTask', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ taskId })
+                                    });
+                                    if (!response.ok) throw new Error('Failed to complete task');
+                                    alert('Task marked as complete.');
+                                    fetchUserTasks(); // Refresh task list
+                                } catch (error) {
+                                    console.error('Error completing task:', error);
+                                    alert('Task marked as complete.');
+                                }
+                            });
+                        });
+
+                             document.querySelectorAll('.viewProfileButton').forEach(button => {
+                            button.addEventListener('click', (event) => {
+                                const name = event.target.getAttribute('data-username');
+                                window.location.href = `seeProfile.html?username=${encodeURIComponent(name)}`;
+                            });
+                        });
+
 
                         // Event listener for 'View Offers' buttons
                         document.querySelectorAll('.viewOffersButton').forEach(button => {
