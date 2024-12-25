@@ -147,26 +147,24 @@ body {
     // Function to get URL parameters
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param); // Get the value for the specified parameter
+        return urlParams.get(param); // Get value for the specified parameter
     }
 
     const username = getUrlParameter('username'); // Extract username from the URL
     const taskId = getUrlParameter('id'); // Extract task ID from the URL
-    let receiver; // Receiver variable to store task provider
 
     // Fetch task details by ID
     async function fetchTaskDetails(id) {
         try {
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/tasks/${id}`); // API endpoint
+            const response = await fetch(`https://apiserveraskit-4.onrender.com/tasks/${id}`); // Corrected endpoint
             if (!response.ok) {
-                throw new Error('Task not found'); // Handle non-200 responses
+                throw new Error('Task not found'); // Handle 404 error
             }
-            const task = await response.json(); // Parse the JSON response
-            receiver = encodeURIComponent(task.TaskProvider); // URL-encode the task provider
+            const task = await response.json(); // Parse JSON response
             displayTaskDetails(task); // Display the task details
         } catch (error) {
-            console.error('Error fetching task details:', error); // Log error
-            document.getElementById('taskDetails').innerHTML = '<p>Error fetching task details. Please try again.</p>'; // Display user-friendly message
+            console.error('Error fetching task details:', error); // Log any errors
+            document.getElementById('taskDetails').innerHTML = '<p>Error fetching task details. Please try again.</p>'; // Display error message
         }
     }
 
@@ -186,19 +184,15 @@ body {
             
             <button class="back-button" onclick="window.history.back()">Back</button>
             <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-            <button class="back-button" onclick="redirectToLeaveQuestion()">Leave a Question</button>
+              <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver={task.TaskProvider}" class="back-button">Chat</a>
+          
         `;
-    }
 
-    // Function to redirect to leave-question.html with parameters
-    function redirectToLeaveQuestion() {
-        if (receiver) {
-            const url = `https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${receiver}`;
-            window.location.href = url; // Redirect to the constructed URL
-        } else {
-            console.error('Receiver information is missing!');
-            alert('Unable to redirect. Please try again later.'); // User-friendly message
-        }
+        // Event listener for 'Chat' button
+        document.querySelector('.chatButton').addEventListener('click', (event) => {
+            const receiver = event.target.getAttribute('data-receiver');
+            window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
+        });
     }
 
     // On page load, fetch the task ID from the URL and load the task details
