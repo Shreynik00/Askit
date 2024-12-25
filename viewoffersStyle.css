@@ -62,7 +62,20 @@ h1 {
     cursor: pointer; /* Pointer cursor */
     transition: background-color 0.3s ease; /* Smooth background change */
 }
+.chatButton {
+    background-color: #00ffff; /* Cyan background for buttons */
+    color: #010000; /* White text for buttons */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 0.8em; /* Padding inside buttons */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth background change */
+}
 .viewProfileButton:hover {
+    
+    background-color: #1abc9c; /* Slightly darker cyan on hover */
+}
+.chatButton:hover {
     
     background-color: #1abc9c; /* Slightly darker cyan on hover */
 }
