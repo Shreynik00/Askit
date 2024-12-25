@@ -171,16 +171,34 @@
 
         const sidebar = document.getElementById('sidebar');
         fetchDetail();
- async function fetchDetail(){
-      
-          const response = await fetch(`https://apiserveraskit-4.onrender.com/user/${username}`); // Call the API to fetch user details
-        const user = await response.json();
 
-         if (!user && !user.username) {
-         redirectToAddSkills();
-        } 
-  }
+         async function fetchDetail() {
+        try {
+         
 
+            // Call the API to fetch user details
+            const response = await fetch(`${SERVER_URL}user/${username}`);
+            
+            // Check if the response is OK
+            if (!response.ok) {
+                throw new Error('Failed to fetch user details.');
+            }
+
+            const user = await response.json();
+
+            // Redirect to add skills page if user is not found
+            if (!user || !user.username) {
+                redirectToAddSkills();
+                return;
+            }
+
+           
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+            alert('An error occurred while fetching user details. Redirecting to login.');
+        
+        }
+    }
         // Function to toggle sidebar visibility
         function toggleSidebar() {
             sidebar.classList.toggle('open');
