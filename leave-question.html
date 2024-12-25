@@ -63,7 +63,7 @@
 
     // Fetch previous messages from the database filtered by taskId
     function fetchMessages() {
-        fetch(`https://apiserveraskit-4.onrender.com/question/${taskId}`)
+        fetch(`https://apiserveraskit-4.onrender.com/chat/${taskId}`)
             .then(response => response.json())
             .then(messages => {
                 // Check if the response is an array
@@ -107,7 +107,7 @@ setInterval(fetchMessages, 2000);
         };
 
         // Send the message to the backend via the Send Message API
-        fetch('https://apiserveraskit-4.onrender.com/question/send', {
+        fetch('https://apiserveraskit-4.onrender.com/chat/send', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(messageData)
