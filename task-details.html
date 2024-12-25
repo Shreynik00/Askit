@@ -170,7 +170,7 @@ body {
 
     // Function to display task details
     function displayTaskDetails(task) {
-        const reciver = task.TaskProvider;
+        const receiver = task.TaskProvider;
         const taskDetailsContainer = document.getElementById('taskDetails');
         taskDetailsContainer.innerHTML = `
             <h2 class="task-title">${task.title}</h2>
@@ -185,7 +185,7 @@ body {
             
             <button class="back-button" onclick="window.history.back()">Back</button>
             <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-              <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${reciver}" class="back-button">Chat</a>
+              <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${receiver}" class="back-button">Chat</a>
           
         `;
 
