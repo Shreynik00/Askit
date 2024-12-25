@@ -243,7 +243,7 @@
                         <p>Budget: ${task.budget}</p>
                         <p>Deadline: ${task.deadline}</p>
                         <div class="button-group">
-                            <button onclick="viewTaskDetails('${task._id}')"><i>View More</i></button>
+                            <button onclick="viewTaskDetails('${task._id}','${task.TaskProvider}')"><i>View More</i></button>
                             <p class="usernam">Posted by: <a href="${BASE_URL}user-details.html?username=${task.username}"><i>${task.username}</i></a></p>
                         </div>
                     </div>
@@ -255,7 +255,7 @@
 }
 
 
-        function viewTaskDetails(taskId) {
+        function viewTaskDetails(taskId,receiver) {
             window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}&receiver=${receiver}`;
         }
 
