@@ -47,7 +47,7 @@
         const response = await fetch(`https://apiserveraskit-4.onrender.com/user/${username}`); // Call the API to fetch user details
         const user = await response.json();
 
-        if (user && user.username) {
+        if (user ) {
             document.getElementById('userDetails').innerHTML = `
                 <div class="task-item">
                     <p><strong>Username:</strong> ${user.username}</p>
