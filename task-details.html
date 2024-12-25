@@ -188,12 +188,7 @@ body {
           
         `;
 
-        // Event listener for 'Chat' button
-        document.querySelector('.chatButton').addEventListener('click', (event) => {
-            const receiver = event.target.getAttribute('data-receiver');
-            window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
-        });
-    }
+    
 
     // On page load, fetch the task ID from the URL and load the task details
     if (taskId) {
