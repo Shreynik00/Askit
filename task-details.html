@@ -186,8 +186,19 @@ body {
             
             <button class="back-button" onclick="window.history.back()">Back</button>
             <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-            <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${receiver}" class="back-button">Chat</a>
+            <button class="back-button" onclick="redirectToLeaveQuestion()">Leave a Question</button>
         `;
+    }
+
+    // Function to redirect to leave-question.html with parameters
+    function redirectToLeaveQuestion() {
+        if (receiver) {
+            const url = `https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${receiver}`;
+            window.location.href = url; // Redirect to the constructed URL
+        } else {
+            console.error('Receiver information is missing!');
+            alert('Unable to redirect. Please try again later.'); // User-friendly message
+        }
     }
 
     // On page load, fetch the task ID from the URL and load the task details
@@ -197,6 +208,7 @@ body {
         document.getElementById('taskDetails').innerHTML = '<p>Task ID is missing in the URL!</p>'; // Handle missing ID
     }
 </script>
+
 
 </body>
 </html>
