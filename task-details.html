@@ -147,12 +147,12 @@ body {
     // Function to get URL parameters
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-         
-
         return urlParams.get(param); // Get value for the specified parameter
     }
-const username = getUrlParameter('username');
-    const taskId= getUrlParameter('id');
+
+    const username = getUrlParameter('username'); // Extract username from the URL
+    const taskId = getUrlParameter('id'); // Extract task ID from the URL
+
     // Fetch task details by ID
     async function fetchTaskDetails(id) {
         try {
@@ -176,36 +176,32 @@ const username = getUrlParameter('username');
             <p class="task-description">Description: ${task.detail}</p>
             <p class="task-budget">Budget: ${task.budget}</p>
             <p class="task-deadline">Deadline: ${task.deadline}</p>
-               <p class="task-deadline">Location: ${task.location}</p>
-              <p class="task-deadline">Payment Method: ${task.paymentMethod}</p>
-                <p class="task-deadline">Mode: ${task.mode}</p>
-                  <p class="task-deadline">Specific skills or equipment required: ${task.requirements}</p>
-                    <p class="task-deadline"> type: ${task.type}</p>
+            <p class="task-location">Location: ${task.location}</p>
+            <p class="task-payment">Payment Method: ${task.paymentMethod}</p>
+            <p class="task-mode">Mode: ${task.mode}</p>
+            <p class="task-requirements">Specific Skills or Equipment: ${task.requirements}</p>
+            <p class="task-type">Type: ${task.type}</p>
             
             <button class="back-button" onclick="window.history.back()">Back</button>
-             <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${id}&username=${username}" class="back-button">Make an Offer</a>
-              <button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
-        `; // Inject HTML to show task details
+            <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
+            <button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
+        `;
 
-        
-                        // Event listener for 'Chat' buttons
-                        document.querySelectorAll('.chatButton').forEach(button => {
-                            button.addEventListener('click', async (event) => {
-                                const reciver = event.target.getAttribute('data-receiver');
-                          
-                                window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(reciver)}`;
-                            });
-                        });
+        // Event listener for 'Chat' button
+        document.querySelector('.chatButton').addEventListener('click', (event) => {
+            const receiver = event.target.getAttribute('data-receiver');
+            window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
+        });
     }
 
     // On page load, fetch the task ID from the URL and load the task details
-    const id = getUrlParameter('id');
-    if (id) {
-        fetchTaskDetails(id); // Fetch details if task ID is present
+    if (taskId) {
+        fetchTaskDetails(taskId); // Fetch details if task ID is present
     } else {
         document.getElementById('taskDetails').innerHTML = '<p>Task ID is missing in the URL!</p>'; // Handle missing ID
     }
 </script>
+
 
 </body>
 </html>
