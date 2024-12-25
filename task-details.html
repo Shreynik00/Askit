@@ -69,12 +69,28 @@ body {
     transition: background-color 0.3s, transform 0.2s; /* Transition for effects */
 }
 
+        /* Back button styles */
+.chatButton {
+    margin-top: 20px; /* Space above button */
+    padding: 10px 20px; /* Padding for button */
+    background-color: #00ffff; /* Cyan background for the button */
+    color: #000; /* Black text color for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: 500; /* Medium font weight */
+    text-decoration: none; /* Remove underline from text */
+    transition: background-color 0.3s, transform 0.2s; /* Transition for effects */
+}
 /* Back button hover effect */
 .back-button:hover {
     background-color: #1abc9c; /* Darker cyan background on hover */
     transform: scale(1.05); /* Scale up on hover */
 }
-
+.chatButton:hover {
+    background-color: #1abc9c; /* Darker cyan background on hover */
+    transform: scale(1.05); /* Scale up on hover */
+}
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     /* Adjust header font size for tablets and smaller screens */
@@ -100,6 +116,9 @@ body {
 
     /* Adjust back button */
     .back-button {
+        padding: 8px 16px; /* Smaller padding for the button */
+    }
+        .chatButton {
         padding: 8px 16px; /* Smaller padding for the button */
     }
 }
@@ -128,6 +147,9 @@ body {
 
     /* Adjust back button */
     .back-button {
+        padding: 6px 12px; /* Smaller padding for the button */
+    }
+     .chatButton {
         padding: 6px 12px; /* Smaller padding for the button */
     }
 }
