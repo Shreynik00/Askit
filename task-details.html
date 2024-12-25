@@ -192,7 +192,7 @@ const username = getUrlParameter('username');
                             button.addEventListener('click', async (event) => {
                                 const reciver = event.target.getAttribute('data-receiver');
                                   const taskId= event.target.getAttribute('data-id');
-                                window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&reciver=${encodeURIComponent(reciver)}`;
+                                window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(reciver)}`;
                             });
                         });
     }
