@@ -9,6 +9,7 @@
 <body>
     <h1>Offers for Task</h1>
     <div id="offersContainer"></div>
+    <script>
 
   const urlParams = new URLSearchParams(window.location.search);
 const taskId = urlParams.get('taskId'); // Extract taskId from URL
@@ -100,6 +101,6 @@ async function initializePage() {
 }
 
 initializePage();
-
+</script>
 </body>
 </html>
