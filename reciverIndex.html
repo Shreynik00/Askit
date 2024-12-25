@@ -195,7 +195,7 @@
                         document.querySelectorAll('.viewOffersButton').forEach(button => {
                             button.addEventListener('click', (event) => {
                                 const taskId = event.target.getAttribute('data-taskid');
-                                window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&username=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}`;
+                                window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&username=${encodeURIComponent(username)}`;
                             });
                         });
                         // Event listener for 'Delete Task' buttons
