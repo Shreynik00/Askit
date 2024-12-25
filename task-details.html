@@ -184,7 +184,7 @@ body {
             
             <button class="back-button" onclick="window.history.back()">Back</button>
             <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-              <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${task.TaskProvider}" class="back-button">Chat</a>
+              <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${encodeURIComponent(task.TaskProvider)}" class="back-button">Chat</a>
           
         `;
 
