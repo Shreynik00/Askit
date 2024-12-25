@@ -124,7 +124,7 @@
                                     <p><b>Mode:</b> ${task.mode}</p>
                                     <p><b>Budget:</b> ${task.budget}</p>
                                     ${task.status === 'accepted' 
-                                        ? ` <button class="viewButton" data-username="${task.username}">view Profile</button>
+                                        ? ` <button class="viewProfileButton" data-username="${task.username}">View Profile</button>
                                         <button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
                                            <button class="completeTaskButton" data-taskid="${task._id}">Complete Task</button>`
                                         : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
