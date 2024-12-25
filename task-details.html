@@ -152,6 +152,7 @@ body {
 
     const username = getUrlParameter('username'); // Extract username from the URL
     const taskId = getUrlParameter('id'); // Extract task ID from the URL
+        const receiver = getUrlParameter('receiver'); // Extract task ID from the URL
 
     // Fetch task details by ID
     async function fetchTaskDetails(id) {
