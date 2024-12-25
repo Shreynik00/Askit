@@ -186,13 +186,14 @@ function displayTaskDetails(task) {
 
         <button class="back-button" onclick="window.history.back()">Back</button>
         <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-        <button class="chatButton" id="chatButton">Chat</button>
+        <button class="chatButton" id="chatButton"    data-task="${task.TaskProvider}">Chat</button>
     `; // Inject HTML to show task details
 
     // Add an event listener to the chat button
     const chatButton = document.getElementById('chatButton');
     chatButton.addEventListener('click', () => {
         // Redirect to leave-question.html with parameters
+        const receiver =  event.target.getAttribute('data-task');
         window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
     });
 }
