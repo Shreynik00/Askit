@@ -107,7 +107,7 @@
                     tasksContainer.innerHTML = '<p>No tasks posted.</p>';
                 } else {
                     // Filter out tasks where isdeleted is true
-                    const filteredTasks = tasks.filter(task => task.isdeleted === "false" && task.ProivderEndedTask == "false");
+                    const filteredTasks = tasks.filter(task => task.isdeleted === "false" && task.ProviderEndedTask == "false");
                     // Check if there are any tasks left after filtering
                     if (filteredTasks.length === 0) {
                         tasksContainer.innerHTML = '<p>No tasks available.</p>';
