@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat System</title>
+    <link rel="stylesheet" href="messageStyles.css"> <!-- Link to your CSS file -->
+</head>
+    <style>
+        .back-button
+{
+   
+        width: 30%;
+      
+        padding-top: 14px;
+        background-color: #00acc1; /* Cyan background */
+        margin-top: 9px;
+        color: #000; /* Black text for buttons */
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4); /* Cyan button shadow */
+    
+    
+}
+    </style>
+<body>
+    <div class="container">
+        <h1 id="recipientDisplay">Chatting with: <span id="receiverName"></span></h1>
+
+        <!-- Chat Box -->
+        <div id="chat-box"></div>
+
+        <!-- Input and Send -->
+        <form id="messageForm">
+            <div class="input-box">
+                <input type="text" id="message-input" placeholder="Type a message..." required>
+            </div>
+            <button type="submit">Send</button>
+            <button class="back-button" onclick="window.history.back()">Back</button>
+        </form>
+    </div>
+
+<script>
+    // Parse URL to extract sender, receiver, and taskId
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentUser = urlParams.get('sender'); // Current user (logged-in)
+    const receiver = urlParams.get('reciver'); // Chat target (task owner)
+    const taskId = urlParams.get('id'); // Task ID
+
+    // Display receiver's username
+    const recipientDisplay = document.getElementById('recipientDisplay');
+    const receiverName = document.getElementById('receiverName');
+    receiverName.textContent = receiver; // Set receiver name in heading
+
+    // DOM Elements
+    const chatBox = document.getElementById('chat-box');
+    const messageInput = document.getElementById('message-input');
+    const messageForm = document.getElementById('messageForm');
+
+    // Fetch previous messages from the database filtered by taskId
+    function fetchMessages() {
+        fetch(`https://apiserveraskit-4.onrender.com/chat/${taskId}`)
+            .then(response => response.json())
+            .then(messages => {
+                // Check if the response is an array
+                if (!Array.isArray(messages)) {
+                    console.error('Expected an array of messages, but got:', messages);
+                    return;
+                }
+
+                // Clear the chat box before appending new messages
+                chatBox.innerHTML = '';
+
+                // Display messages in the chat box
+                messages.forEach(message => {
+                    const isSentByCurrentUser = message.sender === currentUser;
+                    const displayName = isSentByCurrentUser ? 'You' : message.sender;
+                    addMessageToChat(displayName, message.message, message.timestamp, isSentByCurrentUser);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
+            });
+    }
+    
+// Fetch messages initially and set a periodic refresh
+fetchMessages();
+setInterval(fetchMessages, 2000);
+
+    // Send new message on form submission
+    messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const messageContent = messageInput.value.trim();
+        if (!messageContent) return; // Do nothing if the input is empty
+
+        const messageData = {
+            sender: currentUser,
+            receiver,
+            message: messageContent,
+            taskId, // Include taskId in the message data
+            timestamp: new Date().toISOString() // Generate ISO string for timestamp
+        };
+
+        // Send the message to the backend via the Send Message API
+        fetch('https://apiserveraskit-4.onrender.com/chat/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(messageData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Add the new message to the chat box for the current user
+                addMessageToChat('You', messageContent, messageData.timestamp, true);
+                messageInput.value = ''; // Clear the input field
+                fetchMessages(); // Refresh chat to include the new message
+            } else {
+                console.error('Error sending message:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending message:', error);
+        });
+    });
+
+    // Function to add a message to the chat box
+    function addMessageToChat(senderName, messageContent, timestamp, isSentByCurrentUser) {
+        const messageElement = document.createElement('div');
+        const timeElement = document.createElement('small');
+
+        messageElement.textContent = `${senderName}: ${messageContent}`;
+        messageElement.className = 'message ' + (isSentByCurrentUser ? 'sender' : 'receiver');
+
+        // Format the timestamp to display the time
+        const formattedTime = new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        timeElement.textContent = formattedTime;
+        timeElement.className = 'timestamp';
+
+        messageElement.appendChild(timeElement);
+        chatBox.appendChild(messageElement);
+
+        // Auto-scroll to the latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
