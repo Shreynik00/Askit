@@ -45,6 +45,10 @@
             <label for="taskBudget">Your Budget in Rs:</label> 
             <input type="number" id="taskBudget" placeholder="Enter your budget" required><br>
 
+               <label for="skills">
+                   Your Task Location
+               </label><br>
+            <input type="text" id="location" placeholder="Enter  the task location " required><br>
 
             <label for="skills">Specific Skills OR Equipment requied</label><br>
             <input type="text" id="skills" placeholder="Enter  the skills required" required><br>
@@ -94,6 +98,7 @@
             const type = document.getElementById('taskType').value;
             const budget = document.getElementById('taskBudget').value;
             const requirements = document.getElementById('skills').value;
+              const location = document.getElementById('location').value;
             const status = "unaccpted ";
             const isdeleted = "false";
             const ProviderEndedTask = "false";
@@ -109,6 +114,7 @@
                         deadline,
                         requirements,
                         mode,
+                        location,
                         type,
                         isdeleted,
                         ProviderEndedTask,
