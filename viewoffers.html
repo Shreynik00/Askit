@@ -17,7 +17,7 @@
        let receiver = '';
         let sender='';
         
-        let taskId = '';
+ 
         
         async function fetchOffers() {
             try {
@@ -86,7 +86,7 @@
 
                 const tasks = await response.json();
                 receiver = tasks.Provider;
-                taskId = tasks._id;
+               
 
                   // Event listener for 'Chat' buttons
                         document.querySelectorAll('.chatButton').forEach(button => {
