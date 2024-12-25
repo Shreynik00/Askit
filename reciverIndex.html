@@ -181,13 +181,7 @@
                         });
 
 
-                        // Event listener for 'View Offers' buttons
-                        document.querySelectorAll('.viewOffersButton').forEach(button => {
-                            button.addEventListener('click', (event) => {
-                                const taskId = event.target.getAttribute('data-taskid');
-                                window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&username=${encodeURIComponent(username)}`;
-                            });
-                        });
+                
 
                         // Event listener for 'Chat' buttons
                         document.querySelectorAll('.chatButton').forEach(button => {
@@ -197,6 +191,13 @@
                             });
                         });
 
+                                // Event listener for 'View Offers' buttons
+                        document.querySelectorAll('.viewOffersButton').forEach(button => {
+                            button.addEventListener('click', (event) => {
+                                const taskId = event.target.getAttribute('data-taskid');
+                                window.location.href = `viewoffers.html?taskId=${encodeURIComponent(taskId)}&username=${encodeURIComponent(username)}&receiver=${encodeURIComponent(reciver)}`;
+                            });
+                        });
                         // Event listener for 'Delete Task' buttons
                         document.querySelectorAll('.deleteTaskButton').forEach(button => {
                             button.addEventListener('click', async (event) => {
