@@ -156,21 +156,21 @@ body {
     // Fetch task details by ID
     async function fetchTaskDetails(id) {
         try {
-            const response = await fetch(`https://apiserveraskit-4.onrender.com/tasks/${id}`); // Corrected endpoint
+            const response = await fetch(`https://apiserveraskit-4.onrender.com/tasks/${id}`); // API endpoint
             if (!response.ok) {
                 throw new Error('Task not found'); // Handle 404 error
             }
             const task = await response.json(); // Parse JSON response
             displayTaskDetails(task); // Display the task details
         } catch (error) {
-            console.error('Error fetching task details:', error); // Log any errors
+            console.error('Error fetching task details:', error); // Log errors
             document.getElementById('taskDetails').innerHTML = '<p>Error fetching task details. Please try again.</p>'; // Display error message
         }
     }
 
     // Function to display task details
     function displayTaskDetails(task) {
-        const receiver = task.TaskProvider;
+        const receiver = encodeURIComponent(task.TaskProvider || ''); // Ensure valid URL encoding for receiver
         const taskDetailsContainer = document.getElementById('taskDetails');
         taskDetailsContainer.innerHTML = `
             <h2 class="task-title">${task.title}</h2>
@@ -185,11 +185,8 @@ body {
             
             <button class="back-button" onclick="window.history.back()">Back</button>
             <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-              <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${receiver}" class="back-button">Chat</a>
-          
+            <a href="https://shreynik00.github.io/Askit/leave-question.html?id=${taskId}&username=${username}&receiver=${receiver}" class="back-button">Chat</a>
         `;
-
-    
     }
 
     // On page load, fetch the task ID from the URL and load the task details
@@ -199,6 +196,7 @@ body {
         document.getElementById('taskDetails').innerHTML = '<p>Task ID is missing in the URL!</p>'; // Handle missing ID
     }
 </script>
+
 
 
 
