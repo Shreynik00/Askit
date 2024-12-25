@@ -154,7 +154,6 @@ h1 {
             // Filter tasks based on specific criteria
             const validTasks = tasks.filter(task =>
                 task.TaskProvider === username &&
-                task.RequesterEndedTask === "false" &&
                 task.ProviderEndedTask === "false" &&
                 task.isdeleted === "false"
             );
