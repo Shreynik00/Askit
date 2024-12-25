@@ -102,8 +102,8 @@ button {
     color: #121212; /* Dark text for buttons */
     border: none; /* No border */
     border-radius: 8px; /* Rounded corners */
-    padding: 0.8em 1.5em; /* Responsive padding */
-    font-size: 1.2em; /* Larger font size */
+    padding: 0.5em 1.3em; /* Responsive padding */
+    font-size: 1.0em; /* Larger font size */
     cursor: pointer; /* Pointer cursor */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and hover */
     display: inline-block; /* Align buttons inline */
