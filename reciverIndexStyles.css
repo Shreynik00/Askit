@@ -101,13 +101,13 @@ button {
     background-color: #40e0d0; /* Cyan background for buttons */
     color: #121212; /* Dark text for buttons */
     border: none; /* No border */
-    border-radius: 7px; /* Rounded corners */
-    padding: 0.6em 1.8em; /* Responsive padding */
-    font-size: 1.6em; /* Larger font size */
+    border-radius: 8px; /* Rounded corners */
+    padding: 0.8em 1.5em; /* Responsive padding */
+    font-size: 1.2em; /* Larger font size */
     cursor: pointer; /* Pointer cursor */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and hover */
     display: inline-block; /* Align buttons inline */
-    box-shadow: 0px 2px 4px rgba(0, 172, 193, 0.4); /* Subtle glow */
+    box-shadow: 0px 3px 6px rgba(0, 172, 193, 0.4); /* Subtle glow */
 }
 
 button:hover {
@@ -119,13 +119,13 @@ button:hover {
 /* Aligning View Offers button to the right */
 .viewOffersButton {
     position: absolute; /* Position absolutely within the task */
-    right: 13px; /* Align to the right */
+    right: 15px; /* Align to the right */
     bottom: 15px; /* Align to the bottom */
 }
 
 .chatButton {
     position: absolute; /* Position absolutely within the task */
-    right: 11px; /* Align to the right */
+    right: 15px; /* Align to the right */
     bottom: 15px; /* Align to the bottom */
 }
 /* Display username styles */
@@ -148,18 +148,18 @@ button:hover {
     }
     button {
         width: auto; /* Default width for buttons on mobile */
-        padding: 0.2em 0.7em; /* Adjust padding */
-        font-size: 1.4em; /* Responsive font size */
+        padding: 0.4em 1.0em; /* Adjust padding */
+        font-size: 0.9em; /* Responsive font size */
     }
 }
 
 @media (max-width: 480px) {
     h1 {
-        font-size: 2.1rem; /* Smaller heading for mobile */
+        font-size: 2.2rem; /* Smaller heading for mobile */
     }
 
     h2 {
-        font-size: 1.7rem; /* Adjust subheading size */
+        font-size: 1.8rem; /* Adjust subheading size */
     }
 
     #addTaskButton {
