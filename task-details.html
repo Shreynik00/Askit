@@ -147,7 +147,7 @@ body {
     // Function to get URL parameters
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-         
+         let reciver;
 
         return urlParams.get(param); // Get value for the specified parameter
     }
@@ -170,6 +170,7 @@ const username = getUrlParameter('username');
 
     // Function to display task details
     function displayTaskDetails(task) {
+        reciver = task.TaskProvider;
         const taskDetailsContainer = document.getElementById('taskDetails');
         taskDetailsContainer.innerHTML = `
             <h2 class="task-title">${task.title}</h2>
