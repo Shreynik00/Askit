@@ -170,7 +170,7 @@
         document.getElementById('sidebarUsername').textContent = username || "User";
 
         const sidebar = document.getElementById('sidebar');
-        fetchDetail();
+        fetchUserDetails();
 
         async function fetchUserDetails() {
         const urlParams = new URLSearchParams(window.location.search);
