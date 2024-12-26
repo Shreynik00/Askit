@@ -60,7 +60,7 @@
 <script>
     // Parse URL to extract parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const currentUser = urlParams.get('username'); // Current user (logged-in)
+    const currentUser = urlParams.get('sender'); // Current user (logged-in)
     const taskId = urlParams.get('id'); // Task ID
     let receiver; // Receiver will be dynamically assigned
 
