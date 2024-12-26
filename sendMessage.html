@@ -62,7 +62,7 @@
     const messageForm = document.getElementById('messageForm');
 
     // Fetch previous messages from the database filtered by taskId
-    function fetchMessages() {
+  function fetchMessages() {
         fetch(`https://apiserveraskit-4.onrender.com/chat/${taskId}`)
             .then(response => response.json())
             .then(messages => {
