@@ -118,7 +118,7 @@
 
     // Redirect to reply-message.html with parameters
     function redirectToReply(taskId, receiver, sender) {
-        const replyUrl = `reply-message.html?id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}&sender=${encodeURIComponent(currentUser)}`;
+        const replyUrl = `reply-question.html?id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}&sender=${encodeURIComponent(currentUser)}`;
         window.location.href = replyUrl;
     }
 
