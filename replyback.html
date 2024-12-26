@@ -63,14 +63,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         const currentUser = urlParams.get('username'); // Current user (logged-in)
         const taskId = urlParams.get('id'); // Task ID
-        const receiver = urlParams.get('reciver'); // Receiver
+    let receiver; // Receiver
 
         // DOM Elements
         const latestMessageContainer = document.getElementById('latest-message');
 
         // Fetch the latest message filtered by taskId and receiver
         function fetchLatestMessage() {
-            if (!taskId || !receiver) {
+            if (!taskId ) {
                 latestMessageContainer.innerHTML = '<p class="message-details">Invalid task or receiver.</p>';
                 return;
             }
@@ -94,7 +94,8 @@
                     if (matchingMessages.length === 0) {
                         latestMessageContainer.innerHTML = '<p class="message-details">No  messages found.</p>';
                         return;
-                    }
+                    
+                    receiver = msg.receiver;
 
                     // Get the latest message
                     const latestMessage = matchingMessages[matchingMessages.length - 1];
