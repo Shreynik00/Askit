@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="messageStyles.css">
     <style>
         .back-button {
-            width: 30%;
-            padding: 14px;
+            width: 20%;
+            padding: 12px;
             background-color: #00acc1;
             margin-top: 9px;
             color: #000;
@@ -38,7 +38,7 @@
             border: none;
             border-radius: 5px;
             padding: 10px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
     </style>
@@ -104,7 +104,7 @@
                     <div class="message-details">
                         <strong>${latestMessage.sender}</strong>: ${latestMessage.message.split('\n')[0]}
                     </div>
-                    <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
+                   <br> <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
                         Chat
                     </button>
                 `;
