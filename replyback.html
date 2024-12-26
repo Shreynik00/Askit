@@ -36,8 +36,9 @@
             background-color: #0288d1;
             color: white;
             border: none;
+                        width: 10%;
             border-radius: 5px;
-            padding: 10px;
+            padding: 6px;
             font-size: 0.8rem;
             cursor: pointer;
         }
@@ -102,9 +103,9 @@
                 // Update the UI with the latest message
                 latestMessageContainer.innerHTML = `
                     <div class="message-details">
-                        <strong>${latestMessage.sender}</strong>: ${latestMessage.message.split('\n')[0]}
+                        <strong>${latestMessage.sender}</strong>: ${latestMessage.message.split('\n')[0]} <br>
                     </div>
-                   <br> <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
+                    <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
                         Chat
                     </button>
                 `;
