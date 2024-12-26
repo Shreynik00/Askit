@@ -57,73 +57,73 @@
             <button class="back-button" type="button" onclick="window.history.back()">Back</button>
         </form>
     </div>
+<script>
+    // Parse URL to extract parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentUser = urlParams.get('username'); // Current user (logged-in)
+    const taskId = urlParams.get('id'); // Task ID
+    let receiver; // Receiver will be dynamically assigned
 
-    <script>
-        // Parse URL to extract parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentUser = urlParams.get('username'); // Current user (logged-in)
-        const taskId = urlParams.get('id'); // Task ID
-    let receiver; // Receiver
+    // DOM Elements
+    const latestMessageContainer = document.getElementById('latest-message');
 
-        // DOM Elements
-        const latestMessageContainer = document.getElementById('latest-message');
-
-        // Fetch the latest message filtered by taskId and receiver
-        function fetchLatestMessage() {
-            if (!taskId ) {
-                latestMessageContainer.innerHTML = '<p class="message-details">Invalid task or receiver.</p>';
-                return;
-            }
-
-            fetch(`https://apiserveraskit-4.onrender.com/question/${taskId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(messages => {
-                    if (!Array.isArray(messages)) {
-                        console.error('Expected an array of messages, but got:', messages);
-                        latestMessageContainer.innerHTML = '<p class="message-details">No messages found.</p>';
-                        return;
-                    }
-
-                    // Filter messages for the latest one matching receiver and taskId
-                    const matchingMessages = messages.filter(msg => msg.receiver === currentUser && msg.taskId === taskId);
-                    if (matchingMessages.length === 0) {
-                        latestMessageContainer.innerHTML = '<p class="message-details">No  messages found.</p>';
-                        return;
-                    
-                    receiver = msg.receiver;
-
-                    // Get the latest message
-                    const latestMessage = matchingMessages[matchingMessages.length - 1];
-
-                    // Update the UI with the latest message
-                    latestMessageContainer.innerHTML = `
-                        <div class="message-details">
-                            <strong>${latestMessage.sender}</strong>: ${latestMessage.message.split('\n')[0]}
-                        </div>
-                        <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
-                            Chat
-                        </button>
-                    `;
-                })
-                .catch(error => {
-                    console.error('Error fetching messages:', error);
-                    latestMessageContainer.innerHTML = '<p class="message-details">Failed to load messages.</p>';
-                });
+    // Fetch the latest message filtered by taskId and receiver
+    function fetchLatestMessage() {
+        if (!taskId || !currentUser) {
+            latestMessageContainer.innerHTML = '<p class="message-details">Invalid task or user.</p>';
+            return;
         }
 
-        // Redirect to reply-message.html with parameters
-        function redirectToReply(taskId, receiver, sender) {
-            const replyUrl = `reply-message.html?id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}&sender=${encodeURIComponent(currentUser)}`;
-            window.location.href = replyUrl;
-        }
+        fetch(`https://apiserveraskit-4.onrender.com/question/${taskId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(messages => {
+                if (!Array.isArray(messages)) {
+                    console.error('Expected an array of messages, but got:', messages);
+                    latestMessageContainer.innerHTML = '<p class="message-details">No messages found.</p>';
+                    return;
+                }
 
-        // Fetch messages on load
-        fetchLatestMessage();
-    </script>
+                // Filter messages for the latest one matching receiver and taskId
+                const matchingMessages = messages.filter(msg => msg.receiver === currentUser && msg.taskId === taskId);
+                if (matchingMessages.length === 0) {
+                    latestMessageContainer.innerHTML = '<p class="message-details">No messages found.</p>';
+                    return;
+                }
+
+                // Get the latest message
+                const latestMessage = matchingMessages[matchingMessages.length - 1];
+                receiver = latestMessage.receiver; // Dynamically assign receiver
+
+                // Update the UI with the latest message
+                latestMessageContainer.innerHTML = `
+                    <div class="message-details">
+                        <strong>${latestMessage.sender}</strong>: ${latestMessage.message.split('\n')[0]}
+                    </div>
+                    <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
+                        Chat
+                    </button>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
+                latestMessageContainer.innerHTML = '<p class="message-details">Failed to load messages.</p>';
+            });
+    }
+
+    // Redirect to reply-message.html with parameters
+    function redirectToReply(taskId, receiver, sender) {
+        const replyUrl = `reply-message.html?id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}&sender=${encodeURIComponent(currentUser)}`;
+        window.location.href = replyUrl;
+    }
+
+    // Fetch messages on load
+    fetchLatestMessage();
+</script>
+
 </body>
 </html>
