@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat System</title>
+    <link rel="stylesheet" href="messageStyles.css">
+    <style>
+        .back-button {
+            width: 30%;
+            padding: 14px;
+            background-color: #00acc1;
+            margin-top: 9px;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 172, 193, 0.4);
+        }
+        .message-container {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .message-details {
+            font-size: 1rem;
+        }
+        .chat-button {
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="recipientDisplay">Chat System</h1>
+
+        <!-- Latest Message Section -->
+        <div id="latest-message" class="message-container">
+            <p class="message-details">Loading latest message...</p>
+        </div>
+
+        <!-- Input and Back Button -->
+        <form id="messageForm">
+            <button class="back-button" type="button" onclick="window.history.back()">Back</button>
+        </form>
+    </div>
+
+    <script>
+        // Parse URL to extract parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentUser = urlParams.get('username'); // Current user (logged-in)
+        const taskId = urlParams.get('id'); // Task ID
+        const receiver = urlParams.get('reciver'); // Receiver
+
+        // DOM Elements
+        const latestMessageContainer = document.getElementById('latest-message');
+
+        // Fetch the latest message filtered by taskId and receiver
+        function fetchLatestMessage() {
+            if (!taskId || !receiver) {
+                latestMessageContainer.innerHTML = '<p class="message-details">Invalid task or receiver.</p>';
+                return;
+            }
+
+            fetch(`https://apiserveraskit-4.onrender.com/question/${taskId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(messages => {
+                    if (!Array.isArray(messages)) {
+                        console.error('Expected an array of messages, but got:', messages);
+                        latestMessageContainer.innerHTML = '<p class="message-details">No messages found.</p>';
+                        return;
+                    }
+
+                    // Filter messages for the latest one matching receiver and taskId
+                    const matchingMessages = messages.filter(msg => msg.receiver === currentUser && msg.taskId === taskId);
+                    if (matchingMessages.length === 0) {
+                        latestMessageContainer.innerHTML = '<p class="message-details">No  messages found.</p>';
+                        return;
+                    }
+
+                    // Get the latest message
+                    const latestMessage = matchingMessages[matchingMessages.length - 1];
+
+                    // Update the UI with the latest message
+                    latestMessageContainer.innerHTML = `
+                        <div class="message-details">
+                            <strong>${latestMessage.sender}</strong>: ${latestMessage.message.split('\n')[0]}
+                        </div>
+                        <button class="chat-button" onclick="redirectToReply('${taskId}', '${receiver}', '${latestMessage.sender}')">
+                            Chat
+                        </button>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                    latestMessageContainer.innerHTML = '<p class="message-details">Failed to load messages.</p>';
+                });
+        }
+
+        // Redirect to reply-message.html with parameters
+        function redirectToReply(taskId, receiver, sender) {
+            const replyUrl = `reply-message.html?id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}&sender=${encodeURIComponent(currentUser)}`;
+            window.location.href = replyUrl;
+        }
+
+        // Fetch messages on load
+        fetchLatestMessage();
+    </script>
+</body>
+</html>
