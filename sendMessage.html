@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,7 +63,7 @@
     const messageForm = document.getElementById('messageForm');
 
     // Fetch previous messages from the database filtered by taskId
-  function fetchMessages() {
+    function fetchMessages() {
         fetch(`https://apiserveraskit-4.onrender.com/chat/${taskId}`)
             .then(response => response.json())
             .then(messages => {
@@ -86,11 +87,10 @@
                 console.error('Error fetching messages:', error);
             });
     }
-
-   // Fetch messages initially and set a periodic refresh
+    
+// Fetch messages initially and set a periodic refresh
 fetchMessages();
 setInterval(fetchMessages, 2000);
-
 
     // Send new message on form submission
     messageForm.addEventListener('submit', (event) => {
