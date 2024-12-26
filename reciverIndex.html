@@ -113,6 +113,7 @@
                         tasksContainer.innerHTML = '<p>No tasks available.</p>';
                     } else {
                         tasksContainer.innerHTML = filteredTasks.map(task => {
+                            taskId = task._id;
                             return `
                                 <div class="task">
                                     <h2><p>Status: ${task.status}</p></h2>
