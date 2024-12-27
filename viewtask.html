@@ -171,6 +171,7 @@
 
         const sidebar = document.getElementById('sidebar');
         fetchUserDetails();
+        
 
         async function fetchUserDetails() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -264,7 +265,7 @@
                 alert('Task ID or Username is not available.');
             }
         }
-
+setInterval(fetchTasks(), 5000);
         fetchTasks();
     </script>
 </body>
