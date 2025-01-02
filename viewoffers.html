@@ -63,6 +63,7 @@ async function fetchOffers() {
                             throw new Error('Failed to accept offer');
                         }
                         alert('Offer accepted successfully!');
+                          window.location.href = `https://shreynik00.github.io/Askit/seeProfile.html?username=${userId}`;
                     } catch (error) {
                         console.error('Error accepting offer:', error);
                         alert('Failed to accept offer.');
