@@ -189,8 +189,11 @@ h1 {
                         <p>Budget: ${task.budget}</p>
                         <p>Deadline: ${task.deadline}</p>
                         <p>Status: ${task.status}</p>
+                        
+                           <button class="back-button" onclick="window.history.back()">Back</button>
                         <button class="chat-button" onclick="redirectToChat('${task.username}', '${username}', '${task._id}')">Chat</button>
                         <button class="chat-buttonn" onclick="completeTask('${task._id}')">Complete Task</button>
+                        
                     </div>
                 `).join('');
             }
