@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="posttaskStyles.css">
 </head>
 <body>
+     <button id="menuButton" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar">
+        <h2>Hello, <span id="sidebarUsername"></span></h2>
+        <button onclick="goToHome()">Home</button>
+        <button onclick="goToProfile()">My Profile</button>
+        <button onclick="logout()">Logout</button>
+    </div>
     <header>
         <h1>Post a Task</h1>
     </header>
@@ -61,13 +68,7 @@
             <button type="submit">Post Task</button>
         </form>
     </section>
-  <button id="menuButton" onclick="toggleSidebar()">☰</button>
-    <div id="sidebar">
-        <h2>Hello, <span id="sidebarUsername"></span></h2>
-        <button onclick="goToHome()">Home</button>
-        <button onclick="goToProfile()">My Profile</button>
-        <button onclick="logout()">Logout</button>
-    </div>
+ 
 
     <script>
         // Get username from URL parameters
