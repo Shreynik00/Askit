@@ -61,6 +61,13 @@
             <button type="submit">Post Task</button>
         </form>
     </section>
+  <button id="menuButton" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar">
+        <h2>Hello, <span id="sidebarUsername"></span></h2>
+        <button onclick="goToHome()">Home</button>
+        <button onclick="goToProfile()">My Profile</button>
+        <button onclick="logout()">Logout</button>
+    </div>
 
     <script>
         // Get username from URL parameters
@@ -140,6 +147,24 @@
                 alert('Error posting task. Please try again.');
             }
         });
+            function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        document.getElementById('sidebarUsername').textContent = username || "User";
+
+        function goToHome() {
+            window.location.href = `role-selection.html?username=${username}`;
+        }
+
+        function goToProfile() {
+            alert('Redirecting to profile (not yet implemented).');
+        }
+
+        function logout() {
+            window.location.href = `https://shreynik00.github.io/Askit/login.html`;
+        }
     </script>
 </body>
 </html>
