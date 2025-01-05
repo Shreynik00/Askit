@@ -126,7 +126,7 @@
                                     <p><b>Budget:</b> ${task.budget}</p>
                                     
                                     ${task.status === 'accepted' 
-                                        ? ` <button class="viewProfileButton" data-username="${task.username}">View Profile</button>
+                                        ? ` <button class="viewProfileButton" data-username="${task.TaskProvider}">View Profile</button>
                                         <button class="chatButton" data-receiver="${task.TaskProvider}">Chat</button>
                                            <button class="completeTaskButton" data-taskid="${task._id}">Complete<br>Task</button>`
                                         : `<button class="viewOffersButton" data-taskid="${task._id}">View Offers</button>
