@@ -72,7 +72,7 @@
     <div id="sidebar">
         <h2>Hello, <span id="sidebarUsername"></span></h2>
         <button onclick="goToHome()">Home</button>
-        <button onclick="goToProfile()">My Profile</button>
+      
         <button onclick="logout()">Logout</button>
     </div>
 
@@ -249,9 +249,7 @@
             window.location.href = `role-selection.html?username=${username}`;
         }
 
-        function goToProfile() {
-            alert('Redirecting to profile (not yet implemented).');
-        }
+    
 
         function logout() {
             window.location.href = `https://shreynik00.github.io/Askit/login.html`;
