@@ -72,7 +72,7 @@
     <div id="sidebar">
         <h2>Hello, <span id="sidebarUsername"></span></h2>
         <button onclick="goToHome()">Home</button>
-      
+        <button onclick="goToProfile()">My Profile</button>
         <button onclick="logout()">Logout</button>
     </div>
 
@@ -249,8 +249,10 @@
             window.location.href = `role-selection.html?username=${username}`;
         }
 
-    
-
+    function goToProfile()
+        {
+   window.location.href = `https://shreynik00.github.io/Askit/viewOwnProfile.html?username=${username}`;
+        }
         function logout() {
             window.location.href = `https://shreynik00.github.io/Askit/login.html`;
         }
