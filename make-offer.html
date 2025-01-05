@@ -127,6 +127,25 @@
         };
 
         try {
+
+                 // Fetch the username associated with the task
+        const taskUserResponse = await fetch(`https://apiserveraskit-4.onrender.com/task-username/${taskId}`, {
+            method: 'GET',
+        });
+
+        if (!taskUserResponse.ok) {
+            throw new Error('Failed to fetch task username.');
+        }
+
+        const taskUserData = await taskUserResponse.json();
+        const taskUsername = taskUserData.username;
+
+        // Compare usernames
+        if (username === taskUsername) {
+            alert("You can't offer a deal on your own task.");
+        } else {
+           
+            
             const response = await fetch('https://apiserveraskit-4.onrender.com/submit-offer', {
                 method: 'POST',
                 headers: {
@@ -142,10 +161,13 @@
             // Redirect to view task page after successful submission
             window.location.href = `https://shreynik00.github.io/Askit/viewtask.html?username=${encodeURIComponent(username)}`;
 
-        } catch (error) {
+        }} catch (error) {
             console.error('Error submitting offer:', error);
         }
     });
+
+  
+
 </script>
 
 </body>
