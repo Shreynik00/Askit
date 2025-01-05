@@ -113,6 +113,10 @@ body {
     margin-bottom: 10px; /* Space below each detail */
     color: #fff; /* White color for details */
 }
+        b{
+             font-size: 17px;
+              color: #000; /* Black text color for the button */
+        }
 
 /* Back button styles */
 .back-button {
@@ -272,9 +276,9 @@ function displayTaskDetails(task) {
         <p class="task-requirements">Specific Skills or Equipment: ${task.requirements}</p>
         <p class="task-type">Type: ${task.type}</p>
 
-        <button class="back-button" onclick="window.history.back()">Back</button>
-        <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button">Make an Offer</a>
-        <button class="chatButton" id="chatButton"    data-task="${task.username}">Chat</button>
+        <button class="back-button" onclick="window.history.back()"><b>Back</b></button>
+        <a href="https://shreynik00.github.io/Askit/make-offer.html?id=${taskId}&username=${username}" class="back-button"><b>Make an Offer</b></a>
+        <button class="chatButton" id="chatButton"    data-task="${task.username}"><b>Chat</b></button>
     `; // Inject HTML to show task details
 
     // Add an event listener to the chat button
