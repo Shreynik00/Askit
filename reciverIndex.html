@@ -117,13 +117,13 @@
                             return `
                                 <div class="task">
                                     <h2><p>Status: ${task.status}</p></h2>
-                                    <i>${task.title}</i>
+                                    <i>${task.title}</i><br>
                                     <br>
                                     <p><b>Detail:</b> ${task.detail}</p><br>
-                                    <p><b>Deadline:</b> ${task.deadline}</p>
-                                    <p><b>Type:</b> ${task.type}</p>
-                                    <p><b>Mode:</b> ${task.mode}</p>
-                                    <p><b>Budget:</b> ${task.budget}</p>
+                                    <p><b>Deadline:</b> ${task.deadline}</p><br>
+                                    <p><b>Type:</b> ${task.type}</p><br>
+                                    <p><b>Mode:</b> ${task.mode}</p><br>
+                                    <p><b>Budget:</b> ${task.budget}</p><br>
                                     
                                     ${task.status === 'accepted' 
                                         ? ` <button class="viewProfileButton" data-username="${task.TaskProvider}">View Profile</button>
