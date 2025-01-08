@@ -230,7 +230,7 @@ h1 {
             // Check if the response is OK
             if (!response.ok) {
                 const errorMessage = await response.json();
-                throw new Error(errorMessage.message || 'Failed to fetch accepted offers');
+                
             }
 
             // Parse the JSON response
