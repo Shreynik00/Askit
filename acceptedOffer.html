@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accepted Offers</title>
-   
     <style>
-                #sidebar {
+        #sidebar {
             position: fixed;
             top: 0;
             left: -300px;
@@ -27,7 +26,6 @@
         #sidebar h2 {
             margin-bottom: 10px;
             font-size: 1.5em;
-            color: white;
             margin-top: 60px;
         }
 
@@ -52,7 +50,7 @@
             top: 20px;
             left: 20px;
             background-color: #ffffff;
-            color: rgb(8, 8, 8);
+            color: #000;
             border: none;
             border-radius: 20%;
             width: 40px;
@@ -65,135 +63,100 @@
             z-index: 1001;
         }
 
-/* Global Styles */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #000000; /* Black background */
-    color: #e0f7fa; /* Light cyan text */
-}
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #e0f7fa;
+        }
 
-h1 {
-    text-align: center;
-    color: #00ffff; /* Cyan heading */
-    font-size: 28px;
-    text-shadow: 0 1px 5px rgba(0, 255, 255, 0.7); /* Subtle cyan glow */
-    margin-top: 20px;
-}
-        
-        .back-button
-{
-   
-        display: inline-block; /* Make it inline block to allow left alignment */
-    margin: 8px 0; /* Space above and below the button */
-    padding: 0.6em 1em; /* Smaller padding for a more compact button */
-    font-size: 1.0em; /* Smaller font size */
-    max-width: 70px; /* Max width to avoid overly large buttons */
-    width: 30%; /* Ensure it spans the width on smaller screens */
-    border-radius: 6px; /* Slightly rounded corners */
-    background-color: #30b6df; /* Cyan background */
-    color:  #282727; /* Dark text */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: all 0.3s ease; /* Smooth transition effect */
-    box-shadow: 0px 3px 8px rgba(13, 223, 202, 0.4); /* Subtle shadow effect */
-    text-align: center; /* Text centered inside the button */
-    
-    
-}
-#acceptedOffersContainer {
-    padding: 20px;
-    max-width: 900px;
-    margin: 20px auto;
-}
+        h1 {
+            text-align: center;
+            color: #00ffff;
+            font-size: 28px;
+            text-shadow: 0 1px 5px rgba(0, 255, 255, 0.7);
+            margin-top: 20px;
+        }
 
-.task-item {
-    background-color: #1e1e1e; /* Slightly lighter than black for contrast */
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2); /* Subtle cyan inner shadow */
-    border: 1px solid #00ffff; /* Cyan border */
-}
-
-.task-item h3 {
-    color: #00ffff; /* Cyan for task title */
-    margin-bottom: 10px;
-    font-size: 20px;
-    text-transform: capitalize;
-    text-decoration: underline; /* To mimic a link appearance */
-    cursor: pointer;
-}
-
-.task-item h3:hover {
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8); /* Glow effect on hover */
-}
-
-.task-item p {
-    color: #b0e0e6; /* Pale cyan text for details */
-    margin: 5px 0;
-    font-size: 16px;
-}
-        /* Chat button styling */
-        .chat-button {
-    display: inline-block; /* Make it inline block to allow left alignment */
-    margin: 8px 0; /* Space above and below the button */
-    padding: 0.6em 1em; /* Smaller padding for a more compact button */
-    font-size: 1.0em; /* Smaller font size */
-    max-width: 70px; /* Max width to avoid overly large buttons */
-    width: 30%; /* Ensure it spans the width on smaller screens */
-    border-radius: 6px; /* Slightly rounded corners */
-    background-color: #30b6df; /* Cyan background */
-    color:  #282727; /* Dark text */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: all 0.3s ease; /* Smooth transition effect */
-    box-shadow: 0px 3px 8px rgba(13, 223, 202, 0.4); /* Subtle shadow effect */
-    text-align: center; /* Text centered inside the button */
-}
-                /* Chat button styling */
+        .back-button,
+        .chat-button,
         .chat-buttonn {
-    display: inline-block; /* Make it inline block to allow left alignment */
-    margin: 8px 0; /* Space above and below the button */
-    padding: 0.6em 1em; /* Smaller padding for a more compact button */
-    font-size: 1.0em; /* Smaller font size */
-    max-width: 90px; /* Max width to avoid overly large buttons */
-    width: 90%; /* Ensure it spans the width on smaller screens */
-    border-radius: 6px; /* Slightly rounded corners */
-    background-color: #30b6df; /* Cyan background */
-    color:  #282727; /* Dark text */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: all 0.3s ease; /* Smooth transition effect */
-    box-shadow: 0px 3px 8px rgba(13, 223, 202, 0.4); /* Subtle shadow effect */
-    text-align: center; /* Text centered inside the button */
-}
+            margin: 8px 0;
+            padding: 0.6em 1em;
+            font-size: 1em;
+            max-width: 90px;
+            width: 30%;
+            border-radius: 6px;
+            background-color: #30b6df;
+            color: #282727;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 3px 8px rgba(13, 223, 202, 0.4);
+            text-align: center;
+        }
 
-.chat-button:hover {
-    background-color: #00ffdd; /* Darker cyan on hover */
-    transform: translateY(-2px); /* Slight lift effect */
-    box-shadow: 0px 4px 10px rgba(64, 224, 208, 0.6); /* Slightly brighter shadow on hover */
-}
+        .chat-button:hover,
+        .back-button:hover,
+        .chat-buttonn:hover {
+            background-color: #00ffdd;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 10px rgba(64, 224, 208, 0.6);
+        }
 
-/* Responsive layout for mobile and tablets */
-@media screen and (max-width: 768px) {
-    #acceptedOffersContainer {
-        padding: 10px;
-    }
+        #acceptedOffersContainer {
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+        }
 
-    .task-item {
-        padding: 15px;
-    }
+        .task-item {
+            background-color: #1e1e1e;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
+            border: 1px solid #00ffff;
+        }
 
-    .task-item h3 {
-        font-size: 18px;
-    }
-}
-</style>
+        .task-item h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 20px;
+            text-transform: capitalize;
+            text-decoration: underline;
+            cursor: pointer;
+        }
 
+        .task-item h3:hover {
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+        }
+
+        .task-item p {
+            color: #b0e0e6;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        /* Responsive layout for mobile and tablets */
+        @media screen and (max-width: 768px) {
+            #acceptedOffersContainer {
+                padding: 10px;
+            }
+
+            .task-item {
+                padding: 15px;
+            }
+
+            .task-item h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
-      <button id="menuButton" onclick="toggleSidebar()">☰</button>
+    <button id="menuButton" onclick="toggleSidebar()">☰</button>
     <div id="sidebar">
         <h2>Hello, <span id="sidebarUsername"></span></h2>
         <button onclick="goToHome()">Home</button>
@@ -204,118 +167,75 @@ h1 {
     <h1>Accepted Offers</h1>
     <section id="acceptedOffersContainer"></section>
      
-<script>
-    // Get the username from the URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username')?.trim();
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username')?.trim();
 
-    // Check if the username is present
-    if (!username) {
-        alert('Username is missing in the URL. Please log in again.');
-      //  window.location.href = 'login.html'; // Redirect to the login page
-    } else {
-        fetchAcceptedOffers();
-    }
+        if (!username) {
+            alert('Username is missing in the URL. Please log in again.');
+        } else {
+            fetchAcceptedOffers();
+        }
 
-    // Function to fetch accepted offers for the logged-in user
-    async function fetchAcceptedOffers() {
-        try {
-            // Send a POST request to fetch accepted offers
-            const response = await fetch('https://apiserveraskit-4.onrender.com/acceptedOffers', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username })
-            });
+        async function fetchAcceptedOffers() {
+            try {
+                const response = await fetch('https://apiserveraskit-4.onrender.com/acceptedOffers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
 
-            // Check if the response is OK
-            if (!response.ok) {
-                const errorMessage = await response.json();
-                
+                if (!response.ok) throw new Error('Failed to fetch data');
+
+                const tasks = await response.json();
+                const container = document.getElementById('acceptedOffersContainer');
+
+                const validTasks = tasks.filter(task =>
+                    task.TaskProvider === username &&
+                    task.RequesterEndedTask === "false" &&
+                    task.isdeleted === "false"
+                );
+
+                container.innerHTML = validTasks.length === 0
+                    ? '<p>No accepted offers found.</p>'
+                    : validTasks.map(task => `
+                        <div class="task-item">
+                            <h3>${task.title}</h3>
+                            <p>Budget: ${task.budget}</p>
+                            <p>Deadline: ${task.deadline}</p>
+                            <p>Status: ${task.status}</p>
+                            <button class="back-button" onclick="window.history.back()">Back</button>
+                            <button class="chat-button" onclick="redirectToChat('${task.username}', '${username}', '${task._id}')">Chat</button>
+                            <button class="chat-buttonn" onclick="completeTask('${task._id}')">Complete Task</button>
+                        </div>
+                    `).join('');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load accepted offers.');
             }
+        }
 
-            // Parse the JSON response
-            const tasks = await response.json();
+        async function completeTask(taskId) {
+            try {
+                const response = await fetch('https://apiserveraskit-4.onrender.com/completeTaskProvider', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ taskId })
+                });
 
-            // Get the container element
-            const container = document.getElementById('acceptedOffersContainer');
+                if (!response.ok) throw new Error('Task completion failed');
 
-            // Filter tasks based on specific criteria
-            const validTasks = tasks.filter(task =>
-                task.TaskProvider === username &&
-                task.RequesterEndedTask === "false" &&
-                task.isdeleted === "false"
-            );
-
-            // Update the container content
-            if (validTasks.length === 0) {
-                container.innerHTML = '<p>No accepted offers accepeted.</p>';
-            } else {
-                container.innerHTML = validTasks.map(task => `
-                    <div class="task-item">
-                        <h3>${task.title}</h3>
-                        <p>Budget: ${task.budget}</p>
-                        <p>Deadline: ${task.deadline}</p>
-                        <p>Status: ${task.status}</p>
-                        
-                           <button class="back-button" onclick="window.history.back()">Back</button>
-                        <button class="chat-button" onclick="redirectToChat('${task.username}', '${username}', '${task._id}')">Chat</button>
-                        <button class="chat-buttonn" onclick="completeTask('${task._id}')">Complete Task</button>
-                        
-                    </div>
-                `).join('');
+                alert('Task marked as complete.');
+                fetchAcceptedOffers();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to mark task as complete.');
             }
-        } catch (error) {
-            console.error('Error fetching accepted offers:', error);
-            alert('Failed to load accepted offers. Please try again later.');
-        }
-    }
-
-    // Function to mark a task as complete
-    async function completeTask(taskId) {
-        try {
-            const response = await fetch('https://apiserveraskit-4.onrender.com/completeTaskProvider', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ taskId })
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to complete task');
-            }
-
-            alert('Task marked as complete.');
-            fetchAcceptedOffers(); // Refresh the task list
-        } catch (error) {
-            console.error('Error completing task:', error);
-            alert('Failed to mark task as complete. Please try again.');
-        }
-    }
-
-    // Function to handle the redirection to the chat page
-    function redirectToChat(taskUsername, taskProviderName, taskId) {
-        // Redirect to leave-message.html with taskUsername and taskProvider as parameters
-        window.location.href = `leave-message.html?reciver=${encodeURIComponent(taskUsername)}&sender=${encodeURIComponent(taskProviderName)}&id=${encodeURIComponent(taskId)}`;
-    }
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
         }
 
-        document.getElementById('sidebarUsername').textContent = username || "User";
-
-        function goToHome() {
-            window.location.href = `role-selection.html?username=${username}`;
+        function redirectToChat(taskUsername, taskProviderName, taskId) {
+            window.location.href = `leave-message.html?taskUsername=${taskUsername}&taskProvider=${taskProviderName}&taskId=${taskId}`;
         }
-
-        function goToProfile() {
-            alert('Redirecting to profile (not yet implemented).');
-        }
-
-        function logout() {
-            window.location.href = `https://shreynik00.github.io/Askit/login.html`;
-        }
-</script>
-
-
+    </script>
 </body>
 </html>
