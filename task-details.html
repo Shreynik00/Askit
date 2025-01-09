@@ -286,7 +286,7 @@ function displayTaskDetails(task) {
     chatButton.addEventListener('click', () => {
         // Redirect to leave-question.html with parameters
         const receiver =  event.target.getAttribute('data-task');
-        window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${receiver}`;
+        window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
     });
 }
 
@@ -310,7 +310,7 @@ function displayTaskDetails(task) {
         }
 
         function goToProfile() {
-               window.location.href = `https://shreynik00.github.io/Askit/viewOwnProfile.html?username=${username}`;
+            alert('Redirecting to profile (not yet implemented).');
         }
 
         function logout() {
