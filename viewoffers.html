@@ -175,14 +175,14 @@ initializePage();
             sidebar.classList.toggle('open');
         }
 
-        document.getElementById('sidebarUsername').textContent = username || "User";
+        document.getElementById('sidebarUsername').textContent = ausername || "User";
 
         function goToHome() {
-            window.location.href = `role-selection.html?username=${username}`;
+            window.location.href = `role-selection.html?username=${ausername}`;
         }
 
         function goToProfile() {
-   window.location.href = `https://shreynik00.github.io/Askit/viewOwnProfile.html?username=${username}`;
+   window.location.href = `https://shreynik00.github.io/Askit/viewOwnProfile.html?username=${ausername}`;
         }
 
         function logout() {
