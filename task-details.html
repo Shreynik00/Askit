@@ -286,7 +286,7 @@ function displayTaskDetails(task) {
     chatButton.addEventListener('click', () => {
         // Redirect to leave-question.html with parameters
         const receiver =  event.target.getAttribute('data-task');
-        window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${encodeURIComponent(receiver)}`;
+        window.location.href = `leave-question.html?sender=${encodeURIComponent(username)}&id=${encodeURIComponent(taskId)}&receiver=${receiver}`;
     });
 }
 
