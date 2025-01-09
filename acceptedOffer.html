@@ -227,11 +227,7 @@ h1 {
                 body: JSON.stringify({ username })
             });
 
-            // Check if the response is OK
-            if (!response.ok) {
-                const errorMessage = await response.json();
-                
-            }
+        
 
             // Parse the JSON response
             const tasks = await response.json();
@@ -266,7 +262,7 @@ h1 {
             }
         } catch (error) {
             console.error('Error fetching accepted offers:', error);
-            alert('Failed to load accepted offers. Please try again later.');
+           
         }
     }
 
