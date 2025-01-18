@@ -102,6 +102,21 @@
             const budget = document.getElementById('taskBudget').value;
             const requirements = document.getElementById('skills').value;
               const location = document.getElementById('location').value;
+
+             // Collect all inputs to validate
+        const allInputs = [title, detail, requirements, location];
+
+        // Check if title or detail contains restricted words
+        const inputsToValidate = [title, detail,requirements, location];
+        const containsBlockedWord = inputsToValidate.some(input =>
+            blocklist.some(word => input.includes(word))
+        );
+
+        if (containsBlockedWord) {
+            // Show alert and stop form submission
+            alert("The task title or description contains prohibited words. Please remove them and try again.");
+            return;
+        }
             const status = "unaccepted ";
             const isdeleted = "false";
             const ProviderEndedTask = "false";
@@ -109,16 +124,6 @@
 
               const allInputs = [title, detail, requirements, location];
 
-        // Check if any input contains restricted words
-        const containsBlockedWord = allInputs.some(input =>
-            blocklist.some(word => input.includes(word))
-        );
-
-        if (containsBlockedWord) {
-            // Show an alert box and stop form submission
-            alert("Your input contains prohibited words. Please remove them and try again.");
-            return;
-        }
             try {
                 const response = await fetch('https://apiserveraskit-4.onrender.com/add-task', { 
                     method: 'POST',
