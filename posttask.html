@@ -65,6 +65,7 @@
  
 
     <script>
+                const blocklist = ["abuse", "racist", "offensive", "exampleword"]; 
         // Get username from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
@@ -106,6 +107,18 @@
             const ProviderEndedTask = "false";
             const RequesterEndedTask = "false";
 
+              const allInputs = [title, detail, requirements, location];
+
+        // Check if any input contains restricted words
+        const containsBlockedWord = allInputs.some(input =>
+            blocklist.some(word => input.includes(word))
+        );
+
+        if (containsBlockedWord) {
+            // Show an alert box and stop form submission
+            alert("Your input contains prohibited words. Please remove them and try again.");
+            return;
+        }
             try {
                 const response = await fetch('https://apiserveraskit-4.onrender.com/add-task', { 
                     method: 'POST',
