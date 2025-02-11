@@ -162,110 +162,113 @@
         <!-- Task list will be injected here -->
     </section>
  
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
-     //   let taskId = '';
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const sidebar = document.getElementById('sidebar');
 
-        document.getElementById('sidebarUsername').textContent = username || "User";
+    document.getElementById('sidebarUsername').textContent = username || "User";
 
-        const sidebar = document.getElementById('sidebar');
-        fetchUserDetails();
 
-        async function fetchUserDetails() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
+    fetchUserDetails();
 
-        const response = await fetch(`https://apiserveraskit-4.onrender.com/user/${username}`); // Call the API to fetch user details
-        const user = await response.json();
+    async function fetchUserDetails() {
+        try {
+            const response = await fetch(`${SERVER_URL}user/${username}`);
+            const user = await response.json();
 
-        if (user && user.username) {
-          fetchTasks();
-        } else {
-           redirectToAddSkills();
-            
+            if (user && user.username) {
+                fetchTasks();
+            } else {
+                redirectToAddSkills();
+            }
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+            alert('Failed to fetch user details.');
         }
     }
 
-        // Function to toggle sidebar visibility
-        function toggleSidebar() {
-            sidebar.classList.toggle('open');
-        }
+    // Function to toggle sidebar visibility
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+    }
 
-        function redirectToAddSkills() {
-            if (username) {
-                window.location.href = `${BASE_URL}profileSetup.html?username=${username}`;
-            } else {
-                alert('Username not available.');
-            }
+    function redirectToAddSkills() {
+        if (username) {
+            window.location.href = `${BASE_URL}profileSetup.html?username=${username}`;
+        } else {
+            alert('Username not available.');
         }
+    }
 
-        function goToHome() {
-            if (username) {
-                window.location.href = `${BASE_URL}role-selection.html?username=${username}`;
-            } else {
-                alert('Username not available.');
-            }
+    function goToHome() {
+        if (username) {
+            window.location.href = `${BASE_URL}role-selection.html?username=${username}`;
+        } else {
+            alert('Username not available.');
         }
+    }
 
-        function goToProfile() {
-             window.location.href = `https://shreynik00.github.io/Askit/viewOwnProfile.html?username=${username}`;
-        }
+    function goToProfile() {
+        window.location.href = `${BASE_URL}viewOwnProfile.html?username=${username}`;
+    }
 
-        function logout() {
-             window.location.href = `https://shreynik00.github.io/Askit/login.html`;
-        }
+    function logout() {
+        window.location.href = `${BASE_URL}login.html`;
+    }
 
     async function fetchTasks() {
-    try {
-        const response = await fetch(`${SERVER_URL}tasks`);
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const tasks = await response.json();
-        const taskList = document.getElementById('taskList');
-        const currentDate = new Date().toISOString().split('T')[0];
-        taskList.innerHTML = tasks
-            .filter(task => 
-                new Date(task.deadline) >= new Date(currentDate) && (task.isdeleted == "false") &&
-                (task.status !== "accepted" || !task.status)
-            )
-            .map(task => {
-                // Assign task._id to the taskId variable
-           const     taskId = task._id; 
-
-                return `
-                    <div class="task-item">
-                        <h3>${task.title}</h3>
-                        <p>Budget: ${task.budget}</p>
-                        <p>Deadline: ${task.deadline}</p>
-                        <div class="button-group">
-                            <button onclick="viewTaskDetails('${task._id}')"><i>View More</i></button>
-                            <p class="usernam">Posted by: <a href="${BASE_URL}user-details.html?username=${task.username}"><i>${task.username}</i></a></p>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-    } catch (error) {
-        console.error('Error fetching tasks:', error);
-    }
-}
-
-
-        function viewTaskDetails(taskId) {
-            window.location.href = `${BASE_URL}task-details.html?id=${taskId}&username=${username}`;
-        }
-
-        function redirectToAcceptedOffers() {
-            if (username) {
-                window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}`;
-            } else {
-                alert('Task ID or Username is not available.');
+        try {
+            const response = await fetch(`${SERVER_URL}tasks`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        }
+            const tasks = await response.json();
+            const taskList = document.getElementById('taskList');
+            const currentDate = new Date().toISOString().split('T')[0];
 
-        fetchTasks();
-    </script>
+            taskList.innerHTML = tasks
+                .filter(task =>
+                    new Date(task.deadline) >= new Date(currentDate) &&
+                    task.isdeleted === "false" &&
+                    (task.status !== "accepted" || !task.status)
+                )
+                .map(task => {
+                    const taskId = task._id; // Assign task._id
+                    const receiver = encodeURIComponent(task.TaskProvider); // URL encode receiver
+                    return `
+                        <div class="task-item">
+                            <h3>${task.title}</h3>
+                            <p>Budget: ${task.budget}</p>
+                            <p>Deadline: ${task.deadline}</p>
+                            <div class="button-group">
+                                <button onclick="viewTaskDetails('${taskId}', '${receiver}')"><i>View More</i></button>
+                                <p class="usernam">Posted by: <a href="${BASE_URL}user-details.html?username=${task.username}"><i>${task.username}</i></a></p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+        } catch (error) {
+            console.error('Error fetching tasks:', error);
+        }
+    }
+
+    function viewTaskDetails(taskId, receiver) {
+        const taskDetailsUrl = `${BASE_URL}task-details.html?id=${taskId}&username=${username}&receiver=${receiver}`;
+        window.location.href = taskDetailsUrl;
+    }
+
+    function redirectToAcceptedOffers() {
+        if (username) {
+            window.location.href = `${BASE_URL}acceptedOffer.html?username=${username}`;
+        } else {
+            alert('Task ID or Username is not available.');
+        }
+    }
+
+    // Fetch tasks initially
+    fetchTasks();
+</script>
+
 </body>
 </html>
