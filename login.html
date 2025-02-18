@@ -7,66 +7,58 @@
     <link rel="stylesheet" href="UsersetupStyles.css">
 </head>
 <style>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Askit</title>
-    <link rel="stylesheet" href="UsersetupStyles.css">
-</head>
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #4b4f58;
-        font-family: Arial, sans-serif;
-    }
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #4b4f58;
+    font-family: Arial, sans-serif;
+}
 
-    .alert-box {
+.alert-box {
     position: fixed;
-    top: 10%;
+    top: 5%; /* Adjusted to prevent overlap */
     left: 50%;
     transform: translateX(-50%);
-    width: 40%;
-    max-width: 250px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgb(4, 198, 247);
+    width: 50%; /* Reduced width */
+    max-width: 280px; /* Smaller max width */
+    padding: 8px 12px; /* Adjusted padding */
+    border-radius: 6px; /* Slightly smaller border-radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Softer shadow */
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px; /* Space between icon & text */
+    border: 2px solid transparent;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    font-size: 16px;
+    font-size: 14px; /* Reduced font size */
     z-index: 9999;
 }
 
 .error {
     background: white;
-    border-left: 5px solid #3cb4e7;
-    color: #3cd9e7;
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
 }
 
 .success {
     background: white;
-    border-left: 5px solid #2ec4cc;
-    color: #00e1ff;
+    border: 2px solid #2ecc71;
+    color: #2ecc71;
 }
 
 .wait {
     background: white;
-    border-left: 5px solid #12f3ef;
-    color: #12f3ec;
+    border: 2px solid #f39c12;
+    color: #f39c12;
 }
 
 .icon {
-    font-size: 22px;
-    margin-right: 15px;
+    font-size: 18px; /* Smaller icon size */
+    margin-left: 5px;
 }
 
 .show {
