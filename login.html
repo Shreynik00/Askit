@@ -6,102 +6,11 @@
     <title>Login - Askit</title>
     <link rel="stylesheet" href="UsersetupStyles.css">
 </head>
-<style>
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    background-color: #4b4f58;
-    font-family: Arial, sans-serif;
-}
-
-.alert-box {
-    position: fixed;
-    top: 5%; /* Adjusted to prevent overlap */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%; /* Reduced width */
-    max-width: 280px; /* Smaller max width */
-    padding: 8px 12px; /* Adjusted padding */
-    border-radius: 6px; /* Slightly smaller border-radius */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Softer shadow */
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Space between icon & text */
-    border: 2px solid transparent;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    font-size: 14px; /* Reduced font size */
-    z-index: 9999;
-}
-
-.error {
-    background: white;
-    border: 2px solid #e74c3c;
-    color: #e74c3c;
-}
-
-.success {
-    background: white;
-    border: 2px solid #2ecc71;
-    color: #2ecc71;
-}
-
-.wait {
-    background: white;
-    border: 2px solid #f39c12;
-    color: #f39c12;
-}
-
-.icon {
-    font-size: 18px; /* Smaller icon size */
-    margin-left: 5px;
-}
-
-.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-
-</style>
-
 <body>
-
-    <!-- Wait Alert -->
-    <div class="alert-box wait" id="waitAlert">
-        <span class="icon">⏳</span>
-        <div>
-            <strong>Please wait for 1 min</strong> <br>
-            <small>Processing login...</small>
-        </div>
-    </div>
-
-    <!-- Error Alert -->
-    <div class="alert-box error" id="errorAlert">
-        <span class="icon">❌</span>
-        <div>
-            <strong>Error!</strong> <br>
-            <small id="errorMessage">Invalid username or password</small>
-        </div>
-    </div>
-
-    <!-- Success Alert -->
-    <div class="alert-box success" id="successAlert">
-        <span class="icon">✔</span>
-        <div>
-            <strong>Welcome!</strong> <br>
-            <small id="successMessage"></small>
-        </div>
-    </div>
-
     <div>
         <h1>Welcome to Askit</h1>
         <h5>
-            Describe your task, review your offers & choose a service provider best for you.
+            Describe your task, review your offers & choose a service provider best you.
         </h5>
         <div>
             <h2>Login</h2>
@@ -110,192 +19,59 @@ body {
                 <input type="password" id="loginPassword" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
-            <div id="loginMessage" style="color:red;"></div>
+            <div id="loginMessage" style="color:red;"></div> <!-- For displaying login message -->
         </div>
         <div>
-            <h3>Don't have an account? <a href="signup.html"><strong>Sign Up</strong></a></h3>
+            <h3>Don't have an account?   <a href="signup.html" color="red"><strong>  Sign Up</strong></a></h3> <!-- Sign up link -->
         </div>
     </div>
-
 <script>
     window.onload = function() {
+        // Clear form values on page load
         document.getElementById('loginUsername').value = '';
         document.getElementById('loginPassword').value = '';
     };
 
-    function showAlert(id, message) {
-        const alertBox = document.getElementById(id);
-        if (id === 'errorAlert') {
-            document.getElementById('errorMessage').textContent = message;
-        } else if (id === 'successAlert') {
-            document.getElementById('successMessage').textContent = message;
-        }
-        alertBox.classList.add('show');
-
-        setTimeout(() => {
-            alertBox.classList.remove('show');
-        }, 5000);
-    }
-
-    function showWaitAlert() {
-        const waitAlert = document.getElementById('waitAlert');
-        waitAlert.classList.add('show');
-
-        setTimeout(() => {
-            waitAlert.classList.remove('show');
-        }, 5000);
-    }
-
+    // Login
     document.getElementById('loginForm').addEventListener('submit', async (event) => {
         event.preventDefault();
+        alert("please wait for 1 minute to login ");
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
 
-        showWaitAlert();
+        // Clear any previous messages
+        document.getElementById('loginMessage').textContent = '';
 
-        setTimeout(async () => {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
+        try {
+            // Send the login request to your backend server
+            const response = await fetch('https://apiserveraskit-4.onrender.com/login', {  // Use your actual backend URL
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
 
-            document.getElementById('loginMessage').textContent = '';
-
-            try {
-                const response = await fetch('https://apiserveraskit-4.onrender.com/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-              
-                setTimeout(() => {
-                        window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}&email=${data.email}`;
-                    }, 2000);
-            } catch (error) {
-                showAlert('errorAlert', 'There was an error: ' + error.message);
-                console.error('Login request failed:', error);
+            // Check if response is ok and content type is JSON
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        }, 5000);
-    });
-</script>
 
-</body>
-</html>
-</style>
+            const data = await response.json();  // Parse response as JSON
 
-<body>
+            // Display login message in HTML
+            if (data.message === 'Login successful') {
+                document.getElementById('loginUsername').value = '';
+                document.getElementById('loginPassword').value = '';
 
-    <!-- Wait Alert -->
-    <div class="alert-box wait" id="waitAlert">
-        <span class="icon">⏳</span>
-        <div>
-            <strong>Please wait for 1 min</strong> <br>
-            <small>Processing login...</small>
-        </div>
-    </div>
+                // Redirect to role selection page
+                window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}&email=${data.email}`;
 
-    <!-- Error Alert -->
-    <div class="alert-box error" id="errorAlert">
-        <span class="icon">❌</span>
-        <div>
-            <strong>Error!</strong> <br>
-            <small id="errorMessage">Invalid username or password</small>
-        </div>
-    </div>
-
-    <!-- Success Alert -->
-    <div class="alert-box success" id="successAlert">
-        <span class="icon">✔</span>
-        <div>
-            <strong>Welcome!</strong> <br>
-            <small id="successMessage"></small>
-        </div>
-    </div>
-
-    <div>
-        <h1>Welcome to Askit</h1>
-        <h5>
-            Describe your task, review your offers & choose a service provider best for you.
-        </h5>
-        <div>
-            <h2>Login</h2>
-            <form id="loginForm">
-                <input type="text" id="loginUsername" placeholder="Username" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-            <div id="loginMessage" style="color:red;"></div>
-        </div>
-        <div>
-            <h3>Don't have an account? <a href="signup.html"><strong>Sign Up</strong></a></h3>
-        </div>
-    </div>
-
-<script>
-    window.onload = function() {
-        document.getElementById('loginUsername').value = '';
-        document.getElementById('loginPassword').value = '';
-    };
-
-    function showAlert(id, message) {
-        const alertBox = document.getElementById(id);
-        if (id === 'errorAlert') {
-            document.getElementById('errorMessage').textContent = message;
-        } else if (id === 'successAlert') {
-            document.getElementById('successMessage').textContent = message;
+            } else {
+                document.getElementById('loginMessage').textContent = data.message;
+            }
+        } catch (error) {
+            document.getElementById('loginMessage').textContent = 'There was an error: ' + error.message;
+            console.error('Login request failed:', error);
         }
-        alertBox.classList.add('show');
-
-        setTimeout(() => {
-            alertBox.classList.remove('show');
-        }, 5000);
-    }
-
-    function showWaitAlert() {
-        const waitAlert = document.getElementById('waitAlert');
-        waitAlert.classList.add('show');
-
-        setTimeout(() => {
-            waitAlert.classList.remove('show');
-        }, 5000);
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        showWaitAlert();
-
-        setTimeout(async () => {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-
-            document.getElementById('loginMessage').textContent = '';
-
-            try {
-                const response = await fetch('https://apiserveraskit-4.onrender.com/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-              
-                setTimeout(() => {
-                        window.location.href = `https://shreynik00.github.io/Askit/role-selection.html?username=${username}&email=${data.email}`;
-                    }, 2000);
-            } catch (error) {
-                showAlert('errorAlert', 'There was an error: ' + error.message);
-                console.error('Login request failed:', error);
-            }
-        }, 5000);
     });
 </script>
 
