@@ -24,14 +24,6 @@
             <div id="signupMessage" style="color:red;"></div> <!-- For displaying signup message -->
         
     </div>
-    <div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
-     data-callback="handleCredentialResponse">
-</div>
-<div class="g_id_signin" data-type="standard"></div>
-
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
 // Sign Up
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
@@ -43,22 +35,6 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     const password = document.getElementById('signupPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
-
-    function handleCredentialResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
-    // Send token to the backend for verification
-    fetch('/google-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: response.credential })
-    }).then(res => res.json())
-    .then(data => {
-        console.log("User Info:", data);
-        // Redirect or store user session
-    });
-}
-
-    
     // Clear any previous messages
     document.getElementById('signupMessage').textContent = '';
 
