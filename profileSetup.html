@@ -143,6 +143,7 @@
                 const result = await response.json();
                 if (response.ok) {
                     alert('Profile updated successfully!');
+                       window.location.href = `${BASE_URL}profileSetup.html?username=${username}`;
                 } else {
                     alert(`Error: ${result.message}`);
                 }
